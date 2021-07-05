@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="Tengu.Classes.Views.Controls.DownloadPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tengu.Classes.Views.Controls"
+             xmlns:vm="clr-namespace:Tengu.Classes.ViewModels"
+             xmlns:dm="clr-namespace:Tengu.Classes.DataModels"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="ButtonsBackgroundColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#C0202020" Offset="0" />
+            <GradientStop Color="#C0101010" Offset="1.0" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="BorderBackgroundColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#C0202020" Offset="0" />
+            <GradientStop Color="#C0101010" Offset="1.0" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ButtonsHoverColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#C0f5bc38" Offset="0" />
+            <GradientStop Color="#C0eba607" Offset="1.0" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ButtonsDownColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#C0f7b136" Offset="0" />
+            <GradientStop Color="#C0de9f31" Offset="1.0" />
+        </LinearGradientBrush>
+
+        <Storyboard x:Key="CustomTransition" x:Shared="False">
+            <DoubleAnimation From="10" To="0" Duration="0:0:0.4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase Oscillations="1"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <x:Static Member="vm:DownloadViewModel.Instance" />
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+            <Border Margin="10"
+                    Background="{StaticResource BorderBackgroundColor}"
+                    Effect="{StaticResource EffectShadow2}">
+                <hc:UniformSpacingPanel Orientation="Vertical"
+                                        Spacing="10" Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                    <Button Style="{StaticResource ButtonIcon}"
+                            Click="btnHome_Click"
+                            Width="50"
+                            Height="50"
+                            hc:IconElement.Geometry="{StaticResource Home}"/>
+
+                    <Button Style="{StaticResource ButtonIcon}"
+                            Click="btnLatestEpisodes_Click"
+                            Width="50"
+                            Height="50"
+                            hc:IconElement.Geometry="{StaticResource Monitor}"/>
+
+                    <Button Style="{StaticResource ButtonIcon}"
+                            Click="btnCalendar_Click"
+                            Width="50"
+                            Height="50"
+                            hc:IconElement.Geometry="{StaticResource Calendar}"/>
+
+                    <Button Style="{StaticResource ButtonIcon}"
+                            Click="btnSearch_Click"
+                            Width="50"
+                            Height="50"
+                            hc:IconElement.Geometry="{StaticResource SearchGeometry}"/>
+                    
+                    <Button Style="{StaticResource ButtonIcon}"
+                            Click="btnSettings_Click"
+                            Width="50"
+                            Height="50"
+                            hc:IconElement.Geometry="{StaticResource Options}"/>
+
+                    <Button Style="{StaticResource ButtonIcon}"
+                            Click="btnAbout_Click"
+                            Width="50"
+                            Height="50"
+                            hc:IconElement.Geometry="{StaticResource Info}"/>
+
+                </hc:UniformSpacingPanel>
+            </Border>
+        </hc:TransitioningContentControl>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
+                <StackPanel Margin="20,30,20,10"
+                            HorizontalAlignment="Right">
+                    <TextBlock FontSize="24"
+                               FontWeight="DemiBold"
+                               TextAlignment="Right"
+                               FontFamily="Verdana"
+                               Foreground="White">
+                        Download
+                    </TextBlock>
+
+                    <Border Width="35"
+                            Background="Orange"
+                            Margin="1,0"
+                            HorizontalAlignment="Right"
+                            Height="4"/>
+                </StackPanel>
+            </hc:TransitioningContentControl>
+
+            <Frame Grid.Row="1"
+                   BorderThickness="0"
+                   Name="DwnldFrame"
+                   Margin="10">
+
+            </Frame>
+        </Grid>
+    </Grid>
+</UserControl>

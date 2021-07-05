@@ -1,0 +1,36 @@
+﻿<hc:SplashWindow x:Class="Tengu.Classes.Views.Windows.SplashWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:local="clr-namespace:Tengu.Classes.Views.Windows"
+                 xmlns:hc="https://handyorg.github.io/handycontrol"
+                 mc:Ignorable="d"
+                 WindowStyle="None"
+                 ResizeMode="NoResize"
+                 MouseDown="Window_MouseDown"
+                 AllowsTransparency="True"
+                 WindowStartupLocation="CenterScreen"
+                 Title="SplashWindow" Height="400" Width="350">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <hc:GifImage RenderOptions.BitmapScalingMode="HighQuality"
+                     VerticalAlignment="Bottom"
+                     Width="200"
+                     Height="200"
+                     Uri="/Tengu;component/Resources/splash.gif" />
+
+        <TextBlock Text="{Binding Message, RelativeSource={RelativeSource AncestorType=hc:SplashWindow}}"
+                   Grid.Row="1"
+                   VerticalAlignment="Top"
+                   Margin="20"
+                   FontSize="17"
+                   FontWeight="SemiBold"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"/>
+    </Grid>
+</hc:SplashWindow>

@@ -1,0 +1,84 @@
+﻿<hc:Window x:Class="Tengu.Classes.Views.Windows.CustomDialog"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:local="clr-namespace:Tengu.Classes.Views.Windows"
+           xmlns:hc="https://handyorg.github.io/handycontrol"
+           WindowStartupLocation="CenterOwner"
+           WindowStyle="None"
+           MouseDown="Window_MouseDown"
+           BorderThickness="0"
+           Background="Transparent"
+           AllowsTransparency="True"
+           ResizeMode="NoResize"
+           mc:Ignorable="d"
+           Title="CustomDialog" Height="200" Width="500">
+    <hc:Window.Resources>
+        <LinearGradientBrush x:Key="BorderBackgroundColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#202020" Offset="0" />
+            <GradientStop Color="#303030" Offset="1.0" />
+        </LinearGradientBrush>
+    </hc:Window.Resources>
+
+    <Grid Margin="10"
+          Effect="{StaticResource EffectShadow2}"
+          Background="{StaticResource BorderBackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                <hc:AnimationPath Data="{StaticResource WarningGeometry}"
+                                  RenderOptions.BitmapScalingMode="HighQuality"
+                                  Duration="00:00:05"
+                                  Stroke="Orange" 
+                                  Margin="50,0,20,0"
+                                  Width="50" Height="50"/>
+            </hc:TransitioningContentControl>
+
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade"
+                                            Grid.Column="1">
+                <TextBlock Name="txtMessage" 
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Margin="20,0"/>
+            </hc:TransitioningContentControl>
+        </Grid>
+
+        <hc:TransitioningContentControl TransitionMode="Bottom2TopWithFade"
+                                        Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Margin="5,10,5,20" 
+                        hc:BorderElement.CornerRadius="0"
+                        Click="btnForceQuit_Click"
+                        Width="100"
+                        Content="Force Quit"
+                        Style="{StaticResource ButtonDanger}"/>
+
+                <Button Margin="5,10,5,20" 
+                        Click="btnCancel_Click"
+                        hc:BorderElement.CornerRadius="0"
+                        BorderThickness="0"
+                        Grid.Column="1"
+                        Width="100"
+                        Content="Cancel"/>
+            </Grid>
+        </hc:TransitioningContentControl>
+    </Grid>
+</hc:Window>
