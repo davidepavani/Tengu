@@ -1,3 +1,9 @@
 /Tengu/bin
 /Tengu/obj
+/Tengu.WebScrapper/obj/
+/Tengu.WebScrapper/bin/
+/Tengu.Shared/obj/
+/Tengu.Shared/bin/
+/Tengu.KitsuAPI/obj/
+/Tengu.KitsuAPI/bin/
 .vs
