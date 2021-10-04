@@ -91,6 +91,8 @@ namespace Tengu.Views.Windows
 
             SplashWindow.Instance.AddMessage("COMPLETED");
 
+            ProgramInfos.Instance.LoadConfiguration();
+
             InitializeComponent();
 
             SplashWindow.Instance.LoadComplete();
