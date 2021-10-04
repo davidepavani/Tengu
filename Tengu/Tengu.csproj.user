@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_LastSelectedProfileId>E:\CodeTests\WPF test\_Tengu\Tengu\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+    <_LastSelectedProfileId>D:\Main\Develop\C-Sharp\WpfApp1\Tengu\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
     <ApplicationDefinition Update="App.xaml">
@@ -9,120 +9,87 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Classes\Views\Controls\AboutPage.xaml.cs">
+    <Compile Update="Views\Controls\KitsuAnimeCardUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Classes\Views\Controls\AnimeCardPage.xaml.cs">
+    <Compile Update="Views\Controls\MenuUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Classes\Views\Controls\CalendarControls\CalendarMenu.xaml.cs">
+    <Compile Update="Views\Controls\NavigatorUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Classes\Views\Controls\CalendarControls\DayControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\CalendarPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\DownloadControls\HistoryControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\DownloadControls\QueueControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\DownloadPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\HomePage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\LatestEpisodesPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\SearchControls\DialogSearchedAnime.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\SearchPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\SettingsControls\DownloadSettingsControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\SettingsControls\LogSettingsControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Controls\SettingsPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Windows\CustomDialog.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Classes\Views\Windows\SplashWindow.xaml.cs">
+    <Compile Update="Views\Controls\UpcomingAnimesUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Classes\Views\Controls\AboutPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\AnimeCardPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\CalendarControls\CalendarMenu.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\CalendarControls\DayControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\CalendarPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\DownloadControls\HistoryControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\DownloadControls\QueueControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\DownloadPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\HomePage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\LatestEpisodesPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\SearchControls\DialogSearchedAnime.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\SearchPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\SettingsControls\DownloadSettingsControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\SettingsControls\LogSettingsControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Controls\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Windows\InitErrorDialog.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Windows\CustomDialog.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Windows\MainWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Classes\Views\Windows\SplashWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Properties\DesignTimeResources.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Icons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\AboutUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\CalendarControls\CalendarMenuUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\CalendarControls\DayUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\CalendarUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\DownloadControls\HistoryUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\DownloadControls\QueueUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\DownloadUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\KitsuAnimeCardUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\LatestEpisodesUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\MenuUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\NavigatorUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\SearchUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\AnimeCardUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\SettingsControls\DownloadSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\SettingsControls\LogSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\SettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\UpcomingAnimesUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\CustomDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\InitErrorDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\SplashWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

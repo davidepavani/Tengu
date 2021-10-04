@@ -1,14 +1,27 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Windows;
-using Tengu.Classes;
+using Tengu;
 
-[assembly: Guid("77209FE6-EB44-4BF0-B5B9-03612639F453")]
+[assembly: SupportedOSPlatform("windows7.0")]
+[assembly: SupportedOSPlatform("windows10")]
 
-[assembly: AssemblyTitle(ProgramInfo._APP_NAME)]
-[assembly: AssemblyProduct(ProgramInfo._APP_NAME)]
-[assembly: AssemblyCompany(ProgramInfo._COMPANY_NAME)]
-[assembly: AssemblyCopyright(ProgramInfo._COPYRIGHT)]
+[assembly: Guid("6CCC103F-9225-4C06-A6D7-5BADE6CFC6A2")]
 
-[assembly: AssemblyVersion(ProgramInfo._APP_VERSION)]
-[assembly: AssemblyFileVersion(ProgramInfo._ASSEMBLY_FILE_VERSION)]
+[assembly: AssemblyTitle(ProgramInfos.APPLICATION_NAME)]
+[assembly: AssemblyCompany(ProgramInfos.COMPANY_NAME)]
+[assembly: AssemblyProduct(ProgramInfos.APPLICATION_NAME)]
+[assembly: AssemblyCopyright(ProgramInfos.COPYRIGHT)]
+
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
+                                     //(used if a resource is not found in the page,
+                                     // or application resource dictionaries)
+    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
+                                              //(used if a resource is not found in the page,
+                                              // app, or any theme specific resource dictionaries)
+)]
+
+[assembly: AssemblyVersion(ProgramInfos.APPLICATION_VERSION)]
+[assembly: AssemblyFileVersion(ProgramInfos.ASSEMBLY_FILE_VERSION)]

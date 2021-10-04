@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="Tengu.Views.Controls.AboutUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tengu.Views.Controls"
+             xmlns:tengu="clr-namespace:Tengu"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:vm="clr-namespace:Tengu.ViewModels"
+             mc:Ignorable="d" 
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="450" d:DesignWidth="780"
+             d:DataContext="{d:DesignInstance Type=vm:AboutUserControlViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="BorderBackgroundColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#C0202020" Offset="0" />
+            <GradientStop Color="#C0101010" Offset="1.0" />
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <hc:TransitioningContentControl TransitionMode="Left2RightWithFade"
+                                            Margin="20,30,20,10"
+                                            HorizontalAlignment="Left">
+            <StackPanel>
+                <TextBlock FontSize="24"
+                                   Text="About"
+                                   FontWeight="DemiBold"
+                                   TextAlignment="Right"
+                                   FontFamily="Verdana"
+                                   Foreground="White"/>
+
+                <Border Width="35"
+                                Background="Orange"
+                                Margin="1,0"
+                                HorizontalAlignment="Left"
+                                Height="4"/>
+            </StackPanel>
+        </hc:TransitioningContentControl>
+
+        <Grid Grid.Row="1"
+                  Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                    <Image Source="/Images/icon_white.png" 
+                               RenderOptions.BitmapScalingMode="Fant"
+                               VerticalAlignment="Top"
+                               Margin="20"
+                               Width="230"/>
+                </hc:TransitioningContentControl>
+
+                <hc:TransitioningContentControl TransitionMode="Left2RightWithFade"
+                                                    Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding StaffList}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="dm:StaffData">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Nick}" 
+                                                       Foreground="White"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"
+                                                       Opacity=".7"
+                                                       FontSize="12"/>
+                                    <TextBlock Text="•" 
+                                                       Foreground="White"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"
+                                                       Opacity=".7"
+                                                       FontSize="12"
+                                                       Margin="5,0"/>
+                                    <TextBlock Text="{Binding Role}" 
+                                                       Foreground="White"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"
+                                                       Opacity=".7"
+                                                       FontSize="12"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </hc:TransitioningContentControl>
+            </Grid>
+
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade"
+                                                Grid.Column="1">
+                <StackPanel Margin="20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right">
+
+                    <StackPanel Margin="0,5" Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding Source={x:Static tengu:ProgramInfos.DISPLAY_NAME}}" 
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"
+                                   FontSize="27"
+                                   Margin="10,0"/>
+                        <TextBlock Text="{Binding Build}" 
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   FontWeight="DemiBold"
+                                   FontSize="23"/>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding Version}" 
+                               TextAlignment="Right"
+                               Foreground="White"
+                               FontWeight="DemiBold"
+                               FontSize="17"/>
+
+                    <TextBlock Text="{Binding Info}" 
+                               TextAlignment="Right"
+                               TextWrapping="Wrap"
+                               Foreground="White"
+                               FontWeight="DemiBold"
+                               FontSize="15"
+                               Margin="0,10"
+                               Opacity=".7"/>
+                </StackPanel>
+            </hc:TransitioningContentControl>
+        </Grid>
+    </Grid>
+
+</UserControl>

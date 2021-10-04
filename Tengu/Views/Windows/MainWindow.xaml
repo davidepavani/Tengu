@@ -1,0 +1,16 @@
+﻿<hc:Window x:Class="Tengu.Views.Windows.MainWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:vm="clr-namespace:Tengu.ViewModels"
+           xmlns:hc="https://handyorg.github.io/handycontrol"
+           xmlns:prism="http://prismlibrary.com/"
+           mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True"
+           ExtendViewIntoNonClientArea="True" ShowTitle="False"
+           Title="MainWindow" Height="450" Width="850" WindowStartupLocation="CenterScreen"
+           ContentRendered="Window_ContentRendered" MouseDown="Window_MouseDown"
+           Closing="Window_Closing"
+           MinHeight="450" MinWidth="850" ResizeMode="CanMinimize">
+    <ContentControl prism:RegionManager.RegionName="MainRegion"/>
+</hc:Window>

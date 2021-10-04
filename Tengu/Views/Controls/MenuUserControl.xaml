@@ -1,0 +1,305 @@
+﻿<UserControl x:Class="Tengu.Views.Controls.MenuUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tengu.Views.Controls"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:vm="clr-namespace:Tengu.ViewModels"
+             xmlns:prism="http://prismlibrary.com/"
+             mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="450" d:DesignWidth="850"
+             d:DataContext="{d:DesignInstance Type=vm:MenuUserControlViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="ButtonsBackgroundColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#C0202020" Offset="0" />
+            <GradientStop Color="#C0101010" Offset="1.0" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ButtonsHoverColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#C0f5bc38" Offset="0" />
+            <GradientStop Color="#C0eba607" Offset="1.0" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ButtonsDownColor" StartPoint="0,0" EndPoint="1,1" >
+            <GradientStop Color="#C0f7b136" Offset="0" />
+            <GradientStop Color="#C0de9f31" Offset="1.0" />
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <Grid>
+        <Image Source="/Images/main_menu_background.png" 
+               RenderOptions.BitmapScalingMode="HighQuality"
+               Stretch="UniformToFill"
+               HorizontalAlignment="Left" Margin="51,-40,0,0" Width="799" />
+
+        <hc:TransitioningContentControl TransitionMode="Left2RightWithFade"
+                                        Margin="35"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Left">
+
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/icon_white.png"
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Stretch="Uniform"
+                           Height="60" 
+                           Margin="0,0,20,0"/>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{Binding ApplicationName}"
+                                   Foreground="White"
+                                   FontSize="23"
+                                   FontWeight="Bold"
+                                   FontFamily="Verdana"/>
+
+                    <Border Width="35"
+                                Background="Orange"
+                                Margin="1,0"
+                                HorizontalAlignment="Left"
+                                Height="4">
+
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+        </hc:TransitioningContentControl>
+
+        <Grid VerticalAlignment="Bottom" Margin="10,70"
+              HorizontalAlignment="Center">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <hc:TransitioningContentControl TransitionMode="Bottom2TopWithFade"
+                                            Margin="0,20">
+                <hc:SearchBar hc:BorderElement.CornerRadius="0"
+                              SearchStarted="SearchBar_SearchStarted"
+                              Style="{StaticResource SearchBarExtend}"
+                              hc:InfoElement.Placeholder="Search Anime here.."
+                              Width="300" />
+            </hc:TransitioningContentControl>
+
+            <hc:UniformSpacingPanel Spacing="10"
+                                    Grid.Row="1">
+                <hc:TransitioningContentControl TransitionMode="Bottom2TopWithFade">
+                    <Button Style="{StaticResource ButtonCustom}"
+                            Command="{Binding CmdNavigate}" CommandParameter="LatestEpisodes"
+                        hc:BackgroundSwitchElement.MouseHoverBackground="{StaticResource ButtonsHoverColor}"
+                        hc:BackgroundSwitchElement.MouseDownBackground="{StaticResource ButtonsDownColor}"
+                        Background="{StaticResource ButtonsBackgroundColor}">
+                        <Grid Height="180" Width="130">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Path Data="{StaticResource Monitor}"
+                              Fill="White"
+                              Margin="0,10"
+                              Height="40"
+                              Width="50"
+                              Stretch="Uniform"
+                              VerticalAlignment="Bottom"
+                              HorizontalAlignment="Center"/>
+
+                            <TextBlock Grid.Row="1"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   FontFamily="Verdana"
+                                   Margin="0,10">
+                            Latest
+                            <LineBreak/>
+                            Episodes
+                            </TextBlock>
+
+                        </Grid>
+                    </Button>
+                </hc:TransitioningContentControl>
+
+                <hc:TransitioningContentControl TransitionMode="Bottom2TopWithFade">
+                    <Button Style="{StaticResource ButtonCustom}"
+                            Command="{Binding CmdNavigate}" CommandParameter="Calendar"
+                    hc:BackgroundSwitchElement.MouseHoverBackground="{StaticResource ButtonsHoverColor}"
+                    hc:BackgroundSwitchElement.MouseDownBackground="{StaticResource ButtonsDownColor}"
+                    Background="{StaticResource ButtonsBackgroundColor}">
+                        <Grid Height="180" Width="130">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Path Data="{StaticResource Calendar}"
+                          Fill="White"
+                          Margin="0,10"
+                          Height="40"
+                          Width="50"
+                          Stretch="Uniform"
+                          VerticalAlignment="Bottom"
+                          HorizontalAlignment="Center"/>
+
+                            <TextBlock Grid.Row="1"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               FontWeight="DemiBold"
+                               FontFamily="Verdana"
+                               Margin="0,10">
+                        Calendar
+                            </TextBlock>
+
+                        </Grid>
+                    </Button>
+                </hc:TransitioningContentControl>
+
+                <hc:TransitioningContentControl TransitionMode="Bottom2TopWithFade">
+                    <hc:Badge Style="{StaticResource BadgePrimary}" Status="Processing" BadgeMargin="0,10,10,0"
+                              ShowBadge="{Binding IsDownloading}">
+                        <Button Style="{StaticResource ButtonCustom}"
+                                Command="{Binding CmdNavigate}" CommandParameter="Downloads"
+                        hc:BackgroundSwitchElement.MouseHoverBackground="{StaticResource ButtonsHoverColor}"
+                        hc:BackgroundSwitchElement.MouseDownBackground="{StaticResource ButtonsDownColor}"
+                        Background="{StaticResource ButtonsBackgroundColor}">
+                            <Grid Height="180" Width="130">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <!--<hc:Badge Margin="0,15,15,0"
+                                          Style="{StaticResource BadgePrimary}"
+                                          Visibility="{Binding Source={x:Static vm:DownloadViewModel.Instance}, Path=IsDownloading, Converter={StaticResource Boolean2VisibilityConverter}}"
+                                          Status="Processing">
+
+                                </hc:Badge>-->
+
+                                <Path Data="{StaticResource Download}"
+                                      Fill="White"
+                                      Margin="0,10"
+                                      Height="40"
+                                      Width="50"
+                                      Stretch="Uniform"
+                                      VerticalAlignment="Bottom"
+                                      HorizontalAlignment="Center"/>
+
+                                <TextBlock Grid.Row="1"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   FontFamily="Verdana"
+                                   Margin="0,10">
+                            Download
+                            <LineBreak/>
+                            Queue
+                                </TextBlock>
+
+                            </Grid>
+                        </Button>
+                    </hc:Badge>
+                </hc:TransitioningContentControl>
+
+                <hc:TransitioningContentControl TransitionMode="Bottom2TopWithFade">
+                    <Button Style="{StaticResource ButtonCustom}"
+                            Command="{Binding CmdNavigate}" CommandParameter="UpcomingAnimes"
+                        hc:BackgroundSwitchElement.MouseHoverBackground="{StaticResource ButtonsHoverColor}"
+                        hc:BackgroundSwitchElement.MouseDownBackground="{StaticResource ButtonsDownColor}"
+                        Background="{StaticResource ButtonsBackgroundColor}">
+                        <Grid Height="180" Width="130">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Path Data="{StaticResource Upcoming}"
+                              Fill="White"
+                              Margin="0,10"
+                              Height="40"
+                              Width="50"
+                              Stretch="Uniform"
+                              VerticalAlignment="Bottom"
+                              HorizontalAlignment="Center"/>
+
+                            <TextBlock Grid.Row="1"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   FontFamily="Verdana"
+                                   Margin="0,10">
+                            Upcoming
+                            <LineBreak/>
+                            Animes
+                            </TextBlock>
+
+                        </Grid>
+                    </Button>
+                </hc:TransitioningContentControl>
+
+                <hc:TransitioningContentControl TransitionMode="Bottom2TopWithFade">
+                    <Button Style="{StaticResource ButtonCustom}"
+                            Command="{Binding CmdNavigate}" CommandParameter="About"
+                    hc:BackgroundSwitchElement.MouseHoverBackground="{StaticResource ButtonsHoverColor}"
+                    hc:BackgroundSwitchElement.MouseDownBackground="{StaticResource ButtonsDownColor}"
+                    Background="{StaticResource ButtonsBackgroundColor}">
+                        <Grid Height="180" Width="130">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Path Data="{StaticResource Info}"
+                          Fill="White"
+                          Margin="0,10"
+                          Height="40"
+                          Width="50"
+                          Stretch="Uniform"
+                          VerticalAlignment="Bottom"
+                          HorizontalAlignment="Center"/>
+
+                            <TextBlock Grid.Row="1"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               FontWeight="DemiBold"
+                               FontFamily="Verdana"
+                               Margin="0,10">
+                        About
+                            </TextBlock>
+
+                        </Grid>
+                    </Button>
+                </hc:TransitioningContentControl>
+            </hc:UniformSpacingPanel>
+        </Grid>
+
+        <hc:TransitioningContentControl TransitionMode="Bottom2TopWithFade"
+                                        Margin="25,0,0,10" Grid.Row="2"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom">
+            <Button Style="{StaticResource ButtonCustom}"
+                    Command="{Binding CmdNavigate}" CommandParameter="Options"
+                    HorizontalAlignment="Center">
+                <Grid Height="40">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Path Data="{StaticResource Options}"
+                                  Fill="White"
+                                  Margin="10"
+                                  Height="20"
+                                  Width="20"
+                                  Stretch="Uniform"
+                                  VerticalAlignment="Bottom"
+                                  HorizontalAlignment="Center"/>
+
+                        <TextBlock VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       FontWeight="DemiBold"
+                                       FontFamily="Verdana"
+                                       Margin="0,10">
+                                Settings
+                        </TextBlock>
+
+                    </StackPanel>
+                </Grid>
+            </Button>
+        </hc:TransitioningContentControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="Tengu.Views.Controls.NavigatorUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tengu.Views.Controls"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:vm="clr-namespace:Tengu.ViewModels"
+             xmlns:converters="clr-namespace:Tengu.Converters"
+             xmlns:enums="clr-namespace:Tengu.Enums"
+             xmlns:prism="http://prismlibrary.com/"
+             mc:Ignorable="d" prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="450" d:DesignWidth="850"
+             d:DataContext="{d:DesignInstance Type=vm:NavigatorUserControlViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <converters:EnumToCheckedConverter x:Key="NavigateConverter" Type="{x:Type enums:NavigateDestination}" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Effect="{StaticResource EffectShadow3}"
+              Background="{DynamicResource MainContentBackgroundBrush}">
+            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                <StackPanel VerticalAlignment="Center">
+                    <Button Style="{StaticResource ButtonIcon}" Background="{DynamicResource MainContentBackgroundBrush}"
+                                 hc:IconElement.Geometry="{StaticResource Home}" hc:IconElement.Height="25" hc:IconElement.Width="25"
+                                 Command="{Binding CmdNavigateHome}" CommandParameter="MenuUserControl" BorderThickness="0" Width="70" Height="50">
+                        <hc:Poptip.Instance>
+                            <hc:Poptip Content="Home" PlacementType="Right"/>
+                        </hc:Poptip.Instance>
+                    </Button>
+                    <RadioButton Style="{StaticResource RadioButtonIcon}" Background="{DynamicResource MainContentBackgroundBrush}"
+                                 IsChecked="{Binding SelectedItem, Converter={StaticResource NavigateConverter}, ConverterParameter=LatestEpisodes}"
+                                 hc:IconElement.Geometry="{StaticResource Monitor}" hc:IconElement.Height="25" hc:IconElement.Width="25"
+                                 Command="{Binding CmdNavigate}" CommandParameter="LatestEpisodesUserControl" BorderThickness="0" Width="70" Height="50">
+                        <hc:Poptip.Instance>
+                            <hc:Poptip Content="Latest Episodes" PlacementType="Right"/>
+                        </hc:Poptip.Instance>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource RadioButtonIcon}" Background="{DynamicResource MainContentBackgroundBrush}"
+                                 IsChecked="{Binding SelectedItem, Converter={StaticResource NavigateConverter}, ConverterParameter=Calendar}"
+                                 hc:IconElement.Geometry="{StaticResource Calendar}" hc:IconElement.Height="25" hc:IconElement.Width="25"
+                                 Command="{Binding CmdNavigate}" CommandParameter="CalendarUserControl" BorderThickness="0" Width="70" Height="50">
+                        <hc:Poptip.Instance>
+                            <hc:Poptip Content="Calendar" PlacementType="Right"/>
+                        </hc:Poptip.Instance>
+                    </RadioButton>
+                    <hc:Badge Style="{StaticResource BadgePrimary}" Status="Processing" BadgeMargin="0,5,7,0"
+                              ShowBadge="{Binding IsDownloading}">
+                        <RadioButton Style="{StaticResource RadioButtonIcon}" Background="{DynamicResource MainContentBackgroundBrush}"
+                                     IsChecked="{Binding SelectedItem, Converter={StaticResource NavigateConverter}, ConverterParameter=Downloads}"
+                                     hc:IconElement.Geometry="{StaticResource Download}" hc:IconElement.Height="25" hc:IconElement.Width="25"
+                                     Command="{Binding CmdNavigate}" CommandParameter="DownloadUserControl" BorderThickness="0" Width="70" Height="50">
+                            <hc:Poptip.Instance>
+                                <hc:Poptip Content="Downloads" PlacementType="Right"/>
+                            </hc:Poptip.Instance>
+                        </RadioButton>
+                    </hc:Badge>
+                    <RadioButton Style="{StaticResource RadioButtonIcon}" Background="{DynamicResource MainContentBackgroundBrush}"
+                                 IsChecked="{Binding SelectedItem, Converter={StaticResource NavigateConverter}, ConverterParameter=UpcomingAnimes}"
+                                 hc:IconElement.Geometry="{StaticResource Upcoming}" hc:IconElement.Height="25" hc:IconElement.Width="25"
+                                 Command="{Binding CmdNavigate}" CommandParameter="UpcomingAnimesUserControl" BorderThickness="0" Width="70" Height="50">
+                        <hc:Poptip.Instance>
+                            <hc:Poptip Content="Upcoming Animes" PlacementType="Right"/>
+                        </hc:Poptip.Instance>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource RadioButtonIcon}" Background="{DynamicResource MainContentBackgroundBrush}"
+                                 IsChecked="{Binding SelectedItem, Converter={StaticResource NavigateConverter}, ConverterParameter=Search}"
+                                 hc:IconElement.Geometry="{StaticResource SearchGeometry}" hc:IconElement.Height="25" hc:IconElement.Width="25"
+                                 Command="{Binding CmdNavigate}" CommandParameter="SearchUserControl" BorderThickness="0" Width="70" Height="50">
+                        <hc:Poptip.Instance>
+                            <hc:Poptip Content="Search Anime" PlacementType="Right"/>
+                        </hc:Poptip.Instance>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource RadioButtonIcon}" Background="{DynamicResource MainContentBackgroundBrush}"
+                                 IsChecked="{Binding SelectedItem, Converter={StaticResource NavigateConverter}, ConverterParameter=About}"
+                                 hc:IconElement.Geometry="{StaticResource Info}" hc:IconElement.Height="25" hc:IconElement.Width="25"
+                                 Command="{Binding CmdNavigate}" CommandParameter="AboutUserControl" BorderThickness="0" Width="70" Height="50">
+                        <hc:Poptip.Instance>
+                            <hc:Poptip Content="About" PlacementType="Right"/>
+                        </hc:Poptip.Instance>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource RadioButtonIcon}" Background="{DynamicResource MainContentBackgroundBrush}"
+                                 IsChecked="{Binding SelectedItem, Converter={StaticResource NavigateConverter}, ConverterParameter=Options}"
+                                 hc:IconElement.Geometry="{StaticResource Options}" hc:IconElement.Height="25" hc:IconElement.Width="25"
+                                 Command="{Binding CmdNavigate}" CommandParameter="SettingsUserControl" BorderThickness="0" Width="70" Height="50">
+                        <hc:Poptip.Instance>
+                            <hc:Poptip Content="Settings" PlacementType="Right"/>
+                        </hc:Poptip.Instance>
+                    </RadioButton>
+                </StackPanel>
+            </hc:TransitioningContentControl>
+        </Grid>
+
+        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="ControlsRegion"/>
+    </Grid>
+</UserControl>
