@@ -67,7 +67,10 @@ namespace Tengu.ViewModels.DownloadControlsViewModels
 
         public void AddToHistory(HistoryData history)
         {
-            DownloadHistory.Add(history);
+            DispatcherHelper.RunOnMainThread(() =>
+            {
+                DownloadHistory.Add(history);
+            });
         }
     }
 }

@@ -90,13 +90,16 @@ namespace Tengu.ViewModels.DownloadControlsViewModels
         }
         private void RemoveAnime(AnimeData anime)
         {
-            DownloadList.Remove(anime);
-
-            if (DownloadList.Count == 0)
+            DispatcherHelper.RunOnMainThread(() =>
             {
-                IsDownloading = false;
-                _eventAggregator.GetEvent<DownloadEvent>().Publish(false);
-            }
+                DownloadList.Remove(anime);
+
+                if (DownloadList.Count == 0)
+                {
+                    IsDownloading = false;
+                    _eventAggregator.GetEvent<DownloadEvent>().Publish(false);
+                }
+            });
         }
 
         private void AbortAnime(AnimeData anime)
