@@ -1,47 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	<Deterministic>false</Deterministic>
-	<RootNamespace>Tengu</RootNamespace>
-	<Platforms>AnyCPU;x64</Platforms>
-	<ApplicationIcon>Images\icon.ico</ApplicationIcon>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
-    <None Remove="Images\calendar_background.png" />
-    <None Remove="Images\icon.ico" />
-    <None Remove="Images\icon_white.png" />
-    <None Remove="Images\main_menu_background.png" />
-    <None Remove="Images\settings_background.png" />
-    <None Remove="Images\splash.gif" />
+    <Folder Include="Models\" />
+    <AvaloniaResource Include="Assets\**" />
+    <None Remove=".gitignore" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="HandyControls" Version="3.3.8" />
-    <PackageReference Include="Notification.Wpf" Version="5.4.0" />
-    <PackageReference Include="Ookii.Dialogs.Wpf" Version="4.0.0" />
-    <PackageReference Include="Prism.Unity" Version="8.1.97" />
-    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
-    <PackageReference Include="System.Management" Version="5.0.0" />
+    <PackageReference Include="Avalonia" Version="0.10.10" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.10" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Tengu.KitsuAPI\Tengu.KitsuAPI.csproj" />
-    <ProjectReference Include="..\Tengu.Shared\Tengu.Shared.csproj" />
-    <ProjectReference Include="..\Tengu.WebScrapper\Tengu.WebScrapper.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\calendar_background.png" />
-    <Resource Include="Images\icon.ico" />
-    <Resource Include="Images\icon_white.png" />
-    <Resource Include="Images\main_menu_background.png" />
-    <Resource Include="Images\settings_background.png" />
-    <Resource Include="Images\splash.gif" />
-  </ItemGroup>
-
 </Project>
