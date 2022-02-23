@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tengu", "Tengu\Tengu.csproj", "{D4DA6075-7CE1-4342-BBFB-A247A7605330}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tengu.UI", "Tengu.UI\Tengu.UI.csproj", "{2DC64957-D648-4D82-9E3C-A447FCB0D2D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tengu", "Tengu\Tengu.csproj", "{D4DA6075-7CE1-4342-BBFB-A247A7605330}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{D4DA6075-7CE1-4342-BBFB-A247A7605330}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4DA6075-7CE1-4342-BBFB-A247A7605330}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4DA6075-7CE1-4342-BBFB-A247A7605330}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DC64957-D648-4D82-9E3C-A447FCB0D2D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DC64957-D648-4D82-9E3C-A447FCB0D2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DC64957-D648-4D82-9E3C-A447FCB0D2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DC64957-D648-4D82-9E3C-A447FCB0D2D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
