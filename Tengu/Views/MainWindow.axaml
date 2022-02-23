@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		xmlns:styles="using:Material.Styles"
         x:Class="Tengu.Views.MainWindow"
+		ExtendClientAreaToDecorationsHint="True"
         Icon="/Assets/avalonia-logo.ico"
         Title="Tengu">
 
@@ -12,6 +14,13 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition />
+		</Grid.RowDefinitions>
 
+		<ToggleButton HorizontalAlignment="Left"
+					  Margin="10"/>
+	</Grid>
 </Window>
