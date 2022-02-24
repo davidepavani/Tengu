@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		xmlns:styles="using:Material.Styles"
+		xmlns:local="using:Tengu.Views"
 		xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         x:Class="Tengu.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -45,34 +46,45 @@
                                 <TextBlock Classes="Body2" Text="Calendar" />
                                 <TextBlock Classes="Body2" Text="Downloads" />
                                 <TextBlock Classes="Body2" Text="Settings" />
-                                <TextBlock Classes="Body2" Text="About" />
                             </ListBox>
                         </StackPanel>
 				    </ScrollViewer>		
 			    </styles:NavigationDrawer.LeftDrawerContent>
 		
-				<DockPanel LastChildFill="true">
-		              <ToggleButton Name="NavDrawerSwitch"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									Margin="5"
-                                    Classes="Flat TransparentBack"
-                                    Width="32" Height="32" Padding="4">
-                        <avalonia:MaterialIcon Kind="Menu" Width="24" Height="24" />
-                      </ToggleButton>
-				
-			          <Carousel Name="PageCarousel"
-                                HorizontalAlignment="Stretch">
-				        <Carousel.Styles>
-                                <Style Selector="Carousel#PageCarousel:not(.notransitions)">
-                                    <Setter Property="PageTransition">
-                                        <PageSlide Duration="0.25" SlideOutEasing="CircularEaseOut"
-                                                   SlideInEasing="CircularEaseOut" />
-                                    </Setter>
-                                </Style>
-                            </Carousel.Styles>
-			          </Carousel>
-	            </DockPanel>
+				<Grid>
+					<ScrollViewer Name="mainScroller"
+                              DockPanel.Dock="Top"
+                              HorizontalContentAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              HorizontalScrollBarVisibility="Disabled">
+						<Border HorizontalAlignment="Stretch"
+									VerticalAlignment="Stretch">
+			              <Carousel Name="PageCarousel"
+                                    HorizontalAlignment="Stretch">
+				            <Carousel.Styles>
+                                    <Style Selector="Carousel#PageCarousel:not(.notransitions)">
+                                        <Setter Property="PageTransition">
+                                            <PageSlide Duration="0.25" SlideOutEasing="CircularEaseOut"
+                                                       SlideInEasing="CircularEaseOut" />
+                                        </Setter>
+                                    </Style>
+                                </Carousel.Styles>
+
+							  <!-- Main page -->
+							  <local:HomePage />
+			              </Carousel>
+						</Border>
+					</ScrollViewer>
+
+					<ToggleButton Name="NavDrawerSwitch"
+			                      HorizontalAlignment="Left"
+			                      VerticalAlignment="Top"
+			                      Margin="5"
+			                      Classes="Flat TransparentBack"
+			                      Width="32" Height="32" Padding="4">
+						<avalonia:MaterialIcon Kind="Menu" Width="24" Height="24" />
+					</ToggleButton>
+	            </Grid>
 		    </styles:NavigationDrawer>
 	    </styles:SnackbarHost>
 	
