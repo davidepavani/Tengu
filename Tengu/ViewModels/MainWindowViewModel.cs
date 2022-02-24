@@ -13,4 +13,3 @@ namespace Tengu.ViewModels
         }
     }
 }
-dded
