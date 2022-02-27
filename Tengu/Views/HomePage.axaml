@@ -7,8 +7,31 @@
 		xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:Class="Tengu.Views.HomePage">
 	<Panel Margin="40">
-		<TextBlock Text="Tengu" 
-				   HorizontalAlignment="Center"
-				   FontSize="20"/>
+		<ScrollViewer>
+			<StackPanel VerticalAlignment="Center">
+				<TextBlock Text="Tengu" 
+						   HorizontalAlignment="Center"
+						   FontSize="20"/>
+				<TextBlock Text="*Description*"
+						   HorizontalAlignment="Center"
+						   TextWrapping="Wrap"/>
+			
+				<TextBlock Text="This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY."
+						   Margin="5,20" Width="300"
+						   Opacity=".7"
+						   TextAlignment="Center"
+						   HorizontalAlignment="Center"
+						   TextWrapping="Wrap"/>
+
+				<StackPanel Orientation="Horizontal"
+							HorizontalAlignment="Center">
+					<Button Margin="5" Content="Light Mode" Classes="Flat"/>
+					<Button Margin="5" Content="Dark Mode" Classes="Flat"/>
+				</StackPanel>
+
+				<Button Margin="5" Content="GitHub Project Link"
+						Classes="Flat" HorizontalAlignment="Center"/>
+			</StackPanel>
+		</ScrollViewer>
 	</Panel>
 </UserControl>
