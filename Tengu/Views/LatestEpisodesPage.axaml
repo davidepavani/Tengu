@@ -37,14 +37,17 @@
 			</Grid>
 
 			<Grid Grid.Row="1">
-				<ScrollViewer >
+				<ScrollViewer IsVisible="{Binding !LoadingAnimes}">
 				
-					
+					<TextBlock Text="ciao" 
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"/>
 				
 				</ScrollViewer>
 
 				<StackPanel VerticalAlignment="Center"
-							HorizontalAlignment="Center">
+							HorizontalAlignment="Center"
+							IsVisible="{Binding LoadingAnimes}">
 					<styles:Card CornerRadius="24" Padding="4" Margin="4" HorizontalAlignment="Center"
 								 VerticalAlignment="Center">
 						<StackPanel Orientation="Horizontal">

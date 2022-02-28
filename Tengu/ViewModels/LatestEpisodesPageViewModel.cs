@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Tengu.Enums;
 using Tengu.Extensions;
+using Tengu.Utilities;
 
 namespace Tengu.ViewModels
 {
     public class LatestEpisodesPageViewModel : ReactiveObject
     {
-        private TenguHost selectedHost;
-        private bool loadingAnimes;
+        private CustomObservableCollection<string> animeList = new(); // MODEL
+        private TenguHost selectedHost = TenguHost.AnimeSaturn;
+        private bool loadingAnimes = false;
 
         #region Properties
         public List<TenguHost> HostList { get; private set; }
@@ -20,6 +22,11 @@ namespace Tengu.ViewModels
         {
             get => loadingAnimes;
             set => this.RaiseAndSetIfChanged(ref loadingAnimes, value);
+        }
+        public CustomObservableCollection<string> AnimeList
+        {
+            get => animeList;
+            set => this.RaiseAndSetIfChanged(ref animeList, value);
         }
         public TenguHost SelectedHost
         {
@@ -36,8 +43,7 @@ namespace Tengu.ViewModels
         public LatestEpisodesPageViewModel()
         {
             HostList = EnumExtension.ToList<TenguHost>();
-            LoadingAnimes = false;
-            SelectedHost = TenguHost.AnimeSaturn;
+
         }
 
         private void ReloadAnimes()
@@ -45,6 +51,8 @@ namespace Tengu.ViewModels
             Task.Run(() =>
             {
                 LoadingAnimes = true;
+
+                AnimeList.Clear();
 
             }).GetAwaiter().OnCompleted(() =>
             {
