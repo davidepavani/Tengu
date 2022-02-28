@@ -61,11 +61,14 @@
 					</Style>
 				</Carousel.Styles>
 
-				<!-- Main page -->
+				<!-- Home page -->
 				<local:HomePage />
 
-				<!-- Main page -->
+				<!-- Latest Episodes page -->
 				<local:LatestEpisodesPage />
+
+				<!-- Upcoming page -->
+				<local:UpcomingPage />
 			</Carousel>
 		</Border>
 

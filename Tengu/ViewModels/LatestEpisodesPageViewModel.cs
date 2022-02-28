@@ -14,7 +14,7 @@ namespace Tengu.ViewModels
     public class LatestEpisodesPageViewModel : ReactiveObject
     {
         private CustomObservableCollection<string> animeList = new(); // MODEL
-        private TenguHost selectedHost = TenguHost.AnimeSaturn;
+        private TenguHost selectedHost = TenguHost.AnimeSaturn; // To Swap with Tengu.Business Hosts
         private bool loadingAnimes = false;
         private int currentPage = 0;
 
@@ -69,10 +69,6 @@ namespace Tengu.ViewModels
             AnimeList.Add("123");
             AnimeList.Add("123");
             AnimeList.Add("123"); 
-            AnimeList.Add("123");
-            AnimeList.Add("123");
-            AnimeList.Add("123");
-            AnimeList.Add("123");
             AnimeList.Add("123");
             AnimeList.Add("123");
             AnimeList.Add("123");

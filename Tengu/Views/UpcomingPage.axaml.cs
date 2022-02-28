@@ -1,14 +1,12 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using Tengu.ViewModels;
 
 namespace Tengu.Views
 {
-    public partial class HomePage : UserControl
+    public partial class UpcomingPage : UserControl
     {
-        public HomePage()
+        public UpcomingPage()
         {
             InitializeComponent();
         }
