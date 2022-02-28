@@ -71,6 +71,13 @@ namespace Tengu.ViewModels
             AnimeList.Add("123"); 
             AnimeList.Add("123");
             AnimeList.Add("123");
+            AnimeList.Add("123");
+            AnimeList.Add("123");
+            AnimeList.Add("123");
+            AnimeList.Add("123");
+            AnimeList.Add("123");
+            AnimeList.Add("123");
+            AnimeList.Add("123");
 
             NextPageCommand = ReactiveCommand.Create(NextPage);
             PrevPageCommand = ReactiveCommand.Create(PrevPage);

@@ -6,6 +6,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		xmlns:styles="using:Material.Styles"
 		xmlns:local="using:Tengu.Views"
+		TransparencyLevelHint="AcrylicBlur"
+		ExtendClientAreaToDecorationsHint="True"
 		xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         x:Class="Tengu.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -16,80 +18,56 @@
     </Design.DataContext>
 
 	<Grid>
-	    <styles:SnackbarHost HostName="Root">
-		    <styles:NavigationDrawer Name="LeftDrawer"
-                                     LeftDrawerOpened="{Binding ElementName=NavDrawerSwitch, Path=IsChecked, Mode=TwoWay}">
-			    <styles:NavigationDrawer.LeftDrawerContent>
-				    <ScrollViewer>
-					    <StackPanel>
-                            <styles:ColorZone Mode="Accent" Height="180">
-                                <StackPanel>
-                                    <Image Width="120" Height="120" HorizontalAlignment="Center" VerticalAlignment="Top"
-                                           Margin="0,0,0,-8" />
-                                    <TextBlock Classes="Headline6" Text="Tengu" HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </styles:ColorZone>
-                            <ListBox Classes="Drawer" Name="DrawerList"
-                                     Focusable="{Binding ElementName=LeftDrawer, Path=LeftDrawerOpened}">
-                                <ListBox.Styles>
-                                    <Style Selector="ListBoxItem">
-                                        <Setter Property="Height" Value="48" />
-                                        <Setter Property="Padding" Value="16,0" />
-                                        <Setter Property="VerticalContentAlignment" Value="Center" />
-                                        <Setter Property="IsEnabled" Value="{Binding $self.Content.IsEnabled}" />
-                                    </Style>
-                                </ListBox.Styles>
-                                <TextBlock Classes="Body2" Text="Home" />
-                                <TextBlock Classes="Body2" Text="Latest Episodes" />
-                                <TextBlock Classes="Body2" Text="Upcoming Animes" />
-                                <TextBlock Classes="Body2" Text="Search Animes" />
-                                <TextBlock Classes="Body2" Text="Calendar" />
-                                <TextBlock Classes="Body2" Text="Downloads" />
-                                <TextBlock Classes="Body2" Text="Settings" />
-                            </ListBox>
-                        </StackPanel>
-				    </ScrollViewer>		
-			    </styles:NavigationDrawer.LeftDrawerContent>
-		
-				<Grid>
-					<ScrollViewer Name="mainScroller"
-                              DockPanel.Dock="Top"
-                              HorizontalContentAlignment="Stretch"
-                              HorizontalAlignment="Stretch"
-                              HorizontalScrollBarVisibility="Disabled">
-						<Border HorizontalAlignment="Stretch"
-									VerticalAlignment="Stretch">
-			              <Carousel Name="PageCarousel"
-                                    HorizontalAlignment="Stretch">
-				            <Carousel.Styles>
-                                    <Style Selector="Carousel#PageCarousel:not(.notransitions)">
-                                        <Setter Property="PageTransition">
-                                            <PageSlide Duration="0.25" SlideOutEasing="CircularEaseOut"
-                                                       SlideInEasing="CircularEaseOut" />
-                                        </Setter>
-                                    </Style>
-                                </Carousel.Styles>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="200"/>
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
 
-							  <!-- Main page -->
-							  <local:HomePage />
+		<styles:Card Padding="0">
+			<StackPanel VerticalAlignment="Center">
+				<ListBox Classes="Drawer"
+						 Name="DrawerList"
+						 Focusable="{Binding ElementName=LeftDrawer, Path=LeftDrawerOpened}">
+					<ListBox.Styles>
+						<Style Selector="ListBoxItem">
+							<Setter Property="Height" Value="48" />
+							<Setter Property="Padding" Value="16,0" />
+							<Setter Property="VerticalContentAlignment" Value="Center" />
+							<Setter Property="IsEnabled" Value="{Binding $self.Content.IsEnabled}" />
+						</Style>
+					</ListBox.Styles>
+					<TextBlock Classes="Body2" Text="Home" />
+					<TextBlock Classes="Body2" Text="Latest Episodes" />
+					<TextBlock Classes="Body2" Text="Upcoming Animes" />
+					<TextBlock Classes="Body2" Text="Search Animes" />
+					<TextBlock Classes="Body2" Text="Calendar" />
+					<TextBlock Classes="Body2" Text="Downloads" />
+					<TextBlock Classes="Body2" Text="Settings" />
+				</ListBox>
+			</StackPanel>
+		</styles:Card>
 
-							  <!-- Main page -->
-							  <local:LatestEpisodesPage />
-			              </Carousel>
-						</Border>
-					</ScrollViewer>
+		<Border HorizontalAlignment="Stretch"
+				Grid.Column="1" Margin="0,10,0,0"
+				VerticalAlignment="Stretch">
+			<Carousel Name="PageCarousel"
+					  HorizontalAlignment="Stretch">
+				<Carousel.Styles>
+					<Style Selector="Carousel#PageCarousel:not(.notransitions)">
+						<Setter Property="PageTransition">
+							<PageSlide Duration="0.25" SlideOutEasing="CircularEaseOut"
+									   SlideInEasing="CircularEaseOut" />
+						</Setter>
+					</Style>
+				</Carousel.Styles>
 
-					<ToggleButton Name="NavDrawerSwitch"
-			                      HorizontalAlignment="Left"
-			                      VerticalAlignment="Top"
-			                      Margin="5"
-			                      Classes="Flat TransparentBack"
-			                      Width="32" Height="32" Padding="4">
-						<avalonia:MaterialIcon Kind="Menu" Width="24" Height="24" />
-					</ToggleButton>
-	            </Grid>
-		    </styles:NavigationDrawer>
-	    </styles:SnackbarHost>
-	
+				<!-- Main page -->
+				<local:HomePage />
+
+				<!-- Main page -->
+				<local:LatestEpisodesPage />
+			</Carousel>
+		</Border>
+
     </Grid>
 </Window>

@@ -10,10 +10,8 @@ namespace Tengu.Views
     public partial class MainWindow : Window
     {
         #region Control fields
-        private ToggleButton NavDrawerSwitch;
         private ListBox DrawerList;
         private Carousel PageCarousel;
-        private ScrollViewer mainScroller;
         #endregion
 
         public MainWindow()
@@ -29,15 +27,11 @@ namespace Tengu.Views
             AvaloniaXamlLoader.Load(this);
 
             #region Control getter and event binding
-            NavDrawerSwitch = this.Get<ToggleButton>(nameof(NavDrawerSwitch));
-
             DrawerList = this.Get<ListBox>(nameof(DrawerList));
             DrawerList.PointerReleased += DrawerSelectionChanged;
             DrawerList.KeyUp += DrawerList_KeyUp;
 
             PageCarousel = this.Get<Carousel>(nameof(PageCarousel));
-
-            mainScroller = this.Get<ScrollViewer>(nameof(mainScroller));
             #endregion
         }
 
@@ -55,15 +49,11 @@ namespace Tengu.Views
             try
             {
                 PageCarousel.SelectedIndex = listBox.SelectedIndex;
-                mainScroller.Offset = Vector.Zero;
-                mainScroller.VerticalScrollBarVisibility =
-                    listBox.SelectedIndex == 5 ? ScrollBarVisibility.Disabled : ScrollBarVisibility.Auto;
 
             }
             catch
             {
             }
-            NavDrawerSwitch.IsChecked = false;
         }
 
     }
