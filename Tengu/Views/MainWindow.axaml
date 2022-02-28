@@ -72,6 +72,9 @@
 
 							  <!-- Main page -->
 							  <local:HomePage />
+
+							  <!-- Main page -->
+							  <local:LatestEpisodesPage />
 			              </Carousel>
 						</Border>
 					</ScrollViewer>

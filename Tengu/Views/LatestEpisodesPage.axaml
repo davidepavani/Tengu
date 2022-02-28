@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:Tengu.ViewModels"
+			 xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:styles="using:Material.Styles"
+			 xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+             x:Class="Tengu.Views.LatestEpisodesPage">
+	<UserControl.DataContext>
+		<vm:LatestEpisodesPageViewModel />
+	</UserControl.DataContext>
+	
+	<Panel Margin="40">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition />
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<Grid>
+				<TextBlock Text="Latest Episodes"
+						   FontSize="20"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   FontWeight="DemiBold"/>
+
+				<ComboBox Width="200"
+						  assist:ComboBoxAssist.Label="Host"
+						  Items="{Binding HostList}"
+						  HorizontalAlignment="Right"
+						  SelectedItem="{Binding SelectedHost}"
+						  Margin="10,0,0,0">
+				</ComboBox>
+			</Grid>
+
+			<Grid Grid.Row="1">
+				<ScrollViewer >
+				
+					
+				
+				</ScrollViewer>
+
+				<StackPanel VerticalAlignment="Center"
+							HorizontalAlignment="Center">
+					<styles:Card CornerRadius="24" Padding="4" Margin="4" HorizontalAlignment="Center"
+								 VerticalAlignment="Center">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Loading Animes"
+									   Margin="10,0"
+									   VerticalAlignment="Center"/>
+							<ProgressBar Classes="Circle" IsIndeterminate="True" />
+						</StackPanel>
+					</styles:Card>
+				</StackPanel>
+			</Grid>
+			
+			<StackPanel Orientation="Horizontal"
+						Grid.Row="2"
+						HorizontalAlignment="Center">
+				<Button Classes="Accent Flat">
+					<avalonia:MaterialIcon Kind="ArrowLeft" />
+				</Button>
+
+				<TextBlock Text="Page 0"
+						   Margin="10,0"
+						   VerticalAlignment="Center"/>
+
+				<Button Classes="Accent Flat">
+					<avalonia:MaterialIcon Kind="ArrowRightBold" />
+				</Button>
+			</StackPanel>
+		</Grid>
+	</Panel>
+</UserControl>
