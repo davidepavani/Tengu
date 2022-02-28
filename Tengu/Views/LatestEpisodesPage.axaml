@@ -36,12 +36,29 @@
 				</ComboBox>
 			</Grid>
 
-			<Grid Grid.Row="1">
+			<Grid Grid.Row="1"
+				  Margin="10">
 				<ScrollViewer IsVisible="{Binding !LoadingAnimes}">
-				
-					<TextBlock Text="ciao" 
-							   HorizontalAlignment="Center"
-							   VerticalAlignment="Center"/>
+
+					<ItemsControl Items="{Binding AnimeList}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel Orientation="Horizontal"
+										   HorizontalAlignment="Center"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<styles:Card Width="150" Margin="5"
+											 Height="200">
+									<TextBlock Text="{Binding}"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Center" />
+								</styles:Card>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
 				
 				</ScrollViewer>
 
@@ -63,11 +80,12 @@
 			<StackPanel Orientation="Horizontal"
 						Grid.Row="2"
 						HorizontalAlignment="Center">
-				<Button Classes="Accent Flat">
+				<Button Classes="Accent Flat"
+						IsEnabled="{Binding CanPrev}">
 					<avalonia:MaterialIcon Kind="ArrowLeft" />
 				</Button>
 
-				<TextBlock Text="Page 0"
+				<TextBlock Text="{Binding CurrentPage, StringFormat={}Page {0}}"
 						   Margin="10,0"
 						   VerticalAlignment="Center"/>
 
