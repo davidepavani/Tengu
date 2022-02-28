@@ -42,7 +42,17 @@ namespace Tengu.ViewModels
 
         private void ReloadAnimes()
         {
-            loadingAnimes = true;
+            Task.Run(() =>
+            {
+                LoadingAnimes = true;
+
+            }).GetAwaiter().OnCompleted(() =>
+            {
+                // MessageBox.Show("the task completed in the main thread", "");
+
+                LoadingAnimes = false;
+            });
         }
+
     }
 }
