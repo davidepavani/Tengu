@@ -11,4 +11,65 @@
 	<UserControl.DataContext>
 		<vm:SearchPageViewModel />
 	</UserControl.DataContext>
+
+	<Panel Margin="40">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<Grid Grid.Column="1"
+				  Width="250">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<styles:Card Padding="0">
+					<TextBox Classes="Solo" Margin="10,5" Padding="0"
+							 Watermark="Search Anime Here..">
+						<TextBox.InnerRightContent>
+							<Button Classes="Flat" Padding="4" Width="{Binding $self.Bounds.Height}"
+									Content="{avalonia:MaterialIconExt Search, Size=24}" />
+						</TextBox.InnerRightContent>
+					</TextBox>
+				</styles:Card>
+
+				<styles:Card Padding="5"
+							 Grid.Row="1"
+							 Margin="0,5,0,0">
+					<StackPanel Margin="5">					
+						<ComboBox Classes="Outline" Margin="0,5"
+								  assist:ComboBoxAssist.Label="Host"
+								  Items="{Binding HostList}"
+								  HorizontalAlignment="Stretch"
+								  SelectedItem="{Binding SelectedHost}">
+						</ComboBox>
+
+						<ComboBox Classes="Outline" Margin="0,5"
+								  assist:ComboBoxAssist.Label="Status"
+								  Items="{Binding StatusesList}"
+								  SelectedItem="{Binding SelectedStatus}"
+								  HorizontalAlignment="Stretch">
+						</ComboBox>
+					</StackPanel>
+				</styles:Card>
+
+				<styles:Card Margin="0,5,0,0"
+						  Grid.Row="2">
+					<ScrollViewer>
+						<ItemsRepeater Items="{Binding GenresList}">
+							<ItemsRepeater.ItemTemplate>
+								<DataTemplate>
+									<CheckBox IsChecked="{Binding IsChecked}"
+											  Content="{Binding Genre}"/>
+								</DataTemplate>
+							</ItemsRepeater.ItemTemplate>
+						</ItemsRepeater>
+					</ScrollViewer>
+				</styles:Card>
+			</Grid>
+		</Grid>
+	</Panel>
 </UserControl>

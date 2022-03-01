@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tengu.Enums;
+using Tengu.Business.Commons;
 using Tengu.Extensions;
 using Tengu.Utilities;
 
@@ -15,7 +15,7 @@ namespace Tengu.ViewModels
     public class LatestEpisodesPageViewModel : ReactiveObject
     {
         private AvaloniaList<string> animeList = new(); // MODEL
-        private TenguHost selectedHost = TenguHost.AnimeSaturn; // To Swap with Tengu.Business Hosts
+        private Hosts selectedHost = Hosts.AnimeSaturn; 
         private bool loadingAnimes = false;
         private int currentPage = 0;
 
@@ -24,7 +24,7 @@ namespace Tengu.ViewModels
         #region Properties
         public ICommand NextPageCommand { get; private set; }
         public ICommand PrevPageCommand { get; private set; }
-        public List<TenguHost> HostList { get; private set; }
+        public List<Hosts> HostList { get; private set; }
         public bool CanPrev
         {
             get => canPrev;
@@ -49,7 +49,7 @@ namespace Tengu.ViewModels
             get => animeList;
             set => this.RaiseAndSetIfChanged(ref animeList, value);
         }
-        public TenguHost SelectedHost
+        public Hosts SelectedHost
         {
             get => selectedHost;
             set
@@ -63,7 +63,7 @@ namespace Tengu.ViewModels
 
         public LatestEpisodesPageViewModel()
         {
-            HostList = EnumExtension.ToList<TenguHost>();
+            HostList = EnumExtension.ToList<Hosts>();
 
             AnimeList.Add("123");
             AnimeList.Add("123");

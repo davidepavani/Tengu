@@ -6,10 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
-    <AvaloniaXaml Remove="Models\**" />
-    <Compile Remove="Models\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <None Remove="Models\**" />
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
