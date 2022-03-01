@@ -92,6 +92,7 @@
 				</Grid.RowDefinitions>
 				<styles:Card Padding="0">
 					<TextBox Classes="Solo" Margin="10,5" Padding="0"
+							 Text="{Binding AnimeTitle}"
 							 Watermark="Search Anime Here..">
 						<TextBox.InnerRightContent>
 							<Button Classes="Flat" Padding="4" Width="{Binding $self.Bounds.Height}"

@@ -9,21 +9,10 @@ using System;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Business.Core;
+using Tengu.Logging;
 
 namespace Tengu
 {
-    public class myclass
-    {
-        private readonly Microsoft.Extensions.Logging.ILogger<TenguApi> Logger;
-        private readonly Microsoft.Extensions.Logging.ILogger ExtraLogger;
-
-        public myclass(ILogger<TenguApi> logger, ILoggerFactory loggerFactory)
-        {
-            Logger = logger;
-            ExtraLogger = loggerFactory.CreateLogger<TenguApi>();
-        }
-    }
-
     internal class Program
     {
         private static Logger log = LogManager.GetCurrentClassLogger();
@@ -76,14 +65,7 @@ namespace Tengu
             Locator.CurrentMutable.RegisterConstant(unityManager, typeof(IAnimeUnityManager));
             Locator.CurrentMutable.RegisterConstant(kitsuManager, typeof(IKitsuManager));
 
-            var loggerFactory = LoggerFactory.Create(builder => builder.Configure((ad) => { }));
-            Microsoft.Extensions.Logging.ILogger<TenguApi> logger = loggerFactory.CreateLogger<TenguApi>();
-            logger.LogInformation("Starting...");
-
-            TenguApi tenguApi = new(unityManager, saturnManager, kitsuManager, logger);
-            tenguApi.CurrentHosts = new Hosts[] { Hosts.AnimeUnity, Hosts.AnimeSaturn };
-
-            Locator.CurrentMutable.RegisterConstant(tenguApi, typeof(ITenguApi));
+            Locator.CurrentMutable.RegisterConstant(new TenguApi(unityManager, saturnManager, kitsuManager, new TenguLogger().Logger), typeof(ITenguApi));
 
             return AppBuilder.Configure<App>()
                 .UsePlatformDetect()

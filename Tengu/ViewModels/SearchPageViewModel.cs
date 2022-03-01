@@ -75,6 +75,10 @@ namespace Tengu.ViewModels
 
             try
             {
+                tenguApi.CurrentHosts = SelectedHost.Equals(Hosts.None) ?
+                    new Hosts[] { Hosts.AnimeUnity, Hosts.AnimeUnity } :
+                       new Hosts[] { SelectedHost };
+
                 SearchFilter filter = new()
                 {
                     Status = SelectedStatus,
