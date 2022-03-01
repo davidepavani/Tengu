@@ -64,7 +64,7 @@ namespace Tengu.ViewModels
 
             StatusesList = EnumExtension.ToList<Statuses>();
 
-            SearchCommand = ReactiveCommand.CreateFromTask(SearchAnimes);
+            SearchCommand = ReactiveCommand.Create(SearchAnimes);
         }
 
         private async Task SearchAnimes()
