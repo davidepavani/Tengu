@@ -19,6 +19,70 @@
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
 
+			<Grid Grid.Row="1"
+				  Margin="0,0,10,0">
+				<ScrollViewer IsVisible="{Binding !Searching}">
+
+					<ItemsControl Items="{Binding AnimeList}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel Orientation="Horizontal"
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Grid Width="170"
+									  Margin="5,5,5,20">
+									<Grid.RowDefinitions>
+										<RowDefinition />
+										<RowDefinition />
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+
+									<styles:Card Width="150"
+												 HorizontalAlignment="Left"
+												 Grid.RowSpan="2"
+												 Padding="0"
+												 Height="200">
+										<Button Classes="Flat">
+
+										</Button>
+									</styles:Card>
+
+									<styles:FloatingButton  HorizontalAlignment="Right"
+															Grid.Row="1" Classes="Mini">
+										<avalonia:MaterialIcon Kind="Download" />
+									</styles:FloatingButton>
+
+									<StackPanel Grid.Row="2" Margin="0,5,0,0">
+										<TextBlock Text="{Binding}" FontSize="15"/>
+										<TextBlock Text="{Binding}" Opacity=".7"/>
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+
+				</ScrollViewer>
+
+				<StackPanel VerticalAlignment="Center"
+							HorizontalAlignment="Center"
+							IsVisible="{Binding Searching}">
+					<styles:Card CornerRadius="24" Padding="4" Margin="4" HorizontalAlignment="Center"
+								 VerticalAlignment="Center">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Searching"
+									   Margin="10,0"
+									   VerticalAlignment="Center"/>
+							<ProgressBar Classes="Circle" IsIndeterminate="True" />
+						</StackPanel>
+					</styles:Card>
+				</StackPanel>
+			</Grid>
+
 			<Grid Grid.Column="1"
 				  Width="250">
 				<Grid.RowDefinitions>
@@ -31,6 +95,7 @@
 							 Watermark="Search Anime Here..">
 						<TextBox.InnerRightContent>
 							<Button Classes="Flat" Padding="4" Width="{Binding $self.Bounds.Height}"
+									Command="{Binding SearchCommand}"
 									Content="{avalonia:MaterialIconExt Search, Size=24}" />
 						</TextBox.InnerRightContent>
 					</TextBox>

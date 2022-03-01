@@ -20,6 +20,8 @@ namespace Tengu.Models
         }
 
         public GenresModel(Genres genre)
-            => Genre = genre;
+        {
+            Genre = genre;
+        }
     }
 }
