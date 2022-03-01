@@ -41,17 +41,14 @@
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Grid Width="170"
-									  Margin="5,5,5,20">
+								<Grid Margin="5,5,5,20">
 									<Grid.RowDefinitions>
-										<RowDefinition />
 										<RowDefinition />
 										<RowDefinition Height="Auto"/>
 									</Grid.RowDefinitions>
 
 									<styles:Card Width="150"
 												 HorizontalAlignment="Left"
-												 Grid.RowSpan="2"
 												 Padding="0"
 												 Height="200">
 										<Button Classes="Flat">
@@ -59,15 +56,11 @@
 										</Button>
 									</styles:Card>
 
-									<styles:FloatingButton  HorizontalAlignment="Right"
-															Grid.Row="1" Classes="Mini">
-										<avalonia:MaterialIcon Kind="Download" />
-									</styles:FloatingButton>
 
-									<StackPanel Grid.Row="2" Margin="0,5,0,0">
-										<TextBlock Text="{Binding}" FontSize="15"/>
-										<TextBlock Text="{Binding}" Opacity=".7"/>
-									</StackPanel>
+									<TextBlock Text="{Binding}" Margin="0,5,0,0"
+											   TextWrapping="Wrap"
+											   MaxLines="2" Grid.Row="1"
+											   ToolTip.Tip="{Binding}"/>
 								</Grid>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>

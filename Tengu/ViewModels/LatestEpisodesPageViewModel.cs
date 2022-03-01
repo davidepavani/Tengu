@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Collections;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Tengu.ViewModels
 {
     public class LatestEpisodesPageViewModel : ReactiveObject
     {
-        private CustomObservableCollection<string> animeList = new(); // MODEL
+        private AvaloniaList<string> animeList = new(); // MODEL
         private TenguHost selectedHost = TenguHost.AnimeSaturn; // To Swap with Tengu.Business Hosts
         private bool loadingAnimes = false;
         private int currentPage = 0;
@@ -43,7 +44,7 @@ namespace Tengu.ViewModels
                 CanPrev = !value.Equals(0);
             }
         }
-        public CustomObservableCollection<string> AnimeList
+        public AvaloniaList<string> AnimeList
         {
             get => animeList;
             set => this.RaiseAndSetIfChanged(ref animeList, value);
