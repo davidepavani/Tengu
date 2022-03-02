@@ -35,32 +35,31 @@
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Grid Margin="10"
-									  Width="141">
-									<Grid.RowDefinitions>
-										<RowDefinition />
-										<RowDefinition Height="Auto"/>
-									</Grid.RowDefinitions>
-
-									<styles:Card Width="141"
-												 Padding="0"
-												 Height="200">
-										<Button Classes="Flat"
-												Padding="0">
-											<Button.Content>
+								<styles:Card Width="150"
+											 Padding="0"
+											 Margin="10"
+											 Height="212.6">
+									<Button Classes="Flat"
+											Padding="0">
+										<Button.Content>
+											<Grid>
 												<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
 													   Stretch="UniformToFill"
 													   RenderOptions.BitmapInterpolationMode="HighQuality"/>
-											</Button.Content>
-										</Button>
-									</styles:Card>
 
-									<TextBlock Text="{Binding Title}"
-											   Grid.Row="1"
-											   ToolTip.Tip="{Binding Title}"
-											   Margin="0,5,0,0"
-											   FontSize="15"/>
-								</Grid>
+												<Grid VerticalAlignment="Bottom"
+													  Margin="0,0,0,10">
+													<Border Background="Black" 
+															Opacity=".7"/>
+
+													<TextBlock Text="{Binding Title}"
+															   ToolTip.Tip="{Binding Title}"
+															   Margin="5,2" TextWrapping="Wrap"/>
+												</Grid>
+											</Grid>
+										</Button.Content>
+									</Button>
+								</styles:Card>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>

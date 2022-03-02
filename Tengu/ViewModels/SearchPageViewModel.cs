@@ -79,6 +79,7 @@ namespace Tengu.ViewModels
             Searching = true;
 
             AnimeModel[] animes = Array.Empty<AnimeModel>();
+            AnimeList.Clear();
 
             try
             {
