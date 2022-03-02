@@ -81,15 +81,7 @@
 													 HorizontalAlignment="Left"
 													 Padding="0"
 													 Height="200">
-											<Grid>
-												<Image />
-
-												<Button Margin="5" Padding="5"
-														HorizontalAlignment="Right"
-														VerticalAlignment="Bottom">
-													<avalonia:MaterialIcon Kind="OpenInNew" />
-												</Button>
-											</Grid>
+											<Image />
 										</styles:Card>
 
 										<Grid Margin="10,0"
