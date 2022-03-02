@@ -102,7 +102,7 @@
 			<StackPanel Orientation="Horizontal"
 						Grid.Row="2"
 						HorizontalAlignment="Center">
-				<Button Classes="Accent Flat"
+				<Button Classes="Flat"
 						IsEnabled="{Binding CanPrev}">
 					<avalonia:MaterialIcon Kind="ArrowLeft" />
 				</Button>
@@ -111,7 +111,7 @@
 						   Margin="10,0"
 						   VerticalAlignment="Center"/>
 
-				<Button Classes="Accent Flat">
+				<Button Classes="Flat">
 					<avalonia:MaterialIcon Kind="ArrowRightBold" />
 				</Button>
 			</StackPanel>

@@ -1,11 +1,13 @@
 ﻿using Avalonia.Collections;
 using ReactiveUI;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Extensions;
 using Tengu.Utilities;
@@ -14,7 +16,9 @@ namespace Tengu.ViewModels
 {
     public class LatestEpisodesPageViewModel : ReactiveObject
     {
-        private AvaloniaList<string> animeList = new(); // MODEL
+        private readonly ITenguApi tenguApi;
+
+        private AvaloniaList<AnimeModel> animeList = new(); // MODEL
         private Hosts selectedHost = Hosts.AnimeSaturn; 
         private bool loadingAnimes = false;
         private int currentPage = 0;
@@ -44,7 +48,7 @@ namespace Tengu.ViewModels
                 CanPrev = !value.Equals(0);
             }
         }
-        public AvaloniaList<string> AnimeList
+        public AvaloniaList<AnimeModel> AnimeList
         {
             get => animeList;
             set => this.RaiseAndSetIfChanged(ref animeList, value);
@@ -56,7 +60,7 @@ namespace Tengu.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref selectedHost, value);
 
-                // todo update
+                ReloadAnimes();
             }
         }
         #endregion
@@ -64,17 +68,7 @@ namespace Tengu.ViewModels
         public LatestEpisodesPageViewModel()
         {
             HostList = EnumExtension.ToList<Hosts>();
-
-            AnimeList.Add("123");
-            AnimeList.Add("123");
-            AnimeList.Add("123");
-            AnimeList.Add("123");
-            AnimeList.Add("123"); 
-            AnimeList.Add("123");
-            AnimeList.Add("123");
-            AnimeList.Add("123");
-            AnimeList.Add("123");
-            AnimeList.Add("123");
+            tenguApi = Locator.Current.GetService<ITenguApi>();
 
             NextPageCommand = ReactiveCommand.Create(NextPage);
             PrevPageCommand = ReactiveCommand.Create(PrevPage);

@@ -30,11 +30,16 @@
 
 				<StackPanel Orientation="Horizontal"
 							HorizontalAlignment="Center">
-					<Button Margin="5" Content="Light Mode" Classes="Flat"/>
-					<Button Margin="5" Content="Dark Mode" Classes="Flat"/>
+					<Button Margin="5" Content="Light Mode" 
+							Command="{Binding SetLightModeCommand}"
+							Classes="Flat"/>
+					<Button Margin="5" Content="Dark Mode" 
+							Command="{Binding SetDarkModeCommand}"
+							Classes="Flat"/>
 				</StackPanel>
 
 				<Button Margin="5" Content="GitHub Project Link"
+						Command="{Binding OpenProjectLinkCommand}"
 						Classes="Flat" HorizontalAlignment="Center"/>
 			</StackPanel>
 		</ScrollViewer>
