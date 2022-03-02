@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:vm="using:Tengu.ViewModels"
+			 xmlns:pag="clr-namespace:Paginator.Avalonia.View;assembly=Paginator.Avalonia"
 			 xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
 			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
 			 xmlns:styles="using:Material.Styles"
@@ -22,6 +23,10 @@
 
 			<Grid Grid.Row="1"
 				  Margin="0,0,10,0">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
 				<ScrollViewer IsVisible="{Binding !Searching}">
 
 					<ItemsControl Items="{Binding AnimeList}">
@@ -39,26 +44,24 @@
 											 Padding="0"
 											 Margin="10"
 											 Height="212.6">
-									<Button Classes="Flat"
-											Padding="0">
-										<Button.Content>
-											<Grid>
+									<Grid>
+										<Button Classes="Flat"
+												Padding="0">
+											<Button.Content>
 												<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
 													   Stretch="UniformToFill"
 													   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+											</Button.Content>
+										</Button>
 
-												<Grid VerticalAlignment="Bottom"
-													  Margin="0,0,0,10">
-													<Border Background="Black" 
-															Opacity=".7"/>
-
-													<TextBlock Text="{Binding Title}"
-															   ToolTip.Tip="{Binding Title}"
-															   Margin="5,2" TextWrapping="Wrap"/>
-												</Grid>
-											</Grid>
-										</Button.Content>
-									</Button>
+										<styles:Card VerticalAlignment="Bottom"
+													 CornerRadius="0"
+																 Margin="0,0,0,10">
+											<TextBlock Text="{Binding Title}"
+													   ToolTip.Tip="{Binding Title}"
+													   Margin="5,2" TextWrapping="Wrap"/>
+										</styles:Card>
+									</Grid>
 								</styles:Card>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
@@ -79,6 +82,13 @@
 						</StackPanel>
 					</styles:Card>
 				</StackPanel>
+
+				<pag:PaginatorControl Name="PaginatorControl"
+									  IsVisible="{Binding PaginationVisible}"
+									  PageNumb="{Binding CurrentPage,Mode=TwoWay}"
+									  Margin="10,10,10,0"
+									  Grid.Row="1"
+									  PageCount="{Binding PageCount}" />
 			</Grid>
 
 			<Grid Grid.Column="1"

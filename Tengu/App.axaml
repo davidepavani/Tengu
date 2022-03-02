@@ -15,5 +15,6 @@
 
 		<StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
 		<StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
+		<StyleInclude Source="avares://Paginator.Avalonia/View/PaginatorControl.xaml" />
 	</Application.Styles>
 </Application>

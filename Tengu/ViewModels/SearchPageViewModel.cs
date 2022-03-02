@@ -24,12 +24,36 @@ namespace Tengu.ViewModels
         private string animeTitle = string.Empty;
         private bool searching = false;
         private AvaloniaList<AnimeModel> animeList = new();
+        private AnimeModel[] animes = Array.Empty<AnimeModel>();
+        private bool paginationVisible = false;
+        private int currentPage = 0;
+        private int pageCount = 0;
 
         #region Properties
+        public ICommand PageChangedCommand { get; set; }
         public ICommand SearchCommand { get; private set; }
         public List<Hosts> HostList { get; private set; }
         public List<GenresModel> GenresList { get; private set; }
         public List<Statuses> StatusesList { get; private set; }
+        public int CurrentPage
+        {
+            get => currentPage;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref currentPage, value);
+                UpdatePaginationItems(value);
+            }
+        }
+        public int PageCount
+        {
+            get => pageCount;
+            set => this.RaiseAndSetIfChanged(ref pageCount, value);
+        }
+        public bool PaginationVisible
+        {
+            get => paginationVisible;
+            set => this.RaiseAndSetIfChanged(ref paginationVisible, value);
+        }
         public bool Searching
         {
             get => searching;
@@ -78,8 +102,7 @@ namespace Tengu.ViewModels
         {
             Searching = true;
 
-            AnimeModel[] animes = Array.Empty<AnimeModel>();
-            AnimeList.Clear();
+            animes = Array.Empty<AnimeModel>();
 
             try
             {
@@ -95,10 +118,9 @@ namespace Tengu.ViewModels
 
                 animes = await tenguApi.SearchAnimeAsync(AnimeTitle, filter);
 
-                foreach(AnimeModel anime in animes)
-                {
-                    AnimeList.Add(anime);
-                }
+                PageCount = animes.Length / 8;
+                PaginationVisible = PageCount > 1;
+                CurrentPage = 0;
             }
             catch(Exception ex)
             {
@@ -108,6 +130,16 @@ namespace Tengu.ViewModels
             {
                 Searching = false;
             }
+        }
+
+        private void UpdatePaginationItems(int val)
+        {
+            AnimeList.Clear();
+
+            animes.Skip(val * 8)
+                  .Take(8)
+                  .ToList()
+                  .ForEach(x => AnimeList.Add(x));
         }
     }
 }
