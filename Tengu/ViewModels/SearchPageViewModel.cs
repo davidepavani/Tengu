@@ -89,7 +89,7 @@ namespace Tengu.ViewModels
             GenresList = new();
 
             EnumExtension.ToList<Genres>().ForEach(x => {
-                if(!x.Equals(Hosts.None))
+                if(!x.Equals(Genres.None))
                     GenresList.Add(new(x));
                 });
 
