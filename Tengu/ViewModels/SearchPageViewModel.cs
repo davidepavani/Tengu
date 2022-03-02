@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Collections;
+using ReactiveUI;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace Tengu.ViewModels
 
         private string animeTitle = string.Empty;
         private bool searching = false;
+        private AvaloniaList<AnimeModel> animeList = new();
 
         #region Properties
         public ICommand SearchCommand { get; private set; }
@@ -32,6 +34,11 @@ namespace Tengu.ViewModels
         {
             get => searching;
             set => this.RaiseAndSetIfChanged(ref searching, value);
+        }
+        public AvaloniaList<AnimeModel> AnimeList
+        {
+            get => animeList;
+            set => this.RaiseAndSetIfChanged(ref animeList, value);
         }
         public string AnimeTitle
         {
@@ -86,10 +93,15 @@ namespace Tengu.ViewModels
                 };
 
                 animes = await tenguApi.SearchAnimeAsync(AnimeTitle, filter);
+
+                foreach(AnimeModel anime in animes)
+                {
+                    AnimeList.Add(anime);
+                }
             }
             catch(Exception ex)
             {
-
+                // logging
             }
             finally
             {
