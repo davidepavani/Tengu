@@ -67,7 +67,7 @@ namespace Tengu.ViewModels
                 this.RaiseAndSetIfChanged(ref currentPage, value);
 
                 CanPrev = !value.Equals(0) && AnimeList.Count > 0;
-                CanNext = AnimeList.Count > 0;
+                CanNext = AnimeList.Count > 0 && AnimeList.Count < 10;
             }
         }
         #endregion
@@ -121,12 +121,14 @@ namespace Tengu.ViewModels
         private async Task LoadAnimes(KitsuAction kitsu)
         {
             LoadingAnimes = true;
+            AnimeList.Clear();
 
             foreach (KitsuAnimeModel anime in await ExecuteSearch(kitsu))
             {
                 AnimeList.Add(anime);
             }
 
+            CanNext = AnimeList.Count > 0 && AnimeList.Count == 10;
             LoadingAnimes = false;
         }
 
@@ -149,7 +151,6 @@ namespace Tengu.ViewModels
 
         private void Clear()
         {
-            AnimeList.Clear();
             CurrentPage = 0;
             offset = 0;
         }
