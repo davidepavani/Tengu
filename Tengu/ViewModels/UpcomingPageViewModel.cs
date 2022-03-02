@@ -62,13 +62,7 @@ namespace Tengu.ViewModels
         public int CurrentPage
         {
             get => currentPage;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref currentPage, value);
-
-                CanPrev = !value.Equals(0) && AnimeList.Count > 0;
-                CanNext = AnimeList.Count > 0 && AnimeList.Count < 10;
-            }
+            set => this.RaiseAndSetIfChanged(ref currentPage, value);
         }
         #endregion
 
@@ -128,7 +122,9 @@ namespace Tengu.ViewModels
                 AnimeList.Add(anime);
             }
 
+            CanPrev = !CurrentPage.Equals(0) && AnimeList.Count > 0;
             CanNext = AnimeList.Count > 0 && AnimeList.Count == 10;
+
             LoadingAnimes = false;
         }
 
