@@ -52,34 +52,46 @@
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
 								<Grid Width="170" 
-									  Margin="5,5,5,20">
-									<Grid.RowDefinitions>
-										<RowDefinition />
-										<RowDefinition />
-										<RowDefinition Height="Auto"/>
-									</Grid.RowDefinitions>
+									  Margin="5">
 									
 									<styles:Card Width="150"
 												 HorizontalAlignment="Left"
 												 Grid.RowSpan="2"
 												 Padding="0"
 												 Height="212.6">
-										<Button Classes="Flat" Padding="0">
-											<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
-												   Stretch="UniformToFill"
-												   RenderOptions.BitmapInterpolationMode="HighQuality"/>
-										</Button>
-									</styles:Card>
-									
-									<styles:FloatingButton  HorizontalAlignment="Right"
-															Grid.Row="1" Classes="Mini">
-										<avalonia:MaterialIcon Kind="Download" />
-									</styles:FloatingButton>
+										<Grid>
+											<Button Classes="Flat" Padding="0">
+												<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
+														   Stretch="UniformToFill"
+														   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+											</Button>
 
-									<StackPanel Grid.Row="2" Margin="0,5,0,0">
-										<TextBlock Text="{Binding Title}" FontSize="15"/>
-										<TextBlock Text="{Binding EpisodeNumber, StringFormat={}Episode {0}}" Opacity=".7"/>
-									</StackPanel>
+											
+										</Grid>
+									</styles:Card>
+
+									<Grid VerticalAlignment="Bottom"
+										  Margin="0,0,0,10">
+										<styles:Card VerticalAlignment="Center"
+													 Width="150"
+													 HorizontalAlignment="Left"
+													 CornerRadius="0">
+											<Grid>
+												<TextBlock Text="{Binding Title}"
+														   ToolTip.Tip="{Binding Title}"
+														   Margin="5,2,10,2" TextWrapping="Wrap"/>
+
+												
+											</Grid>
+										</styles:Card>
+
+										<styles:FloatingButton  HorizontalAlignment="Right"
+																VerticalAlignment="Center"
+																Grid.Row="1" Classes="Mini">
+											<avalonia:MaterialIcon Kind="Download" />
+										</styles:FloatingButton>
+									</Grid>
+									
 								</Grid>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
@@ -106,6 +118,7 @@
 						Grid.Row="2"
 						HorizontalAlignment="Center">
 				<Button Classes="Flat"
+						Command="{Binding PrevPageCommand}"
 						IsEnabled="{Binding CanPrev}">
 					<avalonia:MaterialIcon Kind="ArrowLeft" />
 				</Button>
@@ -114,7 +127,8 @@
 						   Margin="10,0"
 						   VerticalAlignment="Center"/>
 
-				<Button Classes="Flat">
+				<Button Classes="Flat"
+						Command="{Binding NextPageCommand}">
 					<avalonia:MaterialIcon Kind="ArrowRightBold" />
 				</Button>
 			</StackPanel>

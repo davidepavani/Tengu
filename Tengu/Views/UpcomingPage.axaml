@@ -120,8 +120,7 @@
 
 											<TextBlock Text="{Binding Synopsis}"
 													   Grid.Row="1"
-													   TextWrapping="Wrap"
-													   ToolTip.Tip="{Binding Synopsis}"/>
+													   TextWrapping="Wrap"/>
 										</Grid>
 									</Grid>
 								</styles:Card>
