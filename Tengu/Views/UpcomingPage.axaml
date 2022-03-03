@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:vm="using:Tengu.ViewModels"
 			 xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
 			 xmlns:styles="using:Material.Styles"
 			 xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
              x:Class="Tengu.Views.UpcomingPage">
@@ -81,7 +82,9 @@
 													 HorizontalAlignment="Left"
 													 Padding="0"
 													 Height="200">
-											<Image />
+											<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
+													   Stretch="UniformToFill"
+													   RenderOptions.BitmapInterpolationMode="HighQuality"/>
 										</styles:Card>
 
 										<Grid Margin="10,0"
