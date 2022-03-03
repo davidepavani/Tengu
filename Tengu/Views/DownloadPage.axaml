@@ -78,7 +78,7 @@
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Orientation="Vertical"
-										Spacing="2"
+										Spacing="4"
 										VerticalAlignment="Top"
 										HorizontalAlignment="Stretch"/>
 						</ItemsPanelTemplate>
@@ -89,16 +89,18 @@
 							<Grid>
 								<Border HorizontalAlignment="Stretch"
 										VerticalAlignment="Stretch"
-										Opacity=".5"
+										Opacity=".4"
 										Background="{DynamicResource MaterialDesignBodyLight}">
 
 								</Border>
 
 								<StackPanel>
-									<TextBlock Text="Title" Margin="10,5,10,0"/>
-									<TextBlock Text="Episode 1" Margin="10,0,10,5"/>
+									<StackPanel>
+										<TextBlock Text="Title" Margin="10,5,10,0"/>
+										<TextBlock Text="Episode 1" Margin="10,0,10,5"/>
+									</StackPanel>
 									
-									<ProgressBar Value="50"/>
+									<ProgressBar Value="50" />
 								</StackPanel>
 							</Grid>
 						</DataTemplate>

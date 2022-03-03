@@ -6,6 +6,7 @@
 			 xmlns:vm="using:Tengu.ViewModels"
 			 xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
 			 xmlns:styles="using:Material.Styles"
+			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
 			 xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
              x:Class="Tengu.Views.LatestEpisodesPage">
 	<UserControl.DataContext>
@@ -39,7 +40,7 @@
 				  Margin="0,10">
 				<ScrollViewer IsVisible="{Binding !LoadingAnimes}">
 
-					<ItemsControl Items="{Binding AnimeList}">
+					<ItemsControl Items="{Binding EpisodeList}">
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
 								<WrapPanel Orientation="Horizontal"
@@ -62,9 +63,11 @@
 												 HorizontalAlignment="Left"
 												 Grid.RowSpan="2"
 												 Padding="0"
-												 Height="200">
-										<Button Classes="Flat">
-											
+												 Height="212.6">
+										<Button Classes="Flat" Padding="0">
+											<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
+												   Stretch="UniformToFill"
+												   RenderOptions.BitmapInterpolationMode="HighQuality"/>
 										</Button>
 									</styles:Card>
 									
@@ -74,8 +77,8 @@
 									</styles:FloatingButton>
 
 									<StackPanel Grid.Row="2" Margin="0,5,0,0">
-										<TextBlock Text="{Binding}" FontSize="15"/>
-										<TextBlock Text="{Binding}" Opacity=".7"/>
+										<TextBlock Text="{Binding Title}" FontSize="15"/>
+										<TextBlock Text="{Binding EpisodeNumber, StringFormat={}Episode {0}}" Opacity=".7"/>
 									</StackPanel>
 								</Grid>
 							</DataTemplate>

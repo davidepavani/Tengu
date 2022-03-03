@@ -18,10 +18,11 @@ namespace Tengu.ViewModels
     {
         private readonly ITenguApi tenguApi;
 
-        private AvaloniaList<AnimeModel> animeList = new(); // MODEL
+        private AvaloniaList<EpisodeModel> episodeList = new(); 
         private Hosts selectedHost = Hosts.AnimeSaturn; 
         private bool loadingAnimes = false;
         private int currentPage = 0;
+        private int offset = 0;
 
         private bool canPrev = false;
 
@@ -48,10 +49,10 @@ namespace Tengu.ViewModels
                 CanPrev = !value.Equals(0);
             }
         }
-        public AvaloniaList<AnimeModel> AnimeList
+        public AvaloniaList<EpisodeModel> EpisodeList
         {
-            get => animeList;
-            set => this.RaiseAndSetIfChanged(ref animeList, value);
+            get => episodeList;
+            set => this.RaiseAndSetIfChanged(ref episodeList, value);
         }
         public Hosts SelectedHost
         {
@@ -60,44 +61,64 @@ namespace Tengu.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref selectedHost, value);
 
-                ReloadAnimes();
+                Initialize(value);
             }
         }
         #endregion
 
         public LatestEpisodesPageViewModel()
         {
-            HostList = EnumExtension.ToList<Hosts>();
+            HostList = new();
+            HostList.Add(Hosts.AnimeSaturn);
+            HostList.Add(Hosts.AnimeUnity);
+
             tenguApi = Locator.Current.GetService<ITenguApi>();
 
             NextPageCommand = ReactiveCommand.Create(NextPage);
             PrevPageCommand = ReactiveCommand.Create(PrevPage);
+
+            Initialize(SelectedHost);
         }
 
         public void PrevPage()
         {
+            if (CanPrev)
+            {
+                CurrentPage -= 1;
+                offset -= 10;
 
+                _ = LoadAnimes();
+            }
         }
         public void NextPage()
         {
+            CurrentPage += 1;
+            offset += 10;
 
+            _ = LoadAnimes();
         }
 
-        private void ReloadAnimes()
+        private void Initialize(Hosts host)
         {
-            Task.Run(() =>
+            tenguApi.CurrentHosts = new Hosts[] { host };
+            CurrentPage = 0;
+            offset = 0;
+
+            _ = LoadAnimes();
+        }
+
+        private async Task LoadAnimes()
+        {
+            LoadingAnimes = true;
+            EpisodeList.Clear();
+
+            foreach (EpisodeModel episode in await tenguApi.GetLatestEpisodeAsync(offset, offset + 10))
             {
-                LoadingAnimes = true;
-                CurrentPage = 0;
+                EpisodeList.Add(episode);
+            }
 
-                AnimeList.Clear();
-
-            }).GetAwaiter().OnCompleted(() =>
-            {
-                // MessageBox.Show("the task completed in the main thread", "");
-
-                LoadingAnimes = false;
-            });
+            CanPrev = !CurrentPage.Equals(0) && EpisodeList.Count > 0;
+            LoadingAnimes = false;
         }
     }
 }
