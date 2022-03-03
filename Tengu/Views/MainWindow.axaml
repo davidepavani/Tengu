@@ -10,7 +10,6 @@
 		ExtendClientAreaToDecorationsHint="True"
 		xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         x:Class="Tengu.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
         Title="Tengu">
 
     <Design.DataContext>
@@ -72,6 +71,12 @@
 
 				<!-- Search page -->
 				<local:SearchPage />
+
+				<!-- Calendar page -->
+				<local:CalendarPage />
+
+				<!-- Download page -->
+				<local:DownloadPage />
 			</Carousel>
 		</Border>
 

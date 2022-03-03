@@ -25,7 +25,7 @@ namespace Tengu.Utilities
                                  .ConfigureServices((_, services) =>
                                      services.AddTenguServices())
                                  .Build();
-
+                        
                         TenguApi tenguApi = (TenguApi)ActivatorUtilities.CreateInstance(host.Services, typeof(TenguApi));
 
                         Locator.CurrentMutable.RegisterConstant(tenguApi, typeof(ITenguApi));

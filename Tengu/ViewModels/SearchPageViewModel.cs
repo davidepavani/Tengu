@@ -84,16 +84,19 @@ namespace Tengu.ViewModels
         public SearchPageViewModel()
         {
             tenguApi = Locator.Current.GetService<ITenguApi>();
-
-            HostList = EnumExtension.ToList<Hosts>();
             GenresList = new();
 
-            EnumExtension.ToList<Genres>().ForEach(x => {
-                if(!x.Equals(Genres.None))
-                    GenresList.Add(new(x));
-                });
+            Task.Run(() =>
+            {
+                HostList = EnumExtension.ToList<Hosts>();
+                StatusesList = EnumExtension.ToList<Statuses>();
 
-            StatusesList = EnumExtension.ToList<Statuses>();
+                EnumExtension.ToList<Genres>().ForEach(x =>
+                {
+                    if (!x.Equals(Genres.None))
+                        GenresList.Add(new(x));
+                });
+            });
 
             SearchCommand = ReactiveCommand.Create(SearchAnimes);
         }

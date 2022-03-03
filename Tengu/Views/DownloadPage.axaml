@@ -1,0 +1,110 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Tengu.Views.DownloadPage"
+			 xmlns:vm="using:Tengu.ViewModels"
+			 xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:styles="using:Material.Styles"
+			 xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles">
+	<UserControl.DataContext>
+		<vm:DownloadPageViewModel />
+	</UserControl.DataContext>
+
+	<Panel Margin="40">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<Grid Margin="5,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<styles:Card CornerRadius="27">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+
+						<avalonia:MaterialIcon Kind="DownloadCircle"
+											   Height="35" Width="35"/>
+
+						<StackPanel Grid.Column="1"
+									Margin="10,0">
+							<TextBlock Text="AnimeSaturn Queue"
+									   FontSize="15"/>
+
+							<TextBlock Text="0 Download(s) in progress.."
+												   />
+						</StackPanel>
+					</Grid>
+				</styles:Card>
+			</Grid>
+
+			<Grid Grid.Column="1" Margin="5,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<styles:Card CornerRadius="27">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+
+						<avalonia:MaterialIcon Kind="DownloadCircle"
+											   Height="35" Width="35"/>
+
+						<StackPanel Grid.Column="1"
+									Margin="10,0">
+							<TextBlock Text="AnimeUnity Queue"
+									   FontSize="15"/>
+
+							<TextBlock Text="3 Download(s) in progress.."/>
+						</StackPanel>
+					</Grid>
+				</styles:Card>
+
+				<ItemsControl Margin="30,5"
+							  Items="{Binding AnimeUnityQueue}"
+							   Grid.Row="1">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Vertical"
+										Spacing="2"
+										VerticalAlignment="Top"
+										HorizontalAlignment="Stretch"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid>
+								<Border HorizontalAlignment="Stretch"
+										VerticalAlignment="Stretch"
+										Opacity=".5"
+										Background="{DynamicResource MaterialDesignBodyLight}">
+
+								</Border>
+
+								<StackPanel>
+									<TextBlock Text="Title" Margin="10,5,10,0"/>
+									<TextBlock Text="Episode 1" Margin="10,0,10,5"/>
+									
+									<ProgressBar Value="50"/>
+								</StackPanel>
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Grid>
+		</Grid>
+	</Panel>
+</UserControl>
