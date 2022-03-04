@@ -38,7 +38,7 @@ namespace Tengu.ViewModels
             AnimeData = anime;
             Host = currentHost;
 
-            _ = LoadEpisodes();
+            Task.Run(() => LoadEpisodes());
         }
         public AnimeModelDialogViewModel() { }
 

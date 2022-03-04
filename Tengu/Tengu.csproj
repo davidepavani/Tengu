@@ -23,6 +23,6 @@
     <PackageReference Include="NLog" Version="5.0.0-rc2" />
     <PackageReference Include="NLog.Extensions.Logging" Version="5.0.0-rc2" />
     <PackageReference Include="Paginator.Avalonia" Version="1.0.0" />
-    <PackageReference Include="Tengu.Business.Api" Version="1.0.7" />
+    <PackageReference Include="Tengu.Business.Api" Version="1.0.8" />
   </ItemGroup>
 </Project>

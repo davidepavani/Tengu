@@ -100,12 +100,7 @@ namespace Tengu.ViewModels
             {
                 try
                 {
-                    // TACCONATA -- To do in Backend ??
-                    string title = SelectedHost.Equals(Hosts.AnimeUnity) ?
-                                episode.Title.Split('-')[0] :
-                                    episode.Title.Split("Episodio")[0];
-
-                    AnimeModel anime = (await tenguApi.SearchAnimeAsync(title.Remove(title.Length - 1), 1))[0];
+                    AnimeModel anime = (await tenguApi.SearchAnimeAsync(episode.Title, 1))[0];
                    var res = await ShowAnimeModelDialog.Handle(new AnimeModelDialogViewModel(anime, SelectedHost));
                 }
                 catch (Exception ex)
