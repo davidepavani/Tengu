@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 using Microsoft.Extensions.Logging;
@@ -6,6 +7,7 @@ using NLog;
 using Splat;
 using System;
 using Tengu.Utilities;
+using Tengu.Views;
 
 namespace Tengu
 {

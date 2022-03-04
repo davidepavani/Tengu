@@ -4,6 +4,7 @@ using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -27,6 +28,9 @@ namespace Tengu.ViewModels
         private bool canPrev = false;
 
         #region Properties
+        public Interaction<AnimeModelDialogViewModel, object> ShowAnimeModelDialog { get; }
+        public ICommand OpenAnimeCardCommand { get; private set; }
+        public ICommand DownloadEpisodeCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand PrevPageCommand { get; private set; }
         public List<Hosts> HostList { get; private set; }
@@ -72,12 +76,43 @@ namespace Tengu.ViewModels
             HostList.Add(Hosts.AnimeSaturn);
             HostList.Add(Hosts.AnimeUnity);
 
+            ShowAnimeModelDialog = new();
+
             tenguApi = Locator.Current.GetService<ITenguApi>();
 
             NextPageCommand = ReactiveCommand.Create(NextPage);
             PrevPageCommand = ReactiveCommand.Create(PrevPage);
 
+            OpenAnimeCardCommand = ReactiveCommand.CreateFromTask<EpisodeModel>(OpenAnimeDialog);
+            DownloadEpisodeCommand = ReactiveCommand.Create<EpisodeModel>(DownloadEpisode);
+
             Initialize(SelectedHost);
+        }
+
+        private void DownloadEpisode(EpisodeModel episode)
+        {
+
+        }
+
+        private async Task OpenAnimeDialog(EpisodeModel episode)
+        {
+            if(null != episode)
+            {
+                try
+                {
+                    // TACCONATA -- To do in Backend ??
+                    string title = SelectedHost.Equals(Hosts.AnimeUnity) ?
+                                episode.Title.Split('-')[0] :
+                                    episode.Title.Split("Episodio")[0];
+
+                    AnimeModel anime = (await tenguApi.SearchAnimeAsync(title.Remove(title.Length - 1), 1))[0];
+                   var res = await ShowAnimeModelDialog.Handle(new AnimeModelDialogViewModel(anime, SelectedHost));
+                }
+                catch (Exception ex)
+                {
+                    // logging
+                }
+            }
         }
 
         public void PrevPage()

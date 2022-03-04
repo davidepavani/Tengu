@@ -6,13 +6,14 @@
 			 xmlns:vm="using:Tengu.ViewModels"
 			 xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
 			 xmlns:styles="using:Material.Styles"
+			 xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
 			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
 			 xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
              x:Class="Tengu.Views.LatestEpisodesPage">
 	<UserControl.DataContext>
 		<vm:LatestEpisodesPageViewModel />
 	</UserControl.DataContext>
-	
+
 	<Panel Margin="40">
 		<Grid>
 			<Grid.RowDefinitions>
@@ -48,25 +49,26 @@
 										   VerticalAlignment="Center"/>
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
-						
+
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Grid Width="170" 
+								<Grid Width="170"
 									  Margin="5">
-									
+
 									<styles:Card Width="150"
 												 HorizontalAlignment="Left"
 												 Grid.RowSpan="2"
 												 Padding="0"
 												 Height="212.6">
 										<Grid>
-											<Button Classes="Flat" Padding="0">
+											<Button Classes="Flat" 
+													Command="{Binding $parent[ItemsControl].DataContext.OpenAnimeCardCommand}"
+													CommandParameter="{Binding}"
+													Padding="0">
 												<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
 														   Stretch="UniformToFill"
 														   RenderOptions.BitmapInterpolationMode="HighQuality"/>
 											</Button>
-
-											
 										</Grid>
 									</styles:Card>
 
@@ -81,7 +83,7 @@
 														   ToolTip.Tip="{Binding Title}"
 														   Margin="5,2,10,2" TextWrapping="Wrap"/>
 
-												
+
 											</Grid>
 										</styles:Card>
 
@@ -91,12 +93,12 @@
 											<avalonia:MaterialIcon Kind="Download" />
 										</styles:FloatingButton>
 									</Grid>
-									
+
 								</Grid>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>
-				
+
 				</ScrollViewer>
 
 				<StackPanel VerticalAlignment="Center"
@@ -113,7 +115,7 @@
 					</styles:Card>
 				</StackPanel>
 			</Grid>
-			
+
 			<StackPanel Orientation="Horizontal"
 						Grid.Row="2"
 						HorizontalAlignment="Center">
@@ -133,5 +135,6 @@
 				</Button>
 			</StackPanel>
 		</Grid>
+
 	</Panel>
 </UserControl>

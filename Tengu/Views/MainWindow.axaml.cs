@@ -9,6 +9,8 @@ namespace Tengu.Views
 {
     public partial class MainWindow : Window
     {
+        public static Window WindowInstance { get; private set; }
+
         #region Control fields
         private ListBox DrawerList;
         private Carousel PageCarousel;
@@ -20,6 +22,7 @@ namespace Tengu.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            WindowInstance = this;
         }
 
         private void InitializeComponent()
