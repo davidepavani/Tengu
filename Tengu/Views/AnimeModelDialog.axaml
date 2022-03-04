@@ -22,7 +22,7 @@
 			</Grid.RowDefinitions>
 		</Grid>
 		
-		<TextBlock Text="{Binding Title}" 
+		<TextBlock Text="{Binding AnimeData.Title}" 
 				   FontSize="17"
 				   Margin="0,0,0,20"
 				   TextWrapping="Wrap"/>
@@ -41,8 +41,18 @@
 
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<styles:Card Margin="3">
-							
+							<styles:Card CornerRadius="24" 
+										 Padding="4" Margin="4" 
+										 HorizontalAlignment="Center"
+										 VerticalAlignment="Center">
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding EpisodeNumber, StringFormat={}Episode {0}}"
+											   Margin="10,0"
+											   VerticalAlignment="Center"/>
+									<styles:FloatingButton Classes="Mini">
+										<avalonia:MaterialIcon Kind="Download"/>
+									</styles:FloatingButton>
+								</StackPanel>
 							</styles:Card>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
