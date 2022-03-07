@@ -78,13 +78,15 @@
 													 Width="150"
 													 HorizontalAlignment="Left"
 													 CornerRadius="0">
-											<Grid>
+											<StackPanel>
 												<TextBlock Text="{Binding Title}"
 														   ToolTip.Tip="{Binding Title}"
 														   Margin="5,2,10,2" TextWrapping="Wrap"/>
 
+												<TextBlock Text="{Binding EpisodeNumber, StringFormat={}Episode {0}}"
+														   Margin="5,2,10,2" TextWrapping="Wrap"/>
 
-											</Grid>
+											</StackPanel>
 										</styles:Card>
 
 										<styles:FloatingButton  HorizontalAlignment="Right"
