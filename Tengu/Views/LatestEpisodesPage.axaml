@@ -52,10 +52,10 @@
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Grid Width="170"
+								<Grid Width="{Binding $parent[ItemsControl].DataContext.BorderWidth}"
 									  Margin="5">
 
-									<styles:Card Width="150"
+									<styles:Card Width="{Binding $parent[ItemsControl].DataContext.ImageWidth}"
 												 HorizontalAlignment="Left"
 												 Grid.RowSpan="2"
 												 Padding="0"
@@ -75,7 +75,7 @@
 									<Grid VerticalAlignment="Bottom"
 										  Margin="0,0,0,10">
 										<styles:Card VerticalAlignment="Center"
-													 Width="150"
+													 Width="{Binding $parent[ItemsControl].DataContext.ImageWidth}"
 													 HorizontalAlignment="Left"
 													 CornerRadius="0">
 											<StackPanel>

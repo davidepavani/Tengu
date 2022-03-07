@@ -24,6 +24,8 @@ namespace Tengu.ViewModels
         private bool loadingAnimes = false;
         private int currentPage = 0;
         private int offset = 0;
+        private double imageWidth = 377.9;
+        private double borderWidth = 397.9;
 
         private bool canPrev = false;
 
@@ -67,6 +69,16 @@ namespace Tengu.ViewModels
 
                 Initialize(value);
             }
+        }
+        public double ImageWidth
+        {
+            get => imageWidth;
+            set => this.RaiseAndSetIfChanged(ref imageWidth, value);
+        }
+        public double BorderWidth
+        {
+            get => borderWidth;
+            set => this.RaiseAndSetIfChanged(ref borderWidth, value);
         }
         #endregion
 
@@ -133,6 +145,9 @@ namespace Tengu.ViewModels
             tenguApi.CurrentHosts = new Hosts[] { host };
             CurrentPage = 0;
             offset = 0;
+
+            ImageWidth = host.Equals(Hosts.AnimeUnity) ? 150 : 377.9;
+            BorderWidth = ImageWidth + 20;
 
             _ = LoadAnimes();
         }
