@@ -40,6 +40,17 @@
 
 				<Button Margin="5" Content="GitHub Project Link"
 						Command="{Binding OpenProjectLinkCommand}"
+						CommandParameter="Tengu"
+						Classes="Flat" HorizontalAlignment="Center"/>
+
+
+				<TextBlock Text="Special Thanks to"
+						   Margin="0,20,0,0"
+						   HorizontalAlignment="Center"
+						   TextWrapping="Wrap"/>
+				<Button Margin="5" Content="Tengu Backend Project Link"
+						Command="{Binding OpenProjectLinkCommand}"
+						CommandParameter="Tengu.Business"
 						Classes="Flat" HorizontalAlignment="Center"/>
 			</StackPanel>
 		</ScrollViewer>
