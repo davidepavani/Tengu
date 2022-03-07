@@ -11,4 +11,87 @@
 	<UserControl.DataContext>
 		<vm:CalendarPageViewModel />
 	</UserControl.DataContext>
+
+	<Panel Margin="40">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="3*"/>
+			</Grid.ColumnDefinitions>
+
+			<StackPanel>
+				<Button Command="{Binding GetCalendarCommand}"
+						CommandParameter="AnimeSaturn">
+					<Button.Content>
+						<StackPanel Orientation="Horizontal"
+									Spacing="5">
+							<avalonia:MaterialIcon Kind="Calendar" />
+							<TextBlock Text="AnimeSaturn"
+									   Classes="Body2"/>
+						</StackPanel>
+					</Button.Content>
+				</Button>
+				<Button Classes="Accent" Margin="0,5"
+						Command="{Binding GetCalendarCommand}"
+						CommandParameter="AnimeUnity">
+					<Button.Content>
+						<StackPanel Orientation="Horizontal"
+									Spacing="5">
+							<avalonia:MaterialIcon Kind="Calendar" />
+							<TextBlock Text="AnimeUnity"
+									   Classes="Body2"/>
+						</StackPanel>
+					</Button.Content>
+				</Button>
+
+				<styles:Card VerticalAlignment="Top"
+							 Padding="0">
+					<ListBox Items="{Binding WeekDaysList}"
+							 SelectionMode="Single"
+							 SelectedItem="{Binding SelectedDay}">
+					</ListBox>
+				</styles:Card>
+			</StackPanel>
+
+			<ScrollViewer Grid.Column="1"
+						  Margin="20,0">
+				<Grid>
+					<ItemsControl Items="{Binding AnimeList}"
+								  IsVisible="{Binding !Loading}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Vertical"
+											Spacing="5"
+										   HorizontalAlignment="Left"
+										   VerticalAlignment="Top"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding}" />
+									<TextBlock Text="{Binding}" />
+								</StackPanel>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+
+					<StackPanel VerticalAlignment="Center"
+									HorizontalAlignment="Center"
+									IsVisible="{Binding Loading}">
+						<styles:Card CornerRadius="24" Padding="4" Margin="4" HorizontalAlignment="Center"
+									 VerticalAlignment="Center">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Loading Calendar"
+										   Margin="10,0"
+										   VerticalAlignment="Center"/>
+								<ProgressBar Classes="Circle" IsIndeterminate="True" />
+							</StackPanel>
+						</styles:Card>
+					</StackPanel>
+				</Grid>
+			</ScrollViewer>
+		</Grid>
+	</Panel>
 </UserControl>
