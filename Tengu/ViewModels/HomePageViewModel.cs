@@ -28,7 +28,7 @@ namespace Tengu.ViewModels
 
             OpenProjectLinkCommand = ReactiveCommand.Create<string>(OpenGitHubProject);
 
-            Description = "Easy, Intuitive and cross-platform Applicationfor everything related to Animes.\n";
+            Description = "Easy, Intuitive and cross-platform Application for everything related to Animes.\n";
             Description += "Download Episodes, search, and stay up to date!\n";
             Description += "With a solid (and definitely not broken) Backend <3\n";
             Description += "Developed by two poor people with no experience.";
