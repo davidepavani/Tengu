@@ -69,9 +69,11 @@
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="{Binding}" />
-									<TextBlock Text="{Binding}" />
+								<StackPanel Orientation="Horizontal"
+											Spacing="5">
+									<TextBlock Text="{Binding Index}" />
+									<TextBlock Text="-" />
+									<TextBlock Text="{Binding Anime}" />
 								</StackPanel>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>

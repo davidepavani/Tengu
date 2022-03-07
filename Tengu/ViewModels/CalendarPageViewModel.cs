@@ -11,6 +11,7 @@ using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Extensions;
+using Tengu.Models;
 using Tengu.Utilities;
 
 namespace Tengu.ViewModels
@@ -21,7 +22,7 @@ namespace Tengu.ViewModels
 
         private bool loading = false;
         private Calendar calendar = null;
-        private CustomObservableCollection<string> animeList = new();
+        private CustomObservableCollection<CalendarModel> animeList = new();
         private WeekDays selectedDay = WeekDays.Monday;
 
         #region Properties
@@ -41,7 +42,7 @@ namespace Tengu.ViewModels
                 Task.Run(() => ChangeDay(value));
             }
         }
-        public CustomObservableCollection<string> AnimeList
+        public CustomObservableCollection<CalendarModel> AnimeList
         {
             get => animeList;
             set => this.RaiseAndSetIfChanged(ref animeList, value);
@@ -92,10 +93,19 @@ namespace Tengu.ViewModels
                 try
                 {
                     AnimeList.Clear();
+                    int count = 0;
 
                     calendar.DaysDictionary.Single(x => x.Key.Equals(day)).Value
-                                           .Select(x => x.Anime).ToList()
-                                           .ForEach(x => AnimeList.Add(x));
+                                           .ForEach(x =>
+                                           {
+                                               AnimeList.Add(new()
+                                               {
+                                                   Anime = x.Anime,
+                                                   Image = x.Image,
+                                                   Index = count
+                                               });
+                                               count++;
+                                           });
                 }
                 catch (Exception ex)
                 {
