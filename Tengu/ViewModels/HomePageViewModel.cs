@@ -16,10 +16,10 @@ namespace Tengu.ViewModels
         private readonly MaterialTheme MaterialThemeStyles =
             Application.Current!.LocateMaterialTheme<MaterialTheme>();
 
-        public ICommand OpenProjectLinkCommand { get; set; }
-        public ICommand SetDarkModeCommand { get; set; }
-        public ICommand SetLightModeCommand { get; set; }
-
+        public string Description { get; private set; }
+        public ICommand OpenProjectLinkCommand { get; private set; }
+        public ICommand SetDarkModeCommand { get; private set; }
+        public ICommand SetLightModeCommand { get; private set; }
 
         public HomePageViewModel()
         {
@@ -27,6 +27,11 @@ namespace Tengu.ViewModels
             SetLightModeCommand = ReactiveCommand.Create(UseMaterialUILightTheme);
 
             OpenProjectLinkCommand = ReactiveCommand.Create<string>(OpenGitHubProject);
+
+            Description = "Easy, Intuitive and cross-platform Applicationfor everything related to Animes.\n";
+            Description += "Download Episodes, search, and stay up to date!\n";
+            Description += "With a solid (and definitely not broken) Backend <3\n";
+            Description += "Developed by two poor people with no experience.";
         }
 
         public void UseMaterialUIDarkTheme()
