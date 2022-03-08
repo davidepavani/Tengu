@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using NLog;
 using Splat;
 using System;
+using Tengu.Downloads;
+using Tengu.Interfaces;
 using Tengu.Utilities;
 using Tengu.Views;
 
@@ -23,6 +25,8 @@ namespace Tengu
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
         {
+            Locator.CurrentMutable.RegisterConstant(new DownloadManager(), typeof(IDownloadManager));
+
             return AppBuilder.Configure<App>()
                 .UseTenguApi()
                 .UsePlatformDetect()
