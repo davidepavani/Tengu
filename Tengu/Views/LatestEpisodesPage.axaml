@@ -91,6 +91,8 @@
 
 										<styles:FloatingButton  HorizontalAlignment="Right"
 																VerticalAlignment="Center"
+																CommandParameter="{Binding}"
+																Command="{Binding $parent[ItemsControl].DataContext.DownloadEpisodeCommand}"
 																Grid.Row="1" Classes="Mini">
 											<avalonia:MaterialIcon Kind="Download" />
 										</styles:FloatingButton>

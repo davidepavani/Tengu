@@ -46,6 +46,16 @@ namespace Tengu.Downloads
             get => downloadInfoSaturn;
             set => this.RaiseAndSetIfChanged(ref downloadInfoSaturn, value);
         }
+        public bool SaturnDownloading
+        {
+            get => saturnDownloading;
+            set => this.RaiseAndSetIfChanged(ref saturnDownloading, value);
+        }
+        public bool UnityDownloading
+        {
+            get => unityDownloading;
+            set => this.RaiseAndSetIfChanged(ref unityDownloading, value);
+        }
         #endregion
 
         public DownloadManager()
@@ -58,14 +68,14 @@ namespace Tengu.Downloads
                 case Hosts.AnimeSaturn:
                     QueueAnimeSaturn.Enqueue(episode);
 
-                    if(!saturnDownloading)
+                    if(!SaturnDownloading)
                         Task.Run(() => StartSaturnDownload());
                     break;
 
                 case Hosts.AnimeUnity:
                     QueueAnimeUnity.Enqueue(episode);
 
-                    if(!unityDownloading)
+                    if(!UnityDownloading)
                         Task.Run(() => StartUnityDownload());
                     break;
 
@@ -77,33 +87,42 @@ namespace Tengu.Downloads
 
         private async Task StartSaturnDownload()
         {
-            saturnDownloading = true;
+            SaturnDownloading = true;
 
-            while (QueueAnimeSaturn.Count != 0)
+            try
             {
-                EpisodeModel episode = QueueAnimeSaturn.Dequeue();
+                while (QueueAnimeSaturn.Count != 0)
+                {
+                    EpisodeModel episode = QueueAnimeSaturn.Dequeue();
+                    
+                    DownloadInfoSaturn = TenguApi.DownloadAsync(episode.DownloadUrl, episode.Host);
 
-                DownloadInfoSaturn = TenguApi.DownloadAsync(episode.Id, episode.Host);
+                    await DownloadInfoSaturn.EnsureDownloadCompletation();
 
-                await DownloadInfoSaturn.EnsureDownloadCompletation();
-
-                // TODO => CLEAR
-                // History ??
-                DownloadInfoSaturn = null;
+                    // TODO => CLEAR
+                    // History ??
+                    DownloadInfoSaturn = null;
+                }
             }
-
-            saturnDownloading = false;
+            catch (Exception ex)
+            {
+                // LOG
+            }
+            finally
+            {
+                SaturnDownloading = false;
+            }
         }
 
         private async Task StartUnityDownload()
         {
-            unityDownloading = true;
+            UnityDownloading = true;
 
             while (QueueAnimeUnity.Count != 0)
             {
                 EpisodeModel episode = QueueAnimeUnity.Dequeue();
 
-                DownloadInfoUnity = TenguApi.DownloadAsync(episode.Id, episode.Host);
+                DownloadInfoUnity = TenguApi.DownloadAsync(episode.DownloadUrl, episode.Host);
 
                 await DownloadInfoUnity.EnsureDownloadCompletation();
 
@@ -111,7 +130,7 @@ namespace Tengu.Downloads
                 DownloadInfoUnity = null;
             }
 
-            unityDownloading = false;
+            UnityDownloading = false;
         }
     }
 }

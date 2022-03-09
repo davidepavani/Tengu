@@ -11,6 +11,7 @@ using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Extensions;
+using Tengu.Interfaces;
 using Tengu.Utilities;
 
 namespace Tengu.ViewModels
@@ -18,6 +19,7 @@ namespace Tengu.ViewModels
     public class LatestEpisodesPageViewModel : ReactiveObject
     {
         private readonly ITenguApi tenguApi;
+        private readonly IDownloadManager downloadManager;
 
         private AvaloniaList<EpisodeModel> episodeList = new(); 
         private Hosts selectedHost = Hosts.AnimeSaturn; 
@@ -91,6 +93,7 @@ namespace Tengu.ViewModels
             ShowAnimeModelDialog = new();
 
             tenguApi = Locator.Current.GetService<ITenguApi>();
+            downloadManager = Locator.Current.GetService<IDownloadManager>();
 
             NextPageCommand = ReactiveCommand.Create(NextPage);
             PrevPageCommand = ReactiveCommand.Create(PrevPage);
@@ -103,7 +106,7 @@ namespace Tengu.ViewModels
 
         private void DownloadEpisode(EpisodeModel episode)
         {
-
+            downloadManager.EnqueueAnime(episode);
         }
 
         private async Task OpenAnimeDialog(EpisodeModel episode)
