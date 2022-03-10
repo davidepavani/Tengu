@@ -22,29 +22,48 @@
 			<Grid Margin="5,0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
 					<RowDefinition />
 				</Grid.RowDefinitions>
+			
+					<styles:Card CornerRadius="27">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
 
-				<styles:Card CornerRadius="27">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition />
-						</Grid.ColumnDefinitions>
+							<avalonia:MaterialIcon Kind="DownloadCircle"
+												   Height="35" Width="35"/>
 
-						<avalonia:MaterialIcon Kind="DownloadCircle"
-											   Height="35" Width="35"/>
+							<StackPanel Grid.Column="1"
+										Margin="10,0">
+								<TextBlock Text="AnimeSaturn Queue"
+										   FontSize="15"/>
 
-						<StackPanel Grid.Column="1"
-									Margin="10,0">
-							<TextBlock Text="AnimeSaturn Queue"
-									   FontSize="15"/>
+								<TextBlock Text="0 Download(s) in progress.."/>
+							</StackPanel>
+						</Grid>
+					</styles:Card>
 
-							<TextBlock Text="0 Download(s) in progress.."
-												   />
+				<Grid Grid.Row="1"
+					  Margin="30,5">
+					<Border HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							Opacity=".4"
+							Background="{DynamicResource MaterialDesignBodyLight}">
+
+					</Border>
+
+					<StackPanel>
+						<StackPanel>
+							<TextBlock Text="Title" Margin="10,5,10,0"/>
+							<TextBlock Text="Episode 1" Margin="10,0,10,5"/>
 						</StackPanel>
-					</Grid>
-				</styles:Card>
+
+						<ProgressBar Value="{Binding downloadManager.SaturnDownloadPercentage}" />
+					</StackPanel>
+				</Grid>
 			</Grid>
 
 			<Grid Grid.Column="1" Margin="5,0">
@@ -78,7 +97,7 @@
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Orientation="Vertical"
-										Spacing="4"
+										Spacing="5"
 										VerticalAlignment="Top"
 										HorizontalAlignment="Stretch"/>
 						</ItemsPanelTemplate>

@@ -12,8 +12,9 @@ namespace Tengu.Interfaces
     {
         Queue<EpisodeModel> QueueAnimeSaturn { get; set; }
         Queue<EpisodeModel> QueueAnimeUnity { get; set; }
-        DownloadInfosModel DownloadInfoUnity { get; set; }
-        DownloadInfosModel DownloadInfoSaturn { get; set; }
+        int SaturnDownloadPercentage { get; set; }
+        bool UnityDownloading { get; set; }
+        bool SaturnDownloading { get; set; }
 
         void EnqueueAnime(EpisodeModel episode);
     }
