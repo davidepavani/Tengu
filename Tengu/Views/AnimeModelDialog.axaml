@@ -49,7 +49,9 @@
 										<TextBlock Text="{Binding EpisodeNumber, StringFormat={}Episode {0}}"
 												   Margin="10,0" Width="80"
 												   VerticalAlignment="Center"/>
-										<styles:FloatingButton Classes="Mini">
+										<styles:FloatingButton Classes="Mini"
+															   CommandParameter="{Binding}"
+															   Command="{Binding $parent[ItemsControl].DataContext.DownloadEpisodeCommand}">
 											<avalonia:MaterialIcon Kind="Download"/>
 										</styles:FloatingButton>
 									</StackPanel>

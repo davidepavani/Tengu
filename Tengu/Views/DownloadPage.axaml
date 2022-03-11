@@ -47,6 +47,7 @@
 					</styles:Card>
 
 				<Grid Grid.Row="1"
+					  IsVisible="{Binding downloadManager.SaturnDownloading}"
 					  Margin="30,5">
 					<Border HorizontalAlignment="Stretch"
 							VerticalAlignment="Stretch"
@@ -57,17 +58,53 @@
 
 					<StackPanel>
 						<StackPanel>
-							<TextBlock Text="Title" Margin="10,5,10,0"/>
-							<TextBlock Text="Episode 1" Margin="10,0,10,5"/>
+							<TextBlock Text="{Binding downloadManager.SaturnDownloadingEpisode.Title}" Margin="10,5,10,0"/>
+							<TextBlock Text="{Binding downloadManager.SaturnDownloadingEpisode.EpisodeNumber, StringFormat={}Episode {0}}" Margin="10,0,10,5"/>
 						</StackPanel>
 
 						<ProgressBar Value="{Binding downloadManager.SaturnDownloadPercentage}" />
 					</StackPanel>
 				</Grid>
+
+				<ItemsControl Margin="30,0,30,5"
+							  Items="{Binding downloadManager.QueueAnimeSaturn}"
+							  Grid.Row="2">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Vertical"
+										Spacing="5"
+										VerticalAlignment="Top"
+										HorizontalAlignment="Stretch"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid>
+								<Border HorizontalAlignment="Stretch"
+										VerticalAlignment="Stretch"
+										Opacity=".4"
+										Background="{DynamicResource MaterialDesignBodyLight}">
+
+								</Border>
+
+								<StackPanel>
+									<StackPanel>
+										<TextBlock Text="{Binding Title}" Margin="10,5,10,0"/>
+										<TextBlock Text="{Binding EpisodeNumber, StringFormat={}Episode {0}}" Margin="10,0,10,5"/>
+									</StackPanel>
+
+									<ProgressBar Value="0" />
+								</StackPanel>
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 			</Grid>
 
 			<Grid Grid.Column="1" Margin="5,0">
 				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition />
 				</Grid.RowDefinitions>
@@ -91,9 +128,29 @@
 					</Grid>
 				</styles:Card>
 
-				<ItemsControl Margin="30,5"
-							  Items="{Binding AnimeUnityQueue}"
-							   Grid.Row="1">
+				<Grid Grid.Row="1"
+					  IsVisible="{Binding downloadManager.UnityDownloading}"
+					  Margin="30,5">
+					<Border HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							Opacity=".4"
+							Background="{DynamicResource MaterialDesignBodyLight}">
+
+					</Border>
+
+					<StackPanel>
+						<StackPanel>
+							<TextBlock Text="{Binding downloadManager.UnityDownloadingEpisode.Title}" Margin="10,5,10,0"/>
+							<TextBlock Text="{Binding downloadManager.UnityDownloadingEpisode.EpisodeNumber, StringFormat={}Episode {0}}" Margin="10,0,10,5"/>
+						</StackPanel>
+
+						<ProgressBar Value="{Binding downloadManager.UnityDownloadPercentage}" />
+					</StackPanel>
+				</Grid>
+
+				<ItemsControl Margin="30,0,30,5"
+							  Items="{Binding downloadManager.QueueAnimeUnity}"
+							  Grid.Row="2">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Orientation="Vertical"
@@ -115,11 +172,11 @@
 
 								<StackPanel>
 									<StackPanel>
-										<TextBlock Text="Title" Margin="10,5,10,0"/>
-										<TextBlock Text="Episode 1" Margin="10,0,10,5"/>
+										<TextBlock Text="{Binding Title}" Margin="10,5,10,0"/>
+										<TextBlock Text="{Binding EpisodeNumber, StringFormat={}Episode {0}}" Margin="10,0,10,5"/>
 									</StackPanel>
-									
-									<ProgressBar Value="50" />
+
+									<ProgressBar Value="0" />
 								</StackPanel>
 							</Grid>
 						</DataTemplate>

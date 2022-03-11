@@ -6,20 +6,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
+using Tengu.Interfaces;
 
 namespace Tengu.ViewModels
 {
     public class AnimeModelDialogViewModel : ReactiveObject
     {
         private readonly ITenguApi tenguApi;
+        private readonly IDownloadManager downloadManager;
 
         private AvaloniaList<EpisodeModel> episodesList = new();
         private bool loading;
 
         public AnimeModel AnimeData { get; private set; }
         public Hosts Host { get; private set; }
+        public ICommand DownloadEpisodeCommand { get; private set; }
         public AvaloniaList<EpisodeModel> EpisodesList
         {
             get => episodesList;
@@ -34,6 +38,9 @@ namespace Tengu.ViewModels
         public AnimeModelDialogViewModel(AnimeModel anime, Hosts currentHost) : base()
         {
             tenguApi = Locator.Current.GetService<ITenguApi>();
+            downloadManager = Locator.Current.GetService<IDownloadManager>();
+
+            DownloadEpisodeCommand = ReactiveCommand.Create<EpisodeModel>(DownloadEpisode);
 
             AnimeData = anime;
             Host = currentHost;
@@ -41,6 +48,14 @@ namespace Tengu.ViewModels
             Task.Run(() => LoadEpisodes());
         }
         public AnimeModelDialogViewModel() { }
+
+        private void DownloadEpisode(EpisodeModel episode)
+        {
+            if(episode != null)
+            {
+                downloadManager.EnqueueAnime(episode);
+            }
+        }
 
         private async Task LoadEpisodes()
         {
