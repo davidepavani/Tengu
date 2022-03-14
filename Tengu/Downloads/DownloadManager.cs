@@ -41,20 +41,12 @@ namespace Tengu.Downloads
         public AvaloniaList<DownloadModel> QueueAnimeSaturn
         {
             get => queueAnimeSaturn;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref queueAnimeSaturn, value);
-                SaturnDownloadCount = QueueAnimeSaturn.Count;
-            }
+            set => this.RaiseAndSetIfChanged(ref queueAnimeSaturn, value);
         }
         public AvaloniaList<DownloadModel> QueueAnimeUnity
         {
             get => queueAnimeUnity;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref queueAnimeUnity, value);
-                UnityDownloadCount = QueueAnimeUnity.Count;
-            }
+            set => this.RaiseAndSetIfChanged(ref queueAnimeUnity, value);
         }
         public int UnityDownloadCount
         {
@@ -110,12 +102,16 @@ namespace Tengu.Downloads
                     {
                         log.Info($"[Saturn] Dequeued Anime: {episode.Episode.Title}");
                         QueueAnimeSaturn.Remove(episode);
+
+                        SaturnDownloadCount = QueueAnimeSaturn.Count;
                     }
 
                     if (episode.Episode.Host == Hosts.AnimeUnity)
                     {
                         log.Info($"[Unity] Dequeued Anime: {episode.Episode.Title}");
                         queueAnimeUnity.Remove(episode);
+
+                        UnityDownloadCount = QueueAnimeUnity.Count;
                     }
                 }
             }
@@ -129,6 +125,7 @@ namespace Tengu.Downloads
                     QueueAnimeSaturn.Add(new(episode));
 
                     log.Info($"[Saturn] Enqueued {episode.Title}");
+                    SaturnDownloadCount = QueueAnimeSaturn.Count;
 
                     if (!SaturnDownloading)
                     {
@@ -141,6 +138,7 @@ namespace Tengu.Downloads
                     QueueAnimeUnity.Add(new(episode));
 
                     log.Info($"[Unity] Enqueued {episode.Title}");
+                   UnityDownloadCount = QueueAnimeUnity.Count;
 
                     if (!UnityDownloading)
                     {
@@ -161,6 +159,8 @@ namespace Tengu.Downloads
 
             while (QueueAnimeSaturn.Count != 0)
             {
+                SaturnDownloadCount = QueueAnimeSaturn.Count;
+
                 DownloadModel episode = QueueAnimeSaturn[0];
 
                 log.Info($"[Saturn] Initializing Download: {episode.Episode.Title}");
@@ -203,6 +203,7 @@ namespace Tengu.Downloads
             }
 
             SaturnDownloading = false;
+            SaturnDownloadCount = 0;
 
             log.Trace($"[Saturn] Queue Completed");
         }
@@ -213,6 +214,8 @@ namespace Tengu.Downloads
 
             while (QueueAnimeUnity.Count != 0)
             {
+                UnityDownloadCount = QueueAnimeUnity.Count;
+
                 DownloadModel episode = QueueAnimeUnity[0];
 
                 log.Info($"[Unity] Initializing Download: {episode.Episode.Title}");
@@ -255,6 +258,7 @@ namespace Tengu.Downloads
             }
 
             UnityDownloading = false;
+            UnityDownloadCount = 0;
 
             log.Trace($"[Unity] Queue Completed");
         }
