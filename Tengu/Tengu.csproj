@@ -25,4 +25,9 @@
     <PackageReference Include="Paginator.Avalonia" Version="1.0.0" />
     <PackageReference Include="Tengu.Business.Api" Version="1.0.9" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
