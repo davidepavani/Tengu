@@ -69,15 +69,30 @@
 
 								<StackPanel>
 									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition />
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+										
 										<StackPanel>
 											<TextBlock Text="{Binding Episode.Title}" Margin="10,5,10,0"/>
 											<TextBlock Text="{Binding Episode.EpisodeNumber, StringFormat={}Episode {0}}" Margin="10,0,10,5"/>
 										</StackPanel>
 
-										<TextBlock Text="{Binding DownloadPercentage, StringFormat={}{0}%}" 
-												   HorizontalAlignment="Right"
-												   VerticalAlignment="Bottom"
-												   Margin="0,0,5,0"/>
+										<Grid Grid.Column="1">
+											<TextBlock Text="{Binding DownloadPercentage, StringFormat={}{0}%}" 
+													   HorizontalAlignment="Right"
+													   VerticalAlignment="Bottom"
+													   Margin="0,0,5,0"/>
+
+											<Button HorizontalAlignment="Right"
+													VerticalAlignment="Top"
+													Command="{Binding $parent[ItemsControl].DataContext.CancelDownloadCommand}"
+													CommandParameter="{Binding}"
+													Padding="0" Classes="Flat">
+												<avalonia:MaterialIcon Kind="Remove" />
+											</Button>
+										</Grid>
 									</Grid>
 
 									<ProgressBar Value="{Binding DownloadPercentage}"/>
@@ -138,15 +153,30 @@
 
 								<StackPanel>
 									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition />
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+
 										<StackPanel>
 											<TextBlock Text="{Binding Episode.Title}" Margin="10,5,10,0"/>
 											<TextBlock Text="{Binding Episode.EpisodeNumber, StringFormat={}Episode {0}}" Margin="10,0,10,5"/>
 										</StackPanel>
 
-										<TextBlock Text="{Binding DownloadPercentage, StringFormat={}{0}%}"
-												   HorizontalAlignment="Right"
-												   VerticalAlignment="Bottom"
-												   Margin="0,0,5,0"/>
+										<Grid Grid.Column="1">
+											<TextBlock Text="{Binding DownloadPercentage, StringFormat={}{0}%}"
+													   HorizontalAlignment="Right"
+													   VerticalAlignment="Bottom"
+													   Margin="0,0,5,0"/>
+
+											<Button HorizontalAlignment="Right"
+													VerticalAlignment="Top"
+													Command="{Binding $parent[ItemsControl].DataContext.CancelDownloadCommand}"
+													CommandParameter="{Binding}"
+													Padding="0" Classes="Flat">
+												<avalonia:MaterialIcon Kind="Remove" />
+											</Button>
+										</Grid>
 									</Grid>
 
 									<ProgressBar Value="{Binding DownloadPercentage}"/>

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
@@ -26,6 +27,9 @@ namespace Tengu.Downloads
 
         private AvaloniaList<DownloadModel> queueAnimeSaturn = new();
         private AvaloniaList<DownloadModel> queueAnimeUnity = new();
+
+        private CancellationTokenSource saturnTokenSource;
+        private CancellationTokenSource unityTokenSource;
 
         private int saturnDownloadCount = 0;
         private int unityDownloadCount = 0;
@@ -77,6 +81,46 @@ namespace Tengu.Downloads
         public DownloadManager()
         { }
 
+        public void DequeueAnime(DownloadModel episode)
+        {
+            if(episode != null)
+            {
+                log.Info($"Dequeue Anime: {episode.Episode.Title} | {episode.Episode.Host}");
+
+                if(episode.DownloadInfo != null && episode.DownloadStatus.Equals(DownloadStatuses.Downloading))
+                {
+                    if (episode.Episode.Host == Hosts.AnimeSaturn && 
+                        saturnTokenSource != null)
+                    {
+                        log.Info($"Episode is downloading: used CancellationToken! {episode.Episode.Title} | {episode.Episode.Host}");
+                        saturnTokenSource.Cancel();
+                        return;
+                    }
+                    else if (episode.Episode.Host == Hosts.AnimeUnity &&
+                        unityTokenSource != null)
+                    {
+                        log.Info($"Episode is downloading: used CancellationToken! {episode.Episode.Title} | {episode.Episode.Host}");
+                        unityTokenSource.Cancel();
+                        return;
+                    }
+                }
+                else
+                {
+                    if (episode.Episode.Host == Hosts.AnimeSaturn)
+                    {
+                        log.Info($"[Saturn] Dequeued Anime: {episode.Episode.Title}");
+                        QueueAnimeSaturn.Remove(episode);
+                    }
+
+                    if (episode.Episode.Host == Hosts.AnimeUnity)
+                    {
+                        log.Info($"[Unity] Dequeued Anime: {episode.Episode.Title}");
+                        queueAnimeUnity.Remove(episode);
+                    }
+                }
+            }
+        }
+
         public void EnqueueAnime(EpisodeModel episode)
         {
             switch (episode.Host)
@@ -121,9 +165,11 @@ namespace Tengu.Downloads
 
                 log.Info($"[Saturn] Initializing Download: {episode.Episode.Title}");
 
+                saturnTokenSource = new();
+
                 try
                 {
-                    episode.DownloadInfo = TenguApi.DownloadAsync(episode.Episode.DownloadUrl, episode.Episode.Host);
+                    episode.DownloadInfo = TenguApi.DownloadAsync(episode.Episode.DownloadUrl, episode.Episode.Host, saturnTokenSource.Token);
 
                     while (episode.DownloadInfo.Status == DownloadStatuses.Downloading)
                     {
@@ -151,6 +197,8 @@ namespace Tengu.Downloads
                     // History
 
                     episode = null;
+                    saturnTokenSource.Dispose();
+                    saturnTokenSource = null;
                 }
             }
 
@@ -169,9 +217,11 @@ namespace Tengu.Downloads
 
                 log.Info($"[Unity] Initializing Download: {episode.Episode.Title}");
 
+                unityTokenSource = new();
+
                 try
                 {
-                    episode.DownloadInfo = TenguApi.DownloadAsync(episode.Episode.DownloadUrl, episode.Episode.Host);
+                    episode.DownloadInfo = TenguApi.DownloadAsync(episode.Episode.DownloadUrl, episode.Episode.Host, unityTokenSource.Token);
 
                     while (episode.DownloadInfo.Status == DownloadStatuses.Downloading)
                     {
@@ -199,6 +249,8 @@ namespace Tengu.Downloads
                     // History
                     
                     episode = null;
+                    unityTokenSource.Dispose();
+                    unityTokenSource = null;
                 }
             }
 
