@@ -3,12 +3,14 @@ using Material.Styles.Themes;
 using Material.Styles.Themes.Base;
 using NLog;
 using ReactiveUI;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
+using Tengu.Interfaces;
 using Tengu.Logging;
 
 namespace Tengu.ViewModels
@@ -16,6 +18,7 @@ namespace Tengu.ViewModels
     public class HomePageViewModel : ReactiveObject
     {
         private readonly Logger log = LogManager.GetLogger(Loggers.HomeLoggerName);
+        private readonly IProgramConfiguration Configuration;
 
         private readonly MaterialTheme MaterialThemeStyles =
             Application.Current!.LocateMaterialTheme<MaterialTheme>();
@@ -30,18 +33,25 @@ namespace Tengu.ViewModels
             SetDarkModeCommand = ReactiveCommand.Create(UseMaterialUIDarkTheme);
             SetLightModeCommand = ReactiveCommand.Create(UseMaterialUILightTheme);
 
+            Configuration = Locator.Current.GetService<IProgramConfiguration>();
+
             OpenProjectLinkCommand = ReactiveCommand.Create<string>(OpenGitHubProject);
 
             Description = "Easy, Intuitive and cross-platform Application for everything related to Animes.\n";
             Description += "Download Episodes, search, and stay up to date!\n";
             Description += "With a solid (and definitely not broken) Backend <3\n";
             Description += "Developed by two poor people with no experience.";
+
+            if(!Configuration.IsDarkMode)
+                MaterialThemeStyles.BaseTheme = BaseThemeMode.Light;
         }
 
         public void UseMaterialUIDarkTheme()
         {
             log.Trace("Setted DarkMode");
             MaterialThemeStyles.BaseTheme = BaseThemeMode.Dark;
+
+            Configuration.IsDarkMode = true;
         }
 
         public void UseMaterialUILightTheme()
@@ -49,7 +59,7 @@ namespace Tengu.ViewModels
             log.Trace("Setted LightMode");
             MaterialThemeStyles.BaseTheme = BaseThemeMode.Light;
 
-            
+            Configuration.IsDarkMode = false;
         }
 
         public void OpenGitHubProject(string project)

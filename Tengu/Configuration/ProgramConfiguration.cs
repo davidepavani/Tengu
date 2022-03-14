@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using NLog;
 using Tengu.Logging;
+using Tengu.Business.Commons;
 
 namespace Tengu.Configuration
 {
@@ -18,6 +19,7 @@ namespace Tengu.Configuration
 
         #region Properties
         public bool IsDarkMode { get; set; }
+        public Hosts LatestHostSelected { get; set; }
         #endregion
 
         #region Constructor
@@ -86,6 +88,7 @@ namespace Tengu.Configuration
             ConfigFileName ??= GetFilePath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tengu.json"));
 
             IsDarkMode = true;
+            LatestHostSelected = Hosts.AnimeSaturn;
         }
     }
 }

@@ -4,10 +4,12 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using Tengu.ViewModels;
 
 namespace Tengu.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         public static Window WindowInstance { get; private set; }
 
@@ -23,6 +25,13 @@ namespace Tengu.Views
             this.AttachDevTools();
 #endif
             WindowInstance = this;
+
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ViewModel.SaveConfiguration();
         }
 
         private void InitializeComponent()

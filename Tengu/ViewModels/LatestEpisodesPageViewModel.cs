@@ -21,6 +21,7 @@ namespace Tengu.ViewModels
     public class LatestEpisodesPageViewModel : ReactiveObject
     {
         private readonly Logger log = LogManager.GetLogger(Loggers.LatestLoggerName);
+        private readonly IProgramConfiguration Configuration;
 
         private readonly ITenguApi tenguApi;
         private readonly IDownloadManager downloadManager;
@@ -73,6 +74,7 @@ namespace Tengu.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref selectedHost, value);
 
+                Configuration.LatestHostSelected = value;
                 Initialize(value);
             }
         }
@@ -90,6 +92,8 @@ namespace Tengu.ViewModels
 
         public LatestEpisodesPageViewModel()
         {
+            Configuration = Locator.Current.GetService<IProgramConfiguration>();
+
             HostList = new();
             HostList.Add(Hosts.AnimeSaturn);
             HostList.Add(Hosts.AnimeUnity);
@@ -104,6 +108,8 @@ namespace Tengu.ViewModels
 
             OpenAnimeCardCommand = ReactiveCommand.CreateFromTask<EpisodeModel>(OpenAnimeDialog);
             DownloadEpisodeCommand = ReactiveCommand.Create<EpisodeModel>(DownloadEpisode);
+
+            SelectedHost = Configuration.LatestHostSelected;
 
             Initialize(SelectedHost);
         }
