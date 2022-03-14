@@ -5,16 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia.Collections;
+using NLog;
 using ReactiveUI;
 using Splat;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Enums;
+using Tengu.Logging;
 
 namespace Tengu.ViewModels
 {
     public class UpcomingPageViewModel : ReactiveObject
     {
+        private readonly Logger log = LogManager.GetLogger(Loggers.UpcomingLoggerName);
+
         private readonly ITenguApi tenguApi;
         
         private AvaloniaList<KitsuAnimeModel> animeList = new();
@@ -83,6 +87,8 @@ namespace Tengu.ViewModels
                 CurrentPage -= 1;
                 offset -= 10;
 
+                log.Trace($"Prev page >> {CurrentPage}");
+
                 _ = LoadAnimes(currentAction);
             }
         }
@@ -93,6 +99,8 @@ namespace Tengu.ViewModels
                 CurrentPage += 1;
                 offset += 10;
 
+                log.Trace($"Next page >> {CurrentPage}");
+
                 _ = LoadAnimes(currentAction);
             }
         }
@@ -101,6 +109,9 @@ namespace Tengu.ViewModels
         {
             Clear();
 
+            log.Info("Searching Animes..");
+            log.Info($"Anime Title: {AnimeTitle}");
+
             currentAction = KitsuAction.Search;
             _ = LoadAnimes(KitsuAction.Search);
         }
@@ -108,6 +119,8 @@ namespace Tengu.ViewModels
         {
             Clear();
 
+            log.Info("Getting Upcoming..");
+            
             currentAction = KitsuAction.Upcoming;
             _ = LoadAnimes(KitsuAction.Upcoming);
         }
@@ -122,16 +135,22 @@ namespace Tengu.ViewModels
                 AnimeList.Add(anime);
             }
 
+            log.Info($"Animes found: {AnimeList.Count}");
+
             CanPrev = !CurrentPage.Equals(0) && AnimeList.Count > 0;
             CanNext = AnimeList.Count > 0 && AnimeList.Count == 10;
 
             LoadingAnimes = false;
+
+            log.Info($"{kitsu} ended!");
         }
 
         private async Task<KitsuAnimeModel[]> ExecuteSearch(KitsuAction kitsu)
         {
             try
             {
+                log.Info($"{kitsu} Offset: {offset}");
+
                 return kitsu switch
                 {
                     KitsuAction.Search => await tenguApi.KitsuSearchAnimeAsync(AnimeTitle, offset, offset + 10),
@@ -141,6 +160,7 @@ namespace Tengu.ViewModels
             catch(Exception ex)
             {
                 // logging
+                log.Error(ex, $"{kitsu} Exception");
                 return Array.Empty<KitsuAnimeModel>(); 
             }
         }

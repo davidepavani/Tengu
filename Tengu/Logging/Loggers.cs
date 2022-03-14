@@ -14,5 +14,6 @@ namespace Tengu.Logging
         public const string HomeLoggerName = "Home";
         public const string LatestLoggerName = "Latest";
         public const string SearchLoggerName = "Search";
+        public const string UpcomingLoggerName = "Upcoming";
     }
 }
