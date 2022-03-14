@@ -48,6 +48,8 @@ namespace Tengu.ViewModels
         {
             log.Trace("Setted LightMode");
             MaterialThemeStyles.BaseTheme = BaseThemeMode.Light;
+
+            
         }
 
         public void OpenGitHubProject(string project)
