@@ -10,6 +10,6 @@ namespace Tengu.Logging
     {
         public const string DownloadLoggerName = "DownloadManager";
         public const string AnimeModelLoggerName = "AnimeModelDialog";
-        public const string CalendarLoggerName = "AnimeModelDialog";
+        public const string CalendarLoggerName = "Calendar";
     }
 }

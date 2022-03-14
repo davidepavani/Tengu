@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Collections;
+using NLog;
 using ReactiveUI;
 using Splat;
 using System;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Extensions;
+using Tengu.Logging;
 using Tengu.Models;
 using Tengu.Utilities;
 
@@ -18,6 +20,8 @@ namespace Tengu.ViewModels
 {
     public class CalendarPageViewModel : ReactiveObject
     {
+        private readonly Logger log = LogManager.GetLogger(Loggers.CalendarLoggerName);
+
         private readonly ITenguApi tenguApi;
 
         private bool loading = false;
@@ -65,6 +69,8 @@ namespace Tengu.ViewModels
             {
                 Loading = true;
 
+                log.Info($"Loading Calendar: {Host}");
+
                 try
                 {
                     tenguApi.CurrentHosts = new Hosts[] { Enum.Parse<Hosts>(Host) };
@@ -75,11 +81,12 @@ namespace Tengu.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    // logging
+                    log.Error(ex, $"Loading Calendar Exception: {Host}");
                 }
                 finally
                 {
                     Loading = false;
+                    log.Info($"Calendar Loaded: {Host}");
                 }
             }
         }
@@ -89,6 +96,8 @@ namespace Tengu.ViewModels
             if (null != calendar)
             {
                 Loading = true;
+
+                log.Info($"Changing day: {day}");
 
                 try
                 {
@@ -109,10 +118,11 @@ namespace Tengu.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    // logging
+                    log.Error(ex, $"Changing day exception: {day}");
                 }
                 finally
                 {
+                    log.Info($"Day Changed: {day} >> {AnimeList.Count} Animes");
                     Loading = false;
                 }
             }
