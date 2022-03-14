@@ -3,6 +3,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Tengu.Views.SettingsPage">
-  Welcome to Avalonia!
+             x:Class="Tengu.Views.SettingsPage"
+			 xmlns:vm="using:Tengu.ViewModels"
+			 xmlns:pag="clr-namespace:Paginator.Avalonia.View;assembly=Paginator.Avalonia"
+			 xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+			 xmlns:styles="using:Material.Styles"
+			 xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles">
+	<UserControl.DataContext>
+		<vm:SettingsPageViewModel />
+	</UserControl.DataContext>
+	<Panel Margin="40">
+		<styles:Card HorizontalAlignment="Center"
+					 VerticalAlignment="Center">
+			<TabControl>
+				<TabItem Header="Download">
+					<StackPanel Margin="20"
+								Spacing="10">
+						<TextBox UseFloatingWatermark="True" Classes="Outline"
+									 Width="400"
+									assist:TextFieldAssist.Label="Download Folder"
+									assist:TextFieldAssist.Hints="{Binding DefaultFolder, StringFormat={}Default folder: {0}}"/>
+
+						<Button Content="Change Folder"
+								Classes="Flat Accent"
+								HorizontalAlignment="Center">
+					
+						</Button>
+					</StackPanel>
+				</TabItem>
+
+				<TabItem Header="Various">
+					
+				</TabItem>
+			</TabControl>
+		</styles:Card>
+	</Panel>
 </UserControl>

@@ -24,6 +24,7 @@ namespace Tengu.Downloads
         private readonly Logger log = LogManager.GetLogger(Loggers.DownloadLoggerName);
 
         private static ITenguApi TenguApi => Locator.Current.GetService<ITenguApi>();
+        private static IProgramConfiguration Configuration => Locator.Current.GetService<IProgramConfiguration>();
 
         private AvaloniaList<DownloadModel> queueAnimeSaturn = new();
         private AvaloniaList<DownloadModel> queueAnimeUnity = new();
@@ -70,8 +71,7 @@ namespace Tengu.Downloads
         }
         #endregion
 
-        public DownloadManager()
-        { }
+        public DownloadManager() { }
 
         public void DequeueAnime(DownloadModel episode)
         {

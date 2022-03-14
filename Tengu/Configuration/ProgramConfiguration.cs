@@ -20,6 +20,7 @@ namespace Tengu.Configuration
         #region Properties
         public bool IsDarkMode { get; set; }
         public Hosts LatestHostSelected { get; set; }
+        public string DownloadDirectory { get; set; }
         #endregion
 
         #region Constructor
@@ -89,6 +90,8 @@ namespace Tengu.Configuration
 
             IsDarkMode = true;
             LatestHostSelected = Hosts.AnimeSaturn;
+
+            DownloadDirectory = string.Empty;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Tengu.Interfaces
     {
         bool IsDarkMode { get; set; }
         Hosts LatestHostSelected { get; set; }
+        string DownloadDirectory { get; set; }
         bool Save();
     }
 }

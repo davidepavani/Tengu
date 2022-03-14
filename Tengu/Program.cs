@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using NLog;
 using Splat;
 using System;
+using Tengu.Configuration;
 using Tengu.Downloads;
 using Tengu.Interfaces;
 using Tengu.Utilities;
@@ -25,6 +26,9 @@ namespace Tengu
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
         {
+            ProgramConfiguration.Load(out ProgramConfiguration configuration);
+            Locator.CurrentMutable.RegisterConstant(configuration, typeof(IProgramConfiguration));
+
             Locator.CurrentMutable.RegisterConstant(new DownloadManager(), typeof(IDownloadManager));
 
             return AppBuilder.Configure<App>()
