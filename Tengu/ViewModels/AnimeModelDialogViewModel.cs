@@ -1,4 +1,5 @@
 ﻿using Avalonia.Collections;
+using NLog;
 using ReactiveUI;
 using Splat;
 using System;
@@ -10,11 +11,14 @@ using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Interfaces;
+using Tengu.Logging;
 
 namespace Tengu.ViewModels
 {
     public class AnimeModelDialogViewModel : ReactiveObject
     {
+        private readonly Logger log = LogManager.GetLogger(Loggers.AnimeModelLoggerName);
+
         private readonly ITenguApi tenguApi;
         private readonly IDownloadManager downloadManager;
 
@@ -37,6 +41,8 @@ namespace Tengu.ViewModels
 
         public AnimeModelDialogViewModel(AnimeModel anime, Hosts currentHost) : base()
         {
+            log.Trace($"Anime Model dialog opening");
+
             tenguApi = Locator.Current.GetService<ITenguApi>();
             downloadManager = Locator.Current.GetService<IDownloadManager>();
 
@@ -53,6 +59,7 @@ namespace Tengu.ViewModels
         {
             if(episode != null)
             {
+                log.Info($"Enqueued {episode.Title} >> {episode.Host}");
                 downloadManager.EnqueueAnime(episode);
             }
         }
@@ -63,20 +70,27 @@ namespace Tengu.ViewModels
 
             EpisodesList.Clear();
 
+            log.Debug($"Loading episodes started: {AnimeData.Title}");
+
             try
             {
                 foreach(EpisodeModel ep in await tenguApi.GetEpisodesAsync(AnimeData.Id, Host))
                 {
                     EpisodesList.Add(ep);
                 }
+
+                log.Trace($"Episodes Loaded: {EpisodesList.Count}");
             }
             catch(Exception ex)
             {
                 // Logging ..
+                log.Error(ex, $"Load Episodes Exteption: {AnimeData.Title}");
             }
             finally
             {
                 Loading = false;
+
+                log.Debug($"Loading episodes ended");
             }
         }
     }

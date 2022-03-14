@@ -9,5 +9,7 @@ namespace Tengu.Logging
     public class Loggers
     {
         public const string DownloadLoggerName = "DownloadManager";
+        public const string AnimeModelLoggerName = "AnimeModelDialog";
+        public const string CalendarLoggerName = "AnimeModelDialog";
     }
 }
