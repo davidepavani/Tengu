@@ -1,4 +1,5 @@
 ﻿using Avalonia.Collections;
+using NLog;
 using ReactiveUI;
 using Splat;
 using System;
@@ -12,12 +13,15 @@ using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Extensions;
 using Tengu.Interfaces;
+using Tengu.Logging;
 using Tengu.Utilities;
 
 namespace Tengu.ViewModels
 {
     public class LatestEpisodesPageViewModel : ReactiveObject
     {
+        private readonly Logger log = LogManager.GetLogger(Loggers.LatestLoggerName);
+
         private readonly ITenguApi tenguApi;
         private readonly IDownloadManager downloadManager;
 
@@ -106,7 +110,11 @@ namespace Tengu.ViewModels
 
         private void DownloadEpisode(EpisodeModel episode)
         {
-            downloadManager.EnqueueAnime(episode);
+            if(episode != null)
+            {
+                log.Info($"Enqueued {episode.Title} >> {episode.Host}");
+                downloadManager.EnqueueAnime(episode);
+            }
         }
 
         private async Task OpenAnimeDialog(EpisodeModel episode)
@@ -115,12 +123,14 @@ namespace Tengu.ViewModels
             {
                 try
                 {
+                    log.Info($"Opening Anime Card {episode.Title} >> {episode.Host}");
+
                     AnimeModel anime = (await tenguApi.SearchAnimeAsync(episode.Title, 1))[0];
-                   var res = await ShowAnimeModelDialog.Handle(new AnimeModelDialogViewModel(anime, SelectedHost));
+                    var res = await ShowAnimeModelDialog.Handle(new AnimeModelDialogViewModel(anime, SelectedHost));
                 }
                 catch (Exception ex)
                 {
-                    // logging
+                    log.Error(ex, $"Opening Anime Card Exception >> {episode.Title} | {episode.Host}");
                 }
             }
         }
@@ -132,6 +142,8 @@ namespace Tengu.ViewModels
                 CurrentPage -= 1;
                 offset -= 10;
 
+                log.Trace($"Prev page >> {CurrentPage}");
+
                 _ = LoadAnimes();
             }
         }
@@ -139,6 +151,8 @@ namespace Tengu.ViewModels
         {
             CurrentPage += 1;
             offset += 10;
+
+            log.Trace($"Next page >> {CurrentPage}");
 
             _ = LoadAnimes();
         }
@@ -160,10 +174,14 @@ namespace Tengu.ViewModels
             LoadingAnimes = true;
             EpisodeList.Clear();
 
+            log.Trace($"Loading animes..");
+
             foreach (EpisodeModel episode in await tenguApi.GetLatestEpisodeAsync(offset, offset + 10))
             {
                 EpisodeList.Add(episode);
             }
+
+            log.Trace($"Loaded animes >> Episodes: {EpisodeList.Count}, Offset: {offset}");
 
             CanPrev = !CurrentPage.Equals(0) && EpisodeList.Count > 0;
             LoadingAnimes = false;

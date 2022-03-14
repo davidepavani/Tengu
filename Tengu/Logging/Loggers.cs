@@ -12,5 +12,6 @@ namespace Tengu.Logging
         public const string AnimeModelLoggerName = "AnimeModelDialog";
         public const string CalendarLoggerName = "Calendar";
         public const string HomeLoggerName = "Home";
+        public const string LatestLoggerName = "Latest";
     }
 }
