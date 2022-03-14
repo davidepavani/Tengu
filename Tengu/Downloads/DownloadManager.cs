@@ -1,4 +1,5 @@
-﻿using Avalonia.Threading;
+﻿using Avalonia.Collections;
+using Avalonia.Threading;
 using Downla;
 using ReactiveUI;
 using Splat;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Interfaces;
+using Tengu.Models;
 using Tengu.Utilities;
 
 namespace Tengu.Downloads
@@ -18,13 +20,8 @@ namespace Tengu.Downloads
     {
         private static ITenguApi TenguApi => Locator.Current.GetService<ITenguApi>();
 
-        private CustomObservableCollection<EpisodeModel> queueAnimeSaturn = new();
-        private CustomObservableCollection<EpisodeModel> queueAnimeUnity = new();
-
-        private EpisodeModel saturnDownloadingEpisode;
-        private EpisodeModel unityDownloadingEpisode;
-        private int saturnDownloadPercentage = 0;
-        private int unityDownloadPercentage = 0;
+        private AvaloniaList<DownloadModel> queueAnimeSaturn = new();
+        private AvaloniaList<DownloadModel> queueAnimeUnity = new();
 
         private int saturnDownloadCount = 0;
         private int unityDownloadCount = 0;
@@ -33,45 +30,33 @@ namespace Tengu.Downloads
         private bool unityDownloading = false;
 
         #region Properties
-        public EpisodeModel SaturnDownloadingEpisode
-        {
-            get => saturnDownloadingEpisode;
-            set => this.RaiseAndSetIfChanged(ref saturnDownloadingEpisode, value);
-        }
-        public EpisodeModel UnityDownloadingEpisode
-        {
-            get => unityDownloadingEpisode;
-            set => this.RaiseAndSetIfChanged(ref unityDownloadingEpisode, value);
-        }
-        public CustomObservableCollection<EpisodeModel> QueueAnimeSaturn
+        public AvaloniaList<DownloadModel> QueueAnimeSaturn
         {
             get => queueAnimeSaturn;
-            set => this.RaiseAndSetIfChanged(ref queueAnimeSaturn, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref queueAnimeSaturn, value);
+                SaturnDownloadCount = QueueAnimeSaturn.Count;
+            }
         }
-        public CustomObservableCollection<EpisodeModel> QueueAnimeUnity
+        public AvaloniaList<DownloadModel> QueueAnimeUnity
         {
             get => queueAnimeUnity;
-            set => this.RaiseAndSetIfChanged(ref queueAnimeUnity, value);
-        }
-        public int SaturnDownloadPercentage
-        {
-            get => saturnDownloadPercentage;
-            set => this.RaiseAndSetIfChanged(ref saturnDownloadPercentage, value);
-        }
-        public int SaturnDownloadCount
-        {
-            get => saturnDownloadCount;
-            set => this.RaiseAndSetIfChanged(ref saturnDownloadCount, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref queueAnimeUnity, value);
+                UnityDownloadCount = QueueAnimeUnity.Count;
+            }
         }
         public int UnityDownloadCount
         {
             get => unityDownloadCount;
             set => this.RaiseAndSetIfChanged(ref unityDownloadCount, value);
         }
-        public int UnityDownloadPercentage
+        public int SaturnDownloadCount
         {
-            get => unityDownloadPercentage;
-            set => this.RaiseAndSetIfChanged(ref unityDownloadPercentage, value);
+            get => saturnDownloadCount;
+            set => this.RaiseAndSetIfChanged(ref saturnDownloadCount, value);
         }
         public bool SaturnDownloading
         {
@@ -93,16 +78,14 @@ namespace Tengu.Downloads
             switch (episode.Host)
             {
                 case Hosts.AnimeSaturn:
-                    QueueAnimeSaturn.Add(episode);
-                    SaturnDownloadCount = QueueAnimeSaturn.Count + (SaturnDownloadingEpisode != null ? 1 : 0);
+                    QueueAnimeSaturn.Add(new(episode));
 
                     if (!SaturnDownloading)
                         Task.Run(() => StartSaturnDownload());
                     break;
 
                 case Hosts.AnimeUnity:
-                    QueueAnimeUnity.Add(episode);
-                    UnityDownloadCount = QueueAnimeUnity.Count + (UnityDownloadingEpisode != null ? 1 : 0);
+                    QueueAnimeUnity.Add(new(episode));
 
                     if (!UnityDownloading)
                         Task.Run(() => StartUnityDownload());
@@ -120,26 +103,19 @@ namespace Tengu.Downloads
 
             while (QueueAnimeSaturn.Count != 0)
             {
+                DownloadModel episode = QueueAnimeSaturn[0];
+
                 try
                 {
-                    SaturnDownloadPercentage = 0;
+                    episode.DownloadInfo = TenguApi.DownloadAsync(episode.Episode.DownloadUrl, episode.Episode.Host);
 
-                    SaturnDownloadingEpisode = QueueAnimeSaturn[0];
-                    QueueAnimeSaturn.RemoveAt(0);
-
-                    DownloadInfosModel infos = TenguApi.DownloadAsync(SaturnDownloadingEpisode.DownloadUrl, SaturnDownloadingEpisode.Host);
-
-                    while (infos.Status != DownloadStatuses.Completed)
+                    while (episode.DownloadInfo.Status == DownloadStatuses.Downloading )
                     {
-                        if (infos.CurrentSize != 0 && infos.FileSize != 0)
-                            SaturnDownloadPercentage = (int)(infos.CurrentSize * 100 / infos.FileSize);
-
+                        if (episode.DownloadInfo.FileSize > episode.DownloadInfo.CurrentSize)
+                            episode.DownloadPercentage = (int)(episode.DownloadInfo.CurrentSize * 100 / episode.DownloadInfo.FileSize);
+                        
                         Task.Delay(50).Wait();
                     }
-
-                    // TODO => CLEAR
-                    // History ??
-                    infos = null;
                 }
                 catch (Exception ex)
                 {
@@ -147,10 +123,11 @@ namespace Tengu.Downloads
                 }
                 finally
                 {
-                    SaturnDownloadingEpisode = null;
-                }
+                    episode.DownloadStatus = episode.DownloadInfo.Status;
 
-                SaturnDownloadCount = QueueAnimeSaturn.Count + (SaturnDownloadingEpisode != null ? 1 : 0);
+                    QueueAnimeSaturn.Remove(episode);
+                    episode = null;
+                }
             }
 
             SaturnDownloading = false;
@@ -162,26 +139,19 @@ namespace Tengu.Downloads
 
             while (QueueAnimeUnity.Count != 0)
             {
+                DownloadModel episode = QueueAnimeUnity[0];
+
                 try
                 {
-                    UnityDownloadPercentage = 0;
+                    episode.DownloadInfo = TenguApi.DownloadAsync(episode.Episode.DownloadUrl, episode.Episode.Host);
 
-                    UnityDownloadingEpisode = QueueAnimeUnity[0];
-                    QueueAnimeUnity.RemoveAt(0);
-
-                    DownloadInfosModel infos = TenguApi.DownloadAsync(UnityDownloadingEpisode.DownloadUrl, UnityDownloadingEpisode.Host);
-
-                    while (infos.Status != DownloadStatuses.Completed)
+                    while (episode.DownloadInfo.Status == DownloadStatuses.Downloading)
                     {
-                        if (infos.CurrentSize != 0 && infos.FileSize != 0)
-                            UnityDownloadPercentage = (int)(infos.CurrentSize * 100 / infos.FileSize);
+                        if (episode.DownloadInfo.FileSize > episode.DownloadInfo.CurrentSize)
+                            episode.DownloadPercentage = (int)(episode.DownloadInfo.CurrentSize * 100 / episode.DownloadInfo.FileSize);
 
                         Task.Delay(50).Wait();
                     }
-
-                    // TODO => CLEAR
-                    // History ??
-                    infos = null;
                 }
                 catch (Exception ex)
                 {
@@ -189,10 +159,11 @@ namespace Tengu.Downloads
                 }
                 finally
                 {
-                    UnityDownloadingEpisode = null;
-                }
+                    episode.DownloadStatus = episode.DownloadInfo.Status;
 
-                UnityDownloadCount = QueueAnimeUnity.Count + (UnityDownloadingEpisode != null ? 1 : 0);
+                    QueueAnimeUnity.Remove(episode);
+                    episode = null;
+                }
             }
 
             UnityDownloading = false;
