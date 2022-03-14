@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Material.Styles.Themes;
 using Material.Styles.Themes.Base;
+using NLog;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,14 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
+using Tengu.Logging;
 
 namespace Tengu.ViewModels
 {
     public class HomePageViewModel : ReactiveObject
     {
+        private readonly Logger log = LogManager.GetLogger(Loggers.HomeLoggerName);
+
         private readonly MaterialTheme MaterialThemeStyles =
             Application.Current!.LocateMaterialTheme<MaterialTheme>();
 
@@ -35,10 +39,16 @@ namespace Tengu.ViewModels
         }
 
         public void UseMaterialUIDarkTheme()
-            => MaterialThemeStyles.BaseTheme = BaseThemeMode.Dark;
+        {
+            log.Trace("Setted DarkMode");
+            MaterialThemeStyles.BaseTheme = BaseThemeMode.Dark;
+        }
 
         public void UseMaterialUILightTheme()
-            => MaterialThemeStyles.BaseTheme = BaseThemeMode.Light;
+        {
+            log.Trace("Setted LightMode");
+            MaterialThemeStyles.BaseTheme = BaseThemeMode.Light;
+        }
 
         public void OpenGitHubProject(string project)
         {
@@ -48,29 +58,37 @@ namespace Tengu.ViewModels
                 _ => "https://github.com/Dugongoo/Tengu",
             };
 
+            log.Info($"Opening {project} GitHub Project link: {url}");
+
             try
             {
                 Process.Start(url);
             }
-            catch
+            catch(Exception ex)
             {
                 // hack because of this: https://github.com/dotnet/corefx/issues/10361
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     url = url.Replace("&", "^&");
                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+
+                    log.Info($"Opened Windows platform");
                 }
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
                     Process.Start("xdg-open", url);
+
+                    log.Info($"Opened Linux platform");
                 }
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 {
                     Process.Start("open", url);
+
+                    log.Info($"Opened OSX platform");
                 }
                 else
                 {
-                    // Logging
+                    log.Error(ex, $"Cannot open {project} GitHub Project link: {url}");
                 }
             }
         }
