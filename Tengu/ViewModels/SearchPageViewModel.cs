@@ -4,6 +4,7 @@ using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -30,8 +31,10 @@ namespace Tengu.ViewModels
         private int pageCount = 0;
 
         #region Properties
+        public Interaction<AnimeModelDialogViewModel, object> ShowAnimeModelDialog { get; }
         public ICommand PageChangedCommand { get; set; }
         public ICommand SearchCommand { get; private set; }
+        public ICommand OpenAnimeCardCommand { get; private set; }
         public List<Hosts> HostList { get; private set; }
         public List<GenresModel> GenresList { get; private set; }
         public List<Statuses> StatusesList { get; private set; }
@@ -86,6 +89,8 @@ namespace Tengu.ViewModels
             tenguApi = Locator.Current.GetService<ITenguApi>();
             GenresList = new();
 
+            ShowAnimeModelDialog = new();
+
             Task.Run(() =>
             {
                 HostList = EnumExtension.ToList<Hosts>();
@@ -98,7 +103,23 @@ namespace Tengu.ViewModels
                 });
             });
 
+            OpenAnimeCardCommand = ReactiveCommand.CreateFromTask<AnimeModel>(OpenAnimeDialog);
             SearchCommand = ReactiveCommand.Create(SearchAnimes);
+        }
+
+        private async Task OpenAnimeDialog(AnimeModel anime)
+        {
+            if (null != anime)
+            {
+                try
+                {
+                    var res = await ShowAnimeModelDialog.Handle(new AnimeModelDialogViewModel(anime, anime.Host));
+                }
+                catch (Exception ex)
+                {
+                    // logging
+                }
+            }
         }
 
         private async Task SearchAnimes()

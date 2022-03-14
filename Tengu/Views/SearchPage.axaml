@@ -46,6 +46,8 @@
 											 Height="212.6">
 									<Grid>
 										<Button Classes="Flat"
+												Command="{Binding $parent[ItemsControl].DataContext.OpenAnimeCardCommand}"
+												CommandParameter="{Binding}"
 												Padding="0">
 											<Button.Content>
 												<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
