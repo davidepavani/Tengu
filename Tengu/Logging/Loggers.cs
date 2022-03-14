@@ -13,5 +13,6 @@ namespace Tengu.Logging
         public const string CalendarLoggerName = "Calendar";
         public const string HomeLoggerName = "Home";
         public const string LatestLoggerName = "Latest";
+        public const string SearchLoggerName = "Search";
     }
 }

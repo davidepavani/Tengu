@@ -1,4 +1,5 @@
 ﻿using Avalonia.Collections;
+using NLog;
 using ReactiveUI;
 using Splat;
 using System;
@@ -11,12 +12,15 @@ using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Extensions;
+using Tengu.Logging;
 using Tengu.Models;
 
 namespace Tengu.ViewModels
 {
     public class SearchPageViewModel : ReactiveObject
     {
+        private readonly Logger log = LogManager.GetLogger(Loggers.SearchLoggerName);
+
         private readonly ITenguApi tenguApi;
 
         private Hosts selectedHost = Hosts.None;
@@ -113,11 +117,13 @@ namespace Tengu.ViewModels
             {
                 try
                 {
+                    log.Info($"Opening Anime Card {anime.Title} >> {anime.Host}");
+
                     var res = await ShowAnimeModelDialog.Handle(new AnimeModelDialogViewModel(anime, anime.Host));
                 }
                 catch (Exception ex)
                 {
-                    // logging
+                    log.Error(ex, $"Opening Anime Card Exception >> {anime.Title} | {anime.Host}");
                 }
             }
         }
@@ -128,11 +134,17 @@ namespace Tengu.ViewModels
 
             animes = Array.Empty<AnimeModel>();
 
+            log.Info("Search Animes started..");
+
             try
             {
                 tenguApi.CurrentHosts = SelectedHost.Equals(Hosts.None) ?
                     new Hosts[] { Hosts.AnimeUnity, Hosts.AnimeUnity } :
                        new Hosts[] { SelectedHost };
+
+                log.Info($"Host: {SelectedHost}");
+                log.Info($"Status: {SelectedStatus}");
+                log.Info($"Genres: {string.Join(',', GenresList.Where(x => x.IsChecked).Select(x => x.Genre).ToArray())}");
 
                 SearchFilter filter = new()
                 {
@@ -142,17 +154,21 @@ namespace Tengu.ViewModels
 
                 animes = await tenguApi.SearchAnimeAsync(AnimeTitle, filter);
 
+                log.Info($"Total Animes found: {animes.Length}");
+
                 PageCount = animes.Length / 8;
                 PaginationVisible = PageCount > 1;
                 CurrentPage = 0;
             }
             catch(Exception ex)
             {
-                // logging
+                log.Error(ex, $"Search Animes Exception");
             }
             finally
             {
                 Searching = false;
+
+                log.Info("Search Ended!");
             }
         }
 
