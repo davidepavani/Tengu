@@ -19,6 +19,7 @@ namespace Tengu.Interfaces
         int SaturnDownloadCount { get; set; }
         bool SaturnDownloading { get; set; }
         bool UnityDownloading { get; set; }
+        bool IsDownloading { get; set; }
 
         void DequeueAnime(DownloadModel episode);
         void EnqueueAnime(EpisodeModel episode);

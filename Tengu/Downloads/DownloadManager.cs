@@ -24,7 +24,6 @@ namespace Tengu.Downloads
         private readonly Logger log = LogManager.GetLogger(Loggers.DownloadLoggerName);
 
         private static ITenguApi TenguApi => Locator.Current.GetService<ITenguApi>();
-        private static IProgramConfiguration Configuration => Locator.Current.GetService<IProgramConfiguration>();
 
         private AvaloniaList<DownloadModel> queueAnimeSaturn = new();
         private AvaloniaList<DownloadModel> queueAnimeUnity = new();
@@ -37,6 +36,7 @@ namespace Tengu.Downloads
 
         private bool saturnDownloading = false;
         private bool unityDownloading = false;
+        private bool isDownloading = false;
 
         #region Properties
         public AvaloniaList<DownloadModel> QueueAnimeSaturn
@@ -59,15 +59,28 @@ namespace Tengu.Downloads
             get => saturnDownloadCount;
             set => this.RaiseAndSetIfChanged(ref saturnDownloadCount, value);
         }
+        public bool IsDownloading
+        {
+            get => isDownloading;
+            set => this.RaiseAndSetIfChanged(ref isDownloading, value);
+        }
         public bool SaturnDownloading
         {
             get => saturnDownloading;
-            set => this.RaiseAndSetIfChanged(ref saturnDownloading, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref saturnDownloading, value);
+                IsDownloading = SaturnDownloading || UnityDownloading;
+            }
         }
         public bool UnityDownloading
         {
             get => unityDownloading;
-            set => this.RaiseAndSetIfChanged(ref unityDownloading, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref unityDownloading, value);
+                IsDownloading = SaturnDownloading || UnityDownloading;
+            }
         }
         #endregion
 

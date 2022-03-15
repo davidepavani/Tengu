@@ -16,27 +16,23 @@
 	<Panel Margin="40">
 		<styles:Card HorizontalAlignment="Center"
 					 VerticalAlignment="Center">
-			<TabControl>
-				<TabItem Header="Download">
-					<StackPanel Margin="20"
-								Spacing="10">
-						<TextBox UseFloatingWatermark="True" Classes="Outline"
-									 Width="400"
-									assist:TextFieldAssist.Label="Download Folder"
-									assist:TextFieldAssist.Hints="{Binding DefaultFolder, StringFormat={}Default folder: {0}}"/>
+			<StackPanel Margin="20"
+						IsEnabled="{Binding !downloadManager.IsDownloading}"
+						Spacing="10">
+				<TextBox UseFloatingWatermark="True" Classes="Outline"
+							 Width="400"
+						 IsReadOnly="True"
+						 Text="{Binding FolderPath}"
+							assist:TextFieldAssist.Label="Download Folder"
+							assist:TextFieldAssist.Hints="{Binding DefaultFolder, StringFormat={}Default folder: {0}}"/>
 
-						<Button Content="Change Folder"
-								Classes="Flat Accent"
-								HorizontalAlignment="Center">
-					
-						</Button>
-					</StackPanel>
-				</TabItem>
+				<Button Content="Change Folder"
+						IsEnabled="{Binding !DownloadManager.IsDownloading}"
+						Command="{Binding SelectFolderCommand}"
+						HorizontalAlignment="Center">
 
-				<TabItem Header="Various">
-					
-				</TabItem>
-			</TabControl>
+				</Button>
+			</StackPanel>
 		</styles:Card>
 	</Panel>
 </UserControl>
