@@ -14,6 +14,9 @@
 	<Panel Margin="40">
 		<ScrollViewer>
 			<StackPanel VerticalAlignment="Center">
+				<Image Source="/Assets/tengu_logo-C2.png" 
+					   Height="150" Width="150" Margin="0,0,0,20"
+					   RenderOptions.BitmapInterpolationMode="HighQuality"/>
 				<TextBlock Text="Tengu" 
 						   HorizontalAlignment="Center"
 						   FontSize="25"/>

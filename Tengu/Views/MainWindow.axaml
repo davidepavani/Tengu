@@ -23,7 +23,12 @@
 		</Grid.ColumnDefinitions>
 
 		<styles:Card Padding="0">
-			<StackPanel VerticalAlignment="Center">
+			<StackPanel>
+				<Image Source="/Assets/tengu_logo-C2-2.png"
+					   RenderOptions.BitmapInterpolationMode="HighQuality"
+					   Width="100"
+					   Margin="0,20,0,30"/>
+				
 				<ListBox Classes="Drawer"
 						 Name="DrawerList"
 						 Focusable="{Binding ElementName=LeftDrawer, Path=LeftDrawerOpened}">
