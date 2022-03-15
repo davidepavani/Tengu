@@ -20,6 +20,10 @@
 				<TextBlock Text="Tengu" 
 						   HorizontalAlignment="Center"
 						   FontSize="25"/>
+				<TextBlock Text="{Binding Version, StringFormat={}Version {0}}"
+						   TextAlignment="Center"
+						   HorizontalAlignment="Center"
+						   TextWrapping="Wrap"/>
 				<TextBlock Text="{Binding Description}"
 						   TextAlignment="Center"
 						   Margin="0,10,0,0"

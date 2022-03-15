@@ -24,6 +24,7 @@ namespace Tengu.ViewModels
             Application.Current!.LocateMaterialTheme<MaterialTheme>();
 
         public string Description { get; private set; }
+        public string Version { get; private set; }
         public ICommand OpenProjectLinkCommand { get; private set; }
         public ICommand SetDarkModeCommand { get; private set; }
         public ICommand SetLightModeCommand { get; private set; }
@@ -36,6 +37,8 @@ namespace Tengu.ViewModels
             Configuration = Locator.Current.GetService<IProgramConfiguration>();
 
             OpenProjectLinkCommand = ReactiveCommand.Create<string>(OpenGitHubProject);
+
+            Version = ProgramDetails.DisplayVersion;
 
             Description = "Easy, Intuitive and cross-platform Application for everything related to Animes.\n";
             Description += "Download Episodes, search, and stay up to date!\n";
