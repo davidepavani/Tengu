@@ -8,6 +8,7 @@
 		xmlns:local="using:Tengu.Views"
 		TransparencyLevelHint="AcrylicBlur"
 		ExtendClientAreaToDecorationsHint="True"
+		Icon="/Assets/tengu-icon.ico"
 		xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         x:Class="Tengu.Views.MainWindow"
         Title="Tengu">

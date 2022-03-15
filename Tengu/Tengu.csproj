@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<ApplicationIcon>Assets\tengu-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Deterministic>False</Deterministic>
@@ -16,8 +17,12 @@
     <None Remove=".gitignore" />
     <None Remove="Assets\kitsu.png" />
     <None Remove="Assets\logo_animated.gif" />
+    <None Remove="Assets\tengu-icon.ico" />
     <None Remove="Assets\tengu_logo-C2-2.png" />
     <None Remove="Assets\tengu_logo-C2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\tengu-icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AsyncImageLoader.Avalonia" Version="2.1.0" />
