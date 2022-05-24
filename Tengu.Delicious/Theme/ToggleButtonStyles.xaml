@@ -4,11 +4,12 @@
 	<Design.PreviewWith>
 		<Border Padding="20">
 			<!-- Add Controls for Previewer Here -->
-			<StackPanel Width="300"
-						Spacing="10">
-				<ToggleButton Content="Normal"/>
+			<StackPanel Spacing="10">
+				<ToggleButton Content="Normal" 
+							  Width="100"/>
 				<ToggleButton Content="Primary"
-							  Classes="Primary"/>
+							  Classes="Primary"
+							  Width="100"/>
 			</StackPanel>
 		</Border>
 	</Design.PreviewWith>
