@@ -21,6 +21,20 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Theme\TextBlockStyles.xaml" />
+      <None Remove="Theme\TextBoxStyles.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Avalonia" Version="0.10.14" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Update="Theme\TextBoxStyles.xaml">
+        <Generator></Generator>
+      </AvaloniaResource>
+      <AvaloniaResource Update="Theme\TextBlockStyles.xaml">
+        <Generator></Generator>
+      </AvaloniaResource>
     </ItemGroup>
 </Project>
