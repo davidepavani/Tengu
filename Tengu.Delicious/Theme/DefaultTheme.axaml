@@ -1,5 +1,0 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<StyleInclude Source="avares://Tengu.Delicious/Styles/Index.xaml"/>
-	<StyleInclude Source="avares://Tengu.Delicious/Palette/DefaultPalette.xaml"/>
-</Styles>

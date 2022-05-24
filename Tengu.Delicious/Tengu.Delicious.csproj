@@ -1,43 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFramework>netstandard2.0</TargetFramework>
-	  <IsPackable>true</IsPackable>
-	  <Authors>Davide Pavani</Authors>
-	  <Copyright>Copyright 2022 Davide Pavani</Copyright>
-	  <PackageProjectUrl>https://github.com/Dugongoo/Tengu</PackageProjectUrl>
-	  <PackageDescription>Multi-themed Avalonia UI library</PackageDescription>
-	  <Owners>Tengu</Owners>
-	  <PackageTags>avalonia;avaloniaui;tengu;ui;theme</PackageTags>
-	  <RepositoryUrl>https://github.com/Dugongoo/Tengu</RepositoryUrl>
-	  <RepositoryType>git</RepositoryType>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <IsPackable>true</IsPackable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <Authors>Davide Pavani</Authors>
+        <Copyright>Copyright (c) 2020 Artyom Gorchakov</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/worldbeater/citrus.avalonia</PackageProjectUrl>
+        <PackageDescription>Multi-Themed Avalonia UI libraruy based on Citrus</PackageDescription>
+        <Owners>Tengu</Owners>
+        <PackageTags>avalonia;avaloniaui;tenugu;ui;theme</PackageTags>
+        <RepositoryUrl>https://github.com/worldbeater/citrus.avalonia</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <AvaloniaXaml Remove="Styles\ButtonStyles.axaml" />
-    <AvaloniaXaml Remove="Theme\DefaultTheme.axaml" />
-  </ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="**\*.xaml" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Palette\DefaultPalette.xaml" />
-    <None Remove="Styles\Index.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Include="Palette\DefaultPalette.xaml">
-      <Generator></Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Include="Styles\ButtonStyles.axaml" />
-    <AvaloniaResource Include="Styles\Index.xaml">
-      <Generator></Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Include="Theme\DefaultTheme.axaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.14" />
-  </ItemGroup>
-
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="0.10.14" />
+    </ItemGroup>
 </Project>
