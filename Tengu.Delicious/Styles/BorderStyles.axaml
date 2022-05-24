@@ -1,0 +1,27 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+	<Style Selector="Border.Card">
+		<Setter Property="Padding" Value="10" />
+		<Setter Property="CornerRadius" Value="5" />
+		<Setter Property="BorderThickness" Value="2" />
+		<Setter Property="BorderBrush" Value="{DynamicResource ThemeCardBrush}" />
+		<Setter Property="Background" Value="{DynamicResource ThemeCardBrush}" />
+		<Setter Property="Margin" Value="7" />
+	</Style>
+
+	<Style Selector="Border.CardOver">
+		<Setter Property="Padding" Value="10" />
+		<Setter Property="CornerRadius" Value="5" />
+		<Setter Property="BorderThickness" Value="2" />
+		<Setter Property="BorderBrush" Value="{DynamicResource ThemeCardBrush}" />
+		<Setter Property="Background" Value="{DynamicResource ThemeCardBrush}" />
+		<Setter Property="Margin" Value="7" />
+		<Setter Property="BoxShadow" Value="8 8 1.5 1.5 Black" />
+	</Style>
+</Styles>

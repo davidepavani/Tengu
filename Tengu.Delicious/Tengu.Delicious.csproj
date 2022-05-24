@@ -1,27 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+	  <IsPackable>true</IsPackable>
+	  <Authors>Davide Pavani</Authors>
+	  <Copyright>Copyright 2022 Davide Pavani</Copyright>
+	  <PackageProjectUrl>https://github.com/Dugongoo/Tengu</PackageProjectUrl>
+	  <PackageDescription>Multi-themed Avalonia UI library</PackageDescription>
+	  <Owners>Tengu</Owners>
+	  <PackageTags>avalonia;avaloniaui;tengu;ui;theme</PackageTags>
+	  <RepositoryUrl>https://github.com/Dugongoo/Tengu</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <IsPackable>true</IsPackable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Remove="Styles\ButtonStyles.axaml" />
+    <AvaloniaXaml Remove="Theme\DefaultTheme.axaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Palette\DefaultPalette.xaml" />
     <None Remove="Styles\Index.xaml" />
-    <None Remove="Theme\DefaultTheme.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="Palette\DefaultPalette.xaml">
       <Generator></Generator>
     </AvaloniaResource>
+    <AvaloniaResource Include="Styles\ButtonStyles.axaml" />
     <AvaloniaResource Include="Styles\Index.xaml">
-      <Generator>MSBuild:Compile</Generator>
+      <Generator></Generator>
     </AvaloniaResource>
-    <AvaloniaResource Include="Theme\DefaultTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
+    <AvaloniaResource Include="Theme\DefaultTheme.axaml" />
   </ItemGroup>
 
   <ItemGroup>
