@@ -1,16 +1,7 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
-using Microsoft.Extensions.Logging;
-using NLog;
-using Splat;
 using System;
-using Tengu.Configuration;
-using Tengu.Downloads;
-using Tengu.Interfaces;
-using Tengu.Utilities;
-using Tengu.Views;
 
 namespace Tengu
 {
@@ -25,17 +16,9 @@ namespace Tengu
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
-        {
-            ProgramConfiguration.Load(out ProgramConfiguration configuration);
-            Locator.CurrentMutable.RegisterConstant(configuration, typeof(IProgramConfiguration));
-
-            Locator.CurrentMutable.RegisterConstant(new DownloadManager(), typeof(IDownloadManager));
-
-            return AppBuilder.Configure<App>()
-                .UseTenguApi()
+            => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI();
-        }
     }
 }

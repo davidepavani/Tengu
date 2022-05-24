@@ -4,90 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-		xmlns:styles="using:Material.Styles"
-		xmlns:local="using:Tengu.Views"
-		TransparencyLevelHint="AcrylicBlur"
-		ExtendClientAreaToDecorationsHint="True"
-		Icon="/Assets/tengu-icon.ico"
-		xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         x:Class="Tengu.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
         Title="Tengu">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="200"/>
-			<ColumnDefinition />
-		</Grid.ColumnDefinitions>
+	<StackPanel>
+		<Button Content="Test" />
+	</StackPanel>
 
-		<styles:Card Padding="0">
-			<StackPanel>
-				<Image Source="/Assets/tengu_logo-C2-2.png"
-					   RenderOptions.BitmapInterpolationMode="HighQuality"
-					   Width="100"
-					   Margin="0,20,0,30"/>
-				
-				<ListBox Classes="Drawer"
-						 Name="DrawerList"
-						 Focusable="{Binding ElementName=LeftDrawer, Path=LeftDrawerOpened}">
-					<ListBox.Styles>
-						<Style Selector="ListBoxItem">
-							<Setter Property="Height" Value="48" />
-							<Setter Property="Padding" Value="16,0" />
-							<Setter Property="VerticalContentAlignment" Value="Center" />
-							<Setter Property="IsEnabled" Value="{Binding $self.Content.IsEnabled}" />
-						</Style>
-					</ListBox.Styles>
-					<TextBlock Classes="Body2" Text="Home" />
-					<TextBlock Classes="Body2" Text="Latest Episodes" />
-					<TextBlock Classes="Body2" Text="Upcoming Animes" />
-					<TextBlock Classes="Body2" Text="Search Animes" />
-					<TextBlock Classes="Body2" Text="Calendar" />
-					<TextBlock Classes="Body2" Text="Downloads" />
-					<TextBlock Classes="Body2" Text="Settings" />
-				</ListBox>
-			</StackPanel>
-		</styles:Card>
-
-		<Border HorizontalAlignment="Stretch"
-				Grid.Column="1" Margin="0,10,0,0"
-				VerticalAlignment="Stretch">
-			<Carousel Name="PageCarousel"
-					  HorizontalAlignment="Stretch">
-				<Carousel.Styles>
-					<Style Selector="Carousel#PageCarousel:not(.notransitions)">
-						<Setter Property="PageTransition">
-							<PageSlide Duration="0.25" SlideOutEasing="CircularEaseOut"
-									   SlideInEasing="CircularEaseOut" />
-						</Setter>
-					</Style>
-				</Carousel.Styles>
-
-				<!-- Home page -->
-				<local:HomePage />
-
-				<!-- Latest Episodes page -->
-				<local:LatestEpisodesPage />
-
-				<!-- Upcoming page -->
-				<local:UpcomingPage />
-
-				<!-- Search page -->
-				<local:SearchPage />
-
-				<!-- Calendar page -->
-				<local:CalendarPage />
-
-				<!-- Download page -->
-				<local:DownloadPage />
-
-				<!-- Settings page -->
-				<local:SettingsPage />
-			</Carousel>
-		</Border>
-
-    </Grid>
 </Window>

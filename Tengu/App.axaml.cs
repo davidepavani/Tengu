@@ -6,7 +6,7 @@ using Tengu.Views;
 
 namespace Tengu
 {
-    public class App : Application
+    public partial class App : Application
     {
         public override void Initialize()
         {
