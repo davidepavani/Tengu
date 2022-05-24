@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <None Remove="Theme\CheckBoxStyles.xaml" />
+      <None Remove="Theme\TabControlStyles.xaml" />
       <None Remove="Theme\TextBlockStyles.xaml" />
       <None Remove="Theme\TextBoxStyles.xaml" />
       <None Remove="Theme\ToggleButtonStyles.xaml" />
@@ -33,6 +34,9 @@
 
     <ItemGroup>
       <AvaloniaResource Update="Theme\CheckBoxStyles.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </AvaloniaResource>
+      <AvaloniaResource Update="Theme\TabControlStyles.xaml">
         <Generator>MSBuild:Compile</Generator>
       </AvaloniaResource>
       <AvaloniaResource Update="Theme\ToggleButtonStyles.xaml">
