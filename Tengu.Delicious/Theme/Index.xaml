@@ -7,4 +7,5 @@
 	<StyleInclude Source="avares://Tengu.Delicious/Theme/TextBlockStyles.xaml"/>
 	<StyleInclude Source="avares://Tengu.Delicious/Theme/TextBoxStyles.xaml"/>
 	<StyleInclude Source="avares://Tengu.Delicious/Theme/ToggleButtonStyles.xaml"/>
+	<StyleInclude Source="avares://Tengu.Delicious/Theme/CheckBoxStyles.xaml"/>
 </Styles>
