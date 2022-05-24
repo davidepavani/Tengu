@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Palette\DefaultPalette.xaml" />
+    <None Remove="Styles\Index.xaml" />
+    <None Remove="Theme\DefaultTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Palette\DefaultPalette.xaml">
+      <Generator></Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Styles\Index.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Theme\DefaultTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.14" />
+  </ItemGroup>
+
+</Project>

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tengu", "Tengu\Tengu.csproj", "{D4DA6075-7CE1-4342-BBFB-A247A7605330}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tengu.Delicious", "Tengu.Delicious\Tengu.Delicious.csproj", "{B1E4B93A-35C9-4CB5-A496-0DD8987659E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D4DA6075-7CE1-4342-BBFB-A247A7605330}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4DA6075-7CE1-4342-BBFB-A247A7605330}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4DA6075-7CE1-4342-BBFB-A247A7605330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E4B93A-35C9-4CB5-A496-0DD8987659E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E4B93A-35C9-4CB5-A496-0DD8987659E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E4B93A-35C9-4CB5-A496-0DD8987659E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E4B93A-35C9-4CB5-A496-0DD8987659E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
