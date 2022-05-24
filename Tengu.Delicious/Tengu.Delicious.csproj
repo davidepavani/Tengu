@@ -23,6 +23,7 @@
     <ItemGroup>
       <None Remove="Theme\TextBlockStyles.xaml" />
       <None Remove="Theme\TextBoxStyles.xaml" />
+      <None Remove="Theme\ToggleButtonStyles.xaml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -30,6 +31,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AvaloniaResource Update="Theme\ToggleButtonStyles.xaml">
+        <Generator></Generator>
+      </AvaloniaResource>
       <AvaloniaResource Update="Theme\TextBoxStyles.xaml">
         <Generator></Generator>
       </AvaloniaResource>
