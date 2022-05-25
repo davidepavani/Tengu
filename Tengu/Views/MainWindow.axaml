@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		xmlns:skp="clr-namespace:Avalonia.Controls.Skia;assembly=Avalonia.Controls.Skia"
         x:Class="Tengu.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="Tengu">
@@ -12,10 +13,43 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-	<StackPanel HorizontalAlignment="Center"
-				VerticalAlignment="Center">
-		<Button Content="123" Width="100"/>
-		<Button Content="123" Classes="Primary" Width="100"/>
-	</StackPanel>
+	<Grid RowDefinitions="Auto, *">
+		
+		<Grid Background="Transparent"
+              Name="TitleBarHost"
+              ColumnDefinitions="Auto,*">
+
+			<StackPanel Orientation="Horizontal"
+						Spacing="10"
+						Margin="10,0">
+			<!-- Adding an Image control to add an Icon 
+			<Image Margin="12 4"
+                   IsHitTestVisible="False"
+                   Source="{Binding ...}"
+                   Width="18" Height="18"
+                   Name="WindowIcon" />-->
+
+			<!-- Add a TextBlock for the Window title text -->
+			<TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                       FontSize="12"
+                       IsHitTestVisible="False"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"/>
+
+				<Menu>
+					<MenuItem Header="Tengu">
+						<MenuItem Header="Tengu" />
+					</MenuItem>
+					<MenuItem Header="Latest">
+						
+					</MenuItem>
+					<MenuItem Header="Downloads"/>
+				</Menu>
+			</StackPanel>
+			<!-- You can of course add other content to your titlebar if you wish -->
+		</Grid>
+
+		<!-- Content Here -->
+	</Grid>
 
 </Window>
