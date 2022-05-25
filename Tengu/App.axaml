@@ -5,6 +5,6 @@
              x:Class="Tengu.App">
 
     <Application.Styles>
-		<StyleInclude Source="avares://Tengu.Delicious/Default.xaml"/>
+		<sty:FluentAvaloniaTheme />
     </Application.Styles>
 </Application>
