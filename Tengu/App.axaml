@@ -1,9 +1,10 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:Tengu"
+			 xmlns:sty="using:FluentAvalonia.Styling"
              x:Class="Tengu.App">
 
     <Application.Styles>
-		<StyleInclude Source="avares://Tengu.Delicious/Sea.xaml"/>
+		<StyleInclude Source="avares://Tengu.Delicious/Default.xaml"/>
     </Application.Styles>
 </Application>

@@ -12,8 +12,10 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-	<StackPanel>
-		<Button Content="Test" />
+	<StackPanel HorizontalAlignment="Center"
+				VerticalAlignment="Center">
+		<Button Content="123" Width="100"/>
+		<Button Content="123" Classes="Primary" Width="100"/>
 	</StackPanel>
 
 </Window>

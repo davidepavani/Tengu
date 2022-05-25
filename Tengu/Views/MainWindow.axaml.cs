@@ -7,6 +7,9 @@ namespace Tengu.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            MinWidth = 600;
+            MinHeight = 500;
         }
     }
 }
