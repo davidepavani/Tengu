@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		xmlns:skp="clr-namespace:Avalonia.Controls.Skia;assembly=Avalonia.Controls.Skia"
+		xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:ic="using:FluentIcons.Avalonia"
         x:Class="Tengu.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
         Title="Tengu">
 
     <Design.DataContext>
@@ -28,28 +29,35 @@
                    Source="{Binding ...}"
                    Width="18" Height="18"
                    Name="WindowIcon" />-->
-
+				
 			<!-- Add a TextBlock for the Window title text -->
-			<TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                       FontSize="12"
-                       IsHitTestVisible="False"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"/>
-
 				<Menu>
 					<MenuItem Header="Tengu">
-						<MenuItem Header="Tengu" />
+						<MenuItem Header="123" />
+						<MenuItem Header="Item 2" Icon="Paste" />
+						<Separator />
+						<MenuItem Header="123" />
+
 					</MenuItem>
-					<MenuItem Header="Latest">
+					<MenuItem Header="Kitsu">
 						
 					</MenuItem>
-					<MenuItem Header="Downloads"/>
+					<MenuItem Header="Settings">
+						<MenuItem.Icon>
+						</MenuItem.Icon>
+						
+						<MenuItem Header="Customization" />
+					</MenuItem>
+					<MenuItem Header="Downloads">
+						
+					</MenuItem>
 				</Menu>
 			</StackPanel>
-			<!-- You can of course add other content to your titlebar if you wish -->
 		</Grid>
 
-		<!-- Content Here -->
+		<Panel>
+			<ui:Frame Name="FrameView"/>
+		</Panel>
 	</Grid>
 
 </Window>

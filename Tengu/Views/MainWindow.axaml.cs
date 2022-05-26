@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using FluentAvalonia.Core.ApplicationModel;
+using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using System;
 
@@ -16,6 +17,9 @@ namespace Tengu.Views
             MinHeight = 500;
 
             Opened += OnParentWindowOpened;
+
+            var faTheme = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+            faTheme.RequestedTheme = "Dark";
         }
 
         private void OnParentWindowOpened(object sender, EventArgs e)
