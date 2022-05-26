@@ -7,6 +7,7 @@
 		xmlns:skp="clr-namespace:Avalonia.Controls.Skia;assembly=Avalonia.Controls.Skia"
 		xmlns:ui="using:FluentAvalonia.UI.Controls"
 		xmlns:icons="using:Material.Icons.Avalonia"
+		xmlns:local="using:Tengu.Views"
         x:Class="Tengu.Views.MainWindow"
         Title="Tengu">
 
@@ -33,33 +34,104 @@
 			<!-- Add a TextBlock for the Window title text -->
 				<Menu>
 					<MenuItem Header="Tengu">
-						<MenuItem Header="123" />
-						<MenuItem Header="Item 2" Icon="Paste" />
+						<MenuItem Header="Latest Episodes">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="NewBox"/>
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="Search">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="Search"/>
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="Calendar">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="Calendar"/>
+							</MenuItem.Icon>
+							<MenuItem Header="AnimeSaturn">
+
+							</MenuItem>
+							<MenuItem Header="AnimeUnity">
+
+							</MenuItem>
+						</MenuItem>
 						<Separator />
-						<MenuItem Header="123" />
+						<MenuItem Header="Exit">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="ExitToApp"/>
+							</MenuItem.Icon>
+						</MenuItem>
 
 					</MenuItem>
 					<MenuItem Header="Kitsu">
-						
+						<MenuItem Header="Upcoming Animes">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="NewReleases"/>
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="Search Animes">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="Search"/>
+							</MenuItem.Icon>
+						</MenuItem>
 					</MenuItem>
 					<MenuItem Header="Settings">
 						<MenuItem Header="Customization">
 							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="Palette">
-								</icons:MaterialIcon>
+								<icons:MaterialIcon Kind="Palette"/>
 							</MenuItem.Icon>
 						</MenuItem>
 					</MenuItem>
-					<MenuItem Header="Downloads">
-						
+					<MenuItem Header="Help">
+						<MenuItem Header="Documentation">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="FileCode" />
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="Projects">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="Github" />
+							</MenuItem.Icon>
+
+							<MenuItem Header="Tengu Front-end" />
+							<MenuItem Header="Tengu Back-end" />
+						</MenuItem>
+						<Separator />
+						<MenuItem Header="About">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="AboutOutline" />
+							</MenuItem.Icon>
+						</MenuItem>
 					</MenuItem>
 				</Menu>
 			</StackPanel>
 		</Grid>
 
-		<Panel>
-			<ui:Frame Name="FrameView"/>
-		</Panel>
+		<Grid 
+			  Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="3.5*" />
+				<ColumnDefinition Width="2" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			
+			<Panel>
+				<ui:Frame Name="FrameView"/>
+			</Panel>
+			
+			<GridSplitter Grid.Column="1" />
+
+			<Grid RowDefinitions="*, 2, *"
+				  Grid.Column="2">
+				<local:DownloadControl />
+
+				<GridSplitter Grid.Row="1"/>
+
+				<Border Background="LightGray" 
+						Grid.Row="2"/>
+
+			</Grid>
+		</Grid>
 	</Grid>
 
 </Window>
