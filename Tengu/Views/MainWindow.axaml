@@ -75,9 +75,19 @@
 			<ui:NavigationView PaneDisplayMode="Top"
 							   IsBackButtonVisible="True"
 							   IsBackEnabled="True"
-							   AlwaysShowHeader="True"
+							   AlwaysShowHeader="False"
 							   IsSettingsVisible="False">
 				<ui:NavigationView.MenuItems>
+					<ui:NavigationViewItem>
+						<ui:NavigationViewItem.Content>
+							<Path Data="{StaticResource TenguLogo}" 
+								  Stretch="Uniform"
+								  Height="25"
+								  RenderOptions.BitmapInterpolationMode="HighQuality"
+								  Fill="{DynamicResource NavigationViewItemForeground}"/>
+						</ui:NavigationViewItem.Content>
+					</ui:NavigationViewItem>
+
 					<ui:NavigationViewItem Content="Tengu">
 						<ui:NavigationViewItem.MenuItems>
 							<ui:NavigationViewItem Content="Latest Episodes" />
@@ -98,6 +108,7 @@
 					</ui:NavigationViewItem>
 				</ui:NavigationView.MenuItems>
 			</ui:NavigationView>
+
 		</Grid>
 
 		<Panel Grid.Row="1">

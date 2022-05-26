@@ -16,13 +16,13 @@ namespace Tengu.Views
             MinWidth = 600;
             MinHeight = 500;
 
-            Opened += OnParentWindowOpened;
+            Opened += OnWindowOpened;
 
             var faTheme = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
             faTheme.RequestedTheme = "Dark";
         }
 
-        private void OnParentWindowOpened(object sender, EventArgs e)
+        private void OnWindowOpened(object sender, EventArgs e)
         {
             var titleBar = this.TitleBar;
             if (titleBar != null)
