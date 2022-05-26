@@ -10,7 +10,7 @@ namespace Tengu.ViewModels
     {
         public List<string> Downloads { get; set; } = new()
         {
-            "download 1",
+            "downloadaaaaaaaaaaaaaaaaaaaaaaaaa 1",
             "download 2",
             "download 3",
         };
