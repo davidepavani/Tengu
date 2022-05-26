@@ -26,7 +26,7 @@ namespace Tengu.Services
 
         public void Navigate(Type t, object parameter)
         {
-            if (t != null && parameter != null)
+            if (t != null)
                 NavigationFrame.Navigate(t, parameter);
         }
 
