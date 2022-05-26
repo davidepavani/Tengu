@@ -5,11 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		xmlns:skp="clr-namespace:Avalonia.Controls.Skia;assembly=Avalonia.Controls.Skia"
+		xmlns:uip="clr-namespace:FluentAvalonia.UI.Controls.Primitives;assembly=FluentAvalonia"
 		xmlns:ui="using:FluentAvalonia.UI.Controls"
 		xmlns:icons="using:Material.Icons.Avalonia"
 		xmlns:local="using:Tengu.Views"
         x:Class="Tengu.Views.MainWindow"
         Title="Tengu">
+	<Window.Styles>
+		<Style Selector="ui|NavigationViewItem">
+			<Setter Property="Foreground" Value="{DynamicResource NavigationViewItemForeground}" />
+			<Setter Property="Background" Value="{DynamicResource NavigationViewItemBackground}" />
+			<Setter Property="BorderBrush" Value="{DynamicResource NavigationViewItemBorderBrush}" />
+			<Setter Property="BorderThickness" Value="{DynamicResource NavigationViewItemBorderThickness}" />
+			<Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+			<Setter Property="FontWeight" Value="Normal" />
+			<Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+			<Setter Property="Margin" Value="{DynamicResource NavigationViewItemMargin}" />
+			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="KeyboardNavigation.TabNavigation" Value="Once" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Grid Name="NVIRootGrid" RowDefinitions="*,Auto">
+						<uip:NavigationViewItemPresenter Name="NVIPresenter"
+														 Icon="{TemplateBinding Icon}"
+														 InfoBadge="{TemplateBinding InfoBadge}"
+														 ContentTemplate="{TemplateBinding ContentTemplate}"
+														 Padding="{TemplateBinding Padding}"
+														 Foreground="{TemplateBinding Foreground}"
+														 Background="{TemplateBinding Background}"
+														 BorderBrush="{TemplateBinding BorderBrush}"
+														 BorderThickness="{TemplateBinding BorderThickness}"
+														 VerticalAlignment="{TemplateBinding VerticalAlignment}"
+														 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+														 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+														 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+														 Content="{TemplateBinding Content}"
+														 TemplatedControl.IsTemplateFocusTarget="True" />
+
+						<ItemsRepeater Grid.Row="1"
+									   IsVisible="False"
+									   Name="NVIMenuItemsHost"
+									   KeyboardNavigation.TabNavigation="Continue" />
+
+						<FlyoutBase.AttachedFlyout>
+							<!--Placement handled in code, since Flyout's can't be targeted in Styles-->
+							<Flyout FlyoutPresenterClasses="NavViewFlyoutStyle" Placement="Bottom">
+								<Panel Name="FlyoutRootGrid">
+									<Panel Name="FlyoutContentGrid" />
+								</Panel>
+							</Flyout>
+						</FlyoutBase.AttachedFlyout>
+					</Grid>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+	</Window.Styles>
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -19,131 +70,39 @@
 		
 		<Grid Background="Transparent"
               Name="TitleBarHost"
-              ColumnDefinitions="Auto,*, Auto">
+			  ColumnDefinitions="Auto,*,Auto">
 
-			<StackPanel Orientation="Horizontal"
-						Spacing="10"
-						Margin="10,0">
-			<!-- Adding an Image control to add an Icon 
-			<Image Margin="12 4"
-                   IsHitTestVisible="False"
-                   Source="{Binding ...}"
-                   Width="18" Height="18"
-                   Name="WindowIcon" />-->
-				
-			<!-- Add a TextBlock for the Window title text -->
-				<Menu>
-					<MenuItem Header="Tengu">
-						<MenuItem Header="Latest Episodes">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="NewBox"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="Search">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="Search"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="Calendar">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="Calendar"/>
-							</MenuItem.Icon>
-							<MenuItem Header="AnimeSaturn">
-
-							</MenuItem>
-							<MenuItem Header="AnimeUnity">
-
-							</MenuItem>
-						</MenuItem>
-						<Separator />
-						<MenuItem Header="Exit">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="ExitToApp"/>
-							</MenuItem.Icon>
-						</MenuItem>
-
-					</MenuItem>
-					<MenuItem Header="Kitsu">
-						<MenuItem Header="Upcoming Animes">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="NewReleases"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="Search Animes">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="Search"/>
-							</MenuItem.Icon>
-						</MenuItem>
-					</MenuItem>
-					<MenuItem Header="Settings">
-						<MenuItem Header="Customization">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="Palette"/>
-							</MenuItem.Icon>
-						</MenuItem>
-					</MenuItem>
-					<MenuItem Header="Help">
-						<MenuItem Header="Documentation">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="FileCode" />
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="Projects">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="Github" />
-							</MenuItem.Icon>
-
-							<MenuItem Header="Tengu Front-end" />
-							<MenuItem Header="Tengu Back-end" />
-						</MenuItem>
-						<Separator />
-						<MenuItem Header="About">
-							<MenuItem.Icon>
-								<icons:MaterialIcon Kind="AboutOutline" />
-							</MenuItem.Icon>
-						</MenuItem>
-					</MenuItem>
-				</Menu>
-				
-			</StackPanel>
-
-			<ToggleButton Content="dwnlds"
-						  IsChecked="{Binding #SplitViewDownload.IsPaneOpen}"
-						Grid.Column="2"
-						Margin="10,0"/>
+			<ui:NavigationView PaneDisplayMode="Top"
+							   IsBackButtonVisible="True"
+							   IsBackEnabled="True"
+							   AlwaysShowHeader="True"
+							   IsSettingsVisible="False">
+				<ui:NavigationView.MenuItems>
+					<ui:NavigationViewItem Content="Tengu">
+						<ui:NavigationViewItem.MenuItems>
+							<ui:NavigationViewItem Content="Latest Episodes" />
+							<ui:NavigationViewItem Content="Calendar" />
+							<ui:NavigationViewItem Content="Search" />
+						</ui:NavigationViewItem.MenuItems>
+					</ui:NavigationViewItem>
+					<ui:NavigationViewItem Content="Kitsu">
+						<ui:NavigationViewItem.MenuItems>
+							<ui:NavigationViewItem Content="Upcoming" />
+							<ui:NavigationViewItem Content="Search" />
+						</ui:NavigationViewItem.MenuItems>
+					</ui:NavigationViewItem>
+					<ui:NavigationViewItem Content="Settings">
+						<ui:NavigationViewItem.MenuItems>
+							<ui:NavigationViewItem Content="Customization" />
+						</ui:NavigationViewItem.MenuItems>
+					</ui:NavigationViewItem>
+				</ui:NavigationView.MenuItems>
+			</ui:NavigationView>
 		</Grid>
 
-		<SplitView PanePlacement="Right"
-				   PaneBackground="Transparent"
-				   Name="SplitViewDownload"
-				   Grid.Row="1">
-			<SplitView.Pane>
-				<Grid RowDefinitions="10, 5*, 10"
-					  Background="Transparent">
-					<Border BorderThickness="1,1,0,1"
-							Grid.Row="1"
-							Width="300"
-							CornerRadius="5 0 0 5"
-							BorderBrush="{DynamicResource ButtonBorderBrush}">
-						<Grid RowDefinitions="*, 2, *">
-							<local:DownloadControl />
-
-							<GridSplitter Grid.Row="1"/>
-
-							
-						</Grid>
-					</Border>
-				</Grid>
-			</SplitView.Pane>
-
-			<Panel>
-				<ui:Frame Name="FrameView"/>
-				
-				<Border Background="{DynamicResource ButtonBorderBrush}"
-						IsVisible="{Binding #SplitViewDownload.IsPaneOpen}"
-						Opacity=".3"/>
-			</Panel>
-		</SplitView>
+		<Panel Grid.Row="1">
+			<ui:Frame Name="FrameView"/>
+		</Panel>
 	</Grid>
 
 </Window>
