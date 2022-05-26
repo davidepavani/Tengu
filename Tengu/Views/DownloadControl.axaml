@@ -3,17 +3,88 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
+			 xmlns:icons="using:Material.Icons.Avalonia"
 			 xmlns:vm="using:Tengu.ViewModels"
              x:Class="Tengu.Views.DownloadControl">
 	<UserControl.DataContext>
 		<vm:DownloadControlViewModel />
 	</UserControl.DataContext>
-	
-	<StackPanel>
-		<TextBlock Text="Downloads" 
-				   Margin="10"/>
+
+	<StackPanel Margin="10">
+		<TextBlock Text="Downloads"/>
 		<Border Height="1"
-				Margin="10,0"
 				Background="Black"/>
+
+		<StackPanel Spacing="5">
+			<StackPanel Margin="0,5,0,0">
+				<TextBlock Text="{Binding CurrentDownload}" />
+
+				<Grid ColumnDefinitions="*,Auto,Auto"
+					  RowDefinitions="*,Auto">
+					<StackPanel Orientation="Horizontal"
+								Opacity=".7"
+								Spacing="5">
+						<TextBlock Text="Ep. 1"
+								   FontSize="12"/>
+						<TextBlock Text="•"
+								   FontSize="12"/>
+						<TextBlock Text="Saturn"
+								   FontSize="12"/>
+					</StackPanel>
+
+					<TextBlock Text="10%"
+							   Grid.Column="1"
+							   VerticalAlignment="Center"/>
+
+					<ProgressBar Grid.Row="1"
+								 Value="10"
+								 Grid.ColumnSpan="2"/>
+
+					<Button Grid.Column="2"
+							Grid.Row="1"
+							Content="x"
+							Padding="0"
+							Foreground="Red"
+							Background="Transparent"
+							BorderThickness="0"
+							Margin="10,0,0,0"/>
+				</Grid>
+			</StackPanel>
+
+			<StackPanel Margin="0,0,0,0">
+				<TextBlock Text="{Binding CurrentDownload}" />
+
+				<Grid ColumnDefinitions="*,Auto,Auto"
+					  RowDefinitions="*,Auto">
+					<StackPanel Orientation="Horizontal"
+								Opacity=".7"
+								Spacing="5">
+						<TextBlock Text="Ep. 1"
+								   FontSize="12"/>
+						<TextBlock Text="•"
+								   FontSize="12"/>
+						<TextBlock Text="Unity"
+								   FontSize="12"/>
+					</StackPanel>
+
+					<TextBlock Text="10%"
+							   Grid.Column="1"
+							   VerticalAlignment="Center"/>
+
+					<ProgressBar Grid.Row="1"
+								 Value="10"
+								 Grid.ColumnSpan="2"/>
+
+					<Button Grid.Column="2"
+							Grid.Row="1"
+							Content="x"
+							Padding="0"
+							Foreground="Red"
+							Background="Transparent"
+							BorderThickness="0"
+							Margin="10,0,0,0"/>
+				</Grid>
+			</StackPanel>
+		</StackPanel>
 	</StackPanel>
 </UserControl>
