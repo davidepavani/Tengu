@@ -8,6 +8,7 @@
 		xmlns:uip="clr-namespace:FluentAvalonia.UI.Controls.Primitives;assembly=FluentAvalonia"
 		xmlns:ui="using:FluentAvalonia.UI.Controls"
 		xmlns:icons="using:Material.Icons.Avalonia"
+		xmlns:views="using:Tengu.Views"
 		xmlns:local="using:Tengu.Views"
         x:Class="Tengu.Views.MainWindow"
         Title="Tengu">
@@ -73,12 +74,13 @@
 			  ColumnDefinitions="Auto,*,Auto">
 
 			<ui:NavigationView PaneDisplayMode="Top"
+							   Name="NavView"
 							   IsBackButtonVisible="True"
-							   IsBackEnabled="True"
+							   IsBackEnabled="{Binding #FrameView.CanGoBack}"
 							   AlwaysShowHeader="False"
 							   IsSettingsVisible="False">
 				<ui:NavigationView.MenuItems>
-					<ui:NavigationViewItem>
+					<ui:NavigationViewItem Tag="{x:Type views:HomePageControl}">
 						<ui:NavigationViewItem.Content>
 							<Path Data="{StaticResource TenguLogo}" 
 								  Stretch="Uniform"
@@ -90,7 +92,8 @@
 
 					<ui:NavigationViewItem Content="Tengu">
 						<ui:NavigationViewItem.MenuItems>
-							<ui:NavigationViewItem Content="Latest Episodes" />
+							<ui:NavigationViewItem Content="Latest Episodes" 
+												   Tag="{x:Type views:LatestEpisodesControl}"/>
 							<ui:NavigationViewItem Content="Calendar" />
 							<ui:NavigationViewItem Content="Search" />
 						</ui:NavigationViewItem.MenuItems>
