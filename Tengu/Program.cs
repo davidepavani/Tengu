@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 using System;
+using Tengu.Extensions;
 
 namespace Tengu
 {
@@ -17,6 +18,7 @@ namespace Tengu
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
+                .TenguInjection()
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI();
