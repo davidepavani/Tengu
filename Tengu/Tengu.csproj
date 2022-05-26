@@ -11,6 +11,7 @@
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
     <None Remove=".gitignore" />
+    <None Remove="Assets\itachi.svg" />
     <None Remove="Assets\tengu.svg" />
   </ItemGroup>
   <ItemGroup>
