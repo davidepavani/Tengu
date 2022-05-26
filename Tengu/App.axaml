@@ -5,6 +5,9 @@
              x:Class="Tengu.App">
 
     <Application.Styles>
+		
 		<sty:FluentAvaloniaTheme />
+		<StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
+		
     </Application.Styles>
 </Application>

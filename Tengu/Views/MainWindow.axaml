@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		xmlns:skp="clr-namespace:Avalonia.Controls.Skia;assembly=Avalonia.Controls.Skia"
 		xmlns:ui="using:FluentAvalonia.UI.Controls"
-		xmlns:ic="using:FluentIcons.Avalonia"
+		xmlns:icons="using:Material.Icons.Avalonia"
         x:Class="Tengu.Views.MainWindow"
         Title="Tengu">
 
@@ -43,10 +43,12 @@
 						
 					</MenuItem>
 					<MenuItem Header="Settings">
-						<MenuItem.Icon>
-						</MenuItem.Icon>
-						
-						<MenuItem Header="Customization" />
+						<MenuItem Header="Customization">
+							<MenuItem.Icon>
+								<icons:MaterialIcon Kind="Palette">
+								</icons:MaterialIcon>
+							</MenuItem.Icon>
+						</MenuItem>
 					</MenuItem>
 					<MenuItem Header="Downloads">
 						
