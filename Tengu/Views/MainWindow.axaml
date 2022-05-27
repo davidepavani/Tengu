@@ -75,6 +75,7 @@
 
 			<ui:NavigationView PaneDisplayMode="Top"
 							   Name="NavView"
+							   HorizontalAlignment="Left"
 							   IsBackButtonVisible="True"
 							   IsBackEnabled="{Binding #FrameView.CanGoBack}"
 							   AlwaysShowHeader="False"

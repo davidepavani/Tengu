@@ -3,8 +3,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+		     xmlns:icons="using:Material.Icons.Avalonia"
              x:Class="Tengu.Views.HomePageControl">
 	<Grid>
+		<Grid ColumnDefinitions="*,*"
+			  RowDefinitions="1.5*,*">
+			<Path Data="{StaticResource TenguLogoHalf}"
+				  Grid.Column="1"
+				  Grid.Row="1"
+				  Opacity=".3"
+				  Margin="0,0,20,-30"
+				  Stretch="Uniform"
+				  VerticalAlignment="Bottom"
+				  HorizontalAlignment="Right"
+				  Fill="{DynamicResource ButtonBorderThemeBrush}"/>
+		</Grid>
+
+		<Grid Margin="40"
+			  RowDefinitions="*,Auto">
+			<StackPanel>
+				<TextBlock Text="TENGU" 
+						   Classes="SubtitleTextBlockStyle" />
+				<TextBlock Text="*Description*" />
+				<TextBlock Text="*Description*" 
+						   Margin="0,10,0,0"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal"
+						Grid.Row="1"
+						Spacing="10">
+				<ui:HyperlinkButton Content="Tengu Front-End Github repo" 
+									NavigateUri="https://github.com/Dugongoo/Tengu"  
+									ToolTip.Tip="https://github.com/Dugongoo/Tengu"/>
+				
+				<ui:HyperlinkButton Content="Tengu Back-End Github repo" 
+									NavigateUri="https://github.com/giuseppeSalerno10/Tengu.Business"
+									ToolTip.Tip="https://github.com/giuseppeSalerno10/Tengu.Business"/>
+			</StackPanel>
+		</Grid>
 		
 	</Grid>
 </UserControl>
