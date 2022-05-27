@@ -22,8 +22,8 @@ namespace Tengu.Views
         {
             InitializeComponent();
 
-            MinWidth = 600;
-            MinHeight = 500;
+            MinWidth = 800;
+            MinHeight = 600;
 
             Opened += OnWindowOpened;
 

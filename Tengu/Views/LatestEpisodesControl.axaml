@@ -9,10 +9,15 @@
 		<vm:LatestEpisodesControlViewModel />
 	</UserControl.DataContext>
 
-	<Grid>
+	<UserControl.Styles>
+		<Style Selector="Button.Episode:poiterover">
+			<Setter Property="Margin" Value="2" />
+		</Style>
+	</UserControl.Styles>
 
+	<Grid>
 		<Grid ColumnDefinitions="*,*"
-			  RowDefinitions="*,3*">
+			  RowDefinitions="*,5*">
 			<Image Grid.Column="1"
 				   Opacity=".5"
 				   HorizontalAlignment="Stretch"
@@ -36,6 +41,44 @@
 					</DrawingImage>
 				</Image.Source>
 			</Image>
+		</Grid>
+
+		<Grid RowDefinitions="Auto,*"
+			  Margin="40">
+			<TextBlock Text="Latest Episodes"
+					   Margin="0,0,0,20"
+					   Classes="SubtitleTextBlockStyle" />
+
+			<StackPanel Spacing="10"
+						Grid.Row="1">
+				<StackPanel>
+					<TextBlock Text="AnimeUnity.com" />
+
+					<ItemsControl Items="{Binding Episodes}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Button Margin="5"
+										Content="{Binding}"
+										Classes="Episode"
+										Padding="0">
+									
+									
+								</Button>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</StackPanel>
+
+				<StackPanel>
+					<TextBlock Text="AnimeSaturn.com" />
+				</StackPanel>
+			</StackPanel>
 		</Grid>
 	</Grid>
 </UserControl>
