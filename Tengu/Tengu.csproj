@@ -13,6 +13,10 @@
     <None Remove=".gitignore" />
     <None Remove="Assets\itachi.svg" />
     <None Remove="Assets\tengu.svg" />
+    <None Remove="Languages\English.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Languages\English.json" />
   </ItemGroup>
   <ItemGroup>
     <!--This helps with theme dll-s trimming.
