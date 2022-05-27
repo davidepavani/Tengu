@@ -8,7 +8,7 @@ namespace Tengu.ViewModels
 {
     public class LatestEpisodesControlViewModel : ViewModelBase
     {
-        public List<string> Episodes = new()
+        public List<string> Episodes { get; set; } = new()
         {
             "Episode1",
             "Episode2",

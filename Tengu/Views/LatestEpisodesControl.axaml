@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:vm="using:Tengu.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Tengu.Views.LatestEpisodesControl">
@@ -10,8 +11,15 @@
 	</UserControl.DataContext>
 
 	<UserControl.Styles>
-		<Style Selector="Button.Episode:poiterover">
-			<Setter Property="Margin" Value="2" />
+		<Style Selector="Button.EpUnity">
+			<Setter Property="Height" Value="180" />
+			<Setter Property="Width" Value="120" />
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="CornerRadius" Value="0" />
+		</Style>
+		<Style Selector="Button.EpUnity:pointerover">
+			<Setter Property="Height" Value="190" />
+			<Setter Property="Width" Value="130" />
 		</Style>
 	</UserControl.Styles>
 
@@ -51,23 +59,23 @@
 
 			<StackPanel Spacing="10"
 						Grid.Row="1">
-				<StackPanel>
+				<StackPanel Spacing="5">
 					<TextBlock Text="AnimeUnity.com" />
 
 					<ItemsControl Items="{Binding Episodes}">
+
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
-								<StackPanel Orientation="Horizontal"/>
+								<StackPanel Orientation="Horizontal"
+											Spacing="5"/>
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Button Margin="5"
-										Content="{Binding}"
-										Classes="Episode"
-										Padding="0">
-									
+								<Button Classes="EpUnity"
+										Padding="0"
+										Content="{Binding}">
 									
 								</Button>
 							</DataTemplate>
