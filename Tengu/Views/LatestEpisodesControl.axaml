@@ -70,7 +70,8 @@
 
 				<Panel Grid.Row="1"
 					   Margin="0,10,0,0">
-					<ItemsControl Items="{Binding LatestEpisodesList}">
+					<ItemsControl Items="{Binding LatestEpisodesList}"
+								  Name="IcLatest">
 
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
@@ -88,13 +89,23 @@
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>
-					
-					<TextBlock IsVisible="{Binding !Items.Count}"
-							   Opacity=".4"
-							   HorizontalAlignment="Center"
-							   VerticalAlignment="Center">
-						No results found
-					</TextBlock>
+
+					<StackPanel HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								IsVisible="{Binding !#IcLatest.Items.Count}"
+								Opacity=".4">
+						<Path Data="{StaticResource JapanShrine}" 
+							  HorizontalAlignment="Center"
+							  Margin="0,0,0,5"
+							  Height="30" Width="30"
+							  Stretch="Uniform"
+							  Fill="{DynamicResource TextFillColorPrimary}"/>
+						<TextBlock Text="No anime found"
+								   TextAlignment="Center"/>
+						<TextBlock Text="Something probably went wrong :("
+								   TextAlignment="Center"
+								   FontSize="12"/>
+					</StackPanel>
 				</Panel>
 			</Grid>
 
