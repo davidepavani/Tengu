@@ -7,31 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tengu.Business.API;
+using Tengu.Business.Commons;
 using Tengu.Models;
+using NLog;
 
 namespace Tengu.Services
 {
     public class DownloadService : ReactiveObject
     {
+        private readonly Logger log = LogManager.GetLogger("TODO");
+
         private static ITenguApi TenguApi => Locator.Current.GetService<ITenguApi>();
 
-        private AvaloniaList<DownloadModel> animeSaturnQueue = new();
-        private AvaloniaList<DownloadModel> animeUnityQueue = new();
+        private AvaloniaList<DownloadModel> AnimeQueue = new();
+        private int downloadCount = 0;
 
         private DownloadModel currentSaturnDownload  = null;
         private DownloadModel currentUnityDownload = null;
 
         #region Properties
-        public AvaloniaList<DownloadModel> AnimeSaturnQueue
-        {
-            get => animeSaturnQueue;
-            set => this.RaiseAndSetIfChanged(ref animeSaturnQueue, value);
-        }
-        public AvaloniaList<DownloadModel> AnimeUnityQueue
-        {
-            get => animeUnityQueue;
-            set => this.RaiseAndSetIfChanged(ref animeUnityQueue, value);
-        }
         public DownloadModel CurrentUnityDownload 
         { 
             get => currentUnityDownload; 
@@ -42,6 +36,36 @@ namespace Tengu.Services
             get => currentSaturnDownload; 
             set => this.RaiseAndSetIfChanged(ref currentSaturnDownload, value);
         }
+        public int DownloadCount
+        {
+            get => downloadCount;
+            set => this.RaiseAndSetIfChanged(ref downloadCount, value);
+        }
         #endregion
+
+        public void EnqueueAnime(EpisodeModel episode)
+        {
+            log.Info($"[Saturn] Enqueued {episode.Title}");
+
+            AnimeQueue.Add(new(episode));
+            DownloadCount = AnimeQueue.Count;
+
+            
+        }
+
+        public void SaturnDownload()
+        {
+            DownloadModel anime = GetNextSaturnEpisode();
+
+            while(anime != null)
+            {
+
+            }
+
+            DownloadCount = AnimeQueue.Count;
+        }
+
+        private DownloadModel GetNextSaturnEpisode()
+            => AnimeQueue.FirstOrDefault(x => x.Episode.Host.Equals(Hosts.AnimeSaturn), null);
     }
 }

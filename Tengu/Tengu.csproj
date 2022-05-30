@@ -36,4 +36,7 @@
     <PackageReference Include="Tengu.Business.API" Version="1.0.10" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tengu.Shared\Tengu.Shared.csproj" />
+  </ItemGroup>
 </Project>
