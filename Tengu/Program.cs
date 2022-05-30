@@ -19,6 +19,7 @@ namespace Tengu
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .TenguInjection()
+                .UseTenguApi()
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI();
