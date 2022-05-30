@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:icons="using:Material.Icons.Avalonia"
 			 xmlns:vm="using:Tengu.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Tengu.Views.LatestEpisodesControl">
@@ -23,13 +24,14 @@
 		</Style>
 	</UserControl.Styles>
 
-	<Grid>
+	<Grid ColumnDefinitions="1.5*,*">
 		<Grid ColumnDefinitions="*,*"
+			  Grid.ColumnSpan="2"
 			  RowDefinitions="*,5*">
 			<Image Grid.Column="1"
 				   Opacity=".5"
 				   HorizontalAlignment="Stretch"
-				   VerticalAlignment="Stretch"
+				   VerticalAlignment="Bottom"
 				   Grid.Row="1">
 				<Image.Source>
 					<DrawingImage>
@@ -51,23 +53,28 @@
 			</Image>
 		</Grid>
 
-		<Grid RowDefinitions="Auto,*"
+		<Grid RowDefinitions="Auto,*,Auto"
 			  Margin="40">
 			<TextBlock Text="Latest Episodes"
 					   Margin="0,0,0,20"
 					   Classes="SubtitleTextBlockStyle" />
 
-			<StackPanel Spacing="10"
-						Grid.Row="1">
-				<StackPanel Spacing="5">
-					<TextBlock Text="AnimeUnity.com" />
+			<Grid RowDefinitions="Auto,*"
+				  Grid.Row="1">
 
-					<ItemsControl Items="{Binding Episodes}">
+					<ComboBox Width="200"
+							  SelectedIndex="0">
+						<ComboBoxItem Content="AnimeSaturn" />
+						<ComboBoxItem Content="AnimeUnity" />
+					</ComboBox>
+
+				<Panel Grid.Row="1"
+					   Margin="0,10,0,0">
+					<ItemsControl Items="{Binding LatestEpisodesList}">
 
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
-								<StackPanel Orientation="Horizontal"
-											Spacing="5"/>
+								<WrapPanel Orientation="Horizontal"/>
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
 
@@ -81,11 +88,29 @@
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>
-				</StackPanel>
+					
+					<TextBlock IsVisible="{Binding !Items.Count}"
+							   Opacity=".4"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center">
+						No results found
+					</TextBlock>
+				</Panel>
+			</Grid>
 
-				<StackPanel>
-					<TextBlock Text="AnimeSaturn.com" />
-				</StackPanel>
+			<StackPanel Spacing="10" 
+						Orientation="Horizontal"
+						Grid.Row="2">
+				<Button BorderThickness="0"
+						Background="Transparent">
+					<icons:MaterialIcon Kind="ArrowLeftThick" />
+				</Button>
+				<TextBlock Text="{Binding LatestEpisodesOffset}"
+						   VerticalAlignment="Center"/>
+				<Button BorderThickness="0"
+						Background="Transparent">
+					<icons:MaterialIcon Kind="ArrowRightThick" />
+				</Button>
 			</StackPanel>
 		</Grid>
 	</Grid>
