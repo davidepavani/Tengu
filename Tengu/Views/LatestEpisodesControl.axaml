@@ -22,6 +22,14 @@
 			<Setter Property="Height" Value="190" />
 			<Setter Property="Width" Value="130" />
 		</Style>
+		<Style Selector="Button.Page">
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Background" Value="Transparent" />
+		</Style>
+		<Style Selector="Button.Page:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Background" Value="Transparent" />
+		</Style>
 	</UserControl.Styles>
 
 	<Grid ColumnDefinitions="1.5*,*">
@@ -63,9 +71,8 @@
 				  Grid.Row="1">
 
 					<ComboBox Width="200"
-							  SelectedIndex="0">
-						<ComboBoxItem Content="AnimeSaturn" />
-						<ComboBoxItem Content="AnimeUnity" />
+							  Items="{Binding HostsList}"
+							  SelectedItem="{Binding SelectedHost}">
 					</ComboBox>
 
 				<Panel Grid.Row="1"
@@ -110,16 +117,16 @@
 			</Grid>
 
 			<StackPanel Spacing="10" 
+						IsEnabled="{Binding !Loading}"
 						Orientation="Horizontal"
 						Grid.Row="2">
-				<Button BorderThickness="0"
-						Background="Transparent">
+				<Button IsEnabled="{Binding CanPrev}"
+						Classes="Page">
 					<icons:MaterialIcon Kind="ArrowLeftThick" />
 				</Button>
 				<TextBlock Text="{Binding LatestEpisodesOffset}"
 						   VerticalAlignment="Center"/>
-				<Button BorderThickness="0"
-						Background="Transparent">
+				<Button Classes="Page">
 					<icons:MaterialIcon Kind="ArrowRightThick" />
 				</Button>
 			</StackPanel>
