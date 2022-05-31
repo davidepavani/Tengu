@@ -62,6 +62,8 @@ namespace Tengu.ViewModels
         public LatestEpisodesControlViewModel()
         {
             tenguApi = Locator.Current.GetService<ITenguApi>();
+
+
             HostsList = Enum.GetValues(typeof(Hosts)).Cast<Hosts>().ToList();
         }
 
