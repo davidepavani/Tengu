@@ -65,9 +65,12 @@ namespace Tengu.ViewModels
 
 
             HostsList = Enum.GetValues(typeof(Hosts)).Cast<Hosts>().ToList();
+
+            // TODO - SAVE IT
+            //SelectedHost = Hosts.AnimeSaturn;
         }
 
-        private void Initialize()
+        public void Initialize()
         {
             tenguApi.CurrentHosts = new Hosts[] { SelectedHost };
             LatestEpisodesOffset = 0;
