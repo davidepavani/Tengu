@@ -12,7 +12,7 @@ namespace Tengu.Data
         public const string ApplicationName = @"Tengu";
         public const string ApplicationDisplay = @"Tengu";
 
-        public const string CompanyName = @"Tengu Business";
+        public const string CompanyName = @"Tengu";
 
         private const string MajorVersion = "1"; // Manual Increment
         private const string MinorVersion = "1"; // Manual Increment

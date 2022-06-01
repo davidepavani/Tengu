@@ -72,7 +72,10 @@ namespace Tengu.ViewModels
 
         public void Initialize()
         {
-            tenguApi.CurrentHosts = new Hosts[] { SelectedHost };
+            tenguApi.CurrentHosts = (SelectedHost != Hosts.None) ? 
+                new Hosts[] { SelectedHost } : 
+                new Hosts[] { Hosts.AnimeUnity, Hosts.AnimeSaturn };
+
             LatestEpisodesOffset = 0;
 
             //ImageWidth = host.Equals(Hosts.AnimeUnity) ? 150 : 377.9;
