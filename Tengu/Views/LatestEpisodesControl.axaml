@@ -4,10 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:icons="using:Material.Icons.Avalonia"
+			 xmlns:comm="using:Tengu.Business.Commons"
 			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+			 xmlns:conv="using:Tengu.Converters"
 			 xmlns:vm="using:Tengu.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Tengu.Views.LatestEpisodesControl">
+	<UserControl.Resources>
+		<conv:HostToStringConverter x:Key="hostToStringConverter"/>
+	</UserControl.Resources>
+
 	<UserControl.DataContext>
 		<vm:LatestEpisodesControlViewModel />
 	</UserControl.DataContext>
@@ -25,6 +31,19 @@
 			<Setter Property="Width" Value="130" />
 			<Setter Property="Margin" Value="2" />
 		</Style>
+		<Style Selector="Button.EpSaturn">
+			<Setter Property="Height" Value="180" />
+			<Setter Property="Width" Value="377.9" />
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="CornerRadius" Value="0" />
+		</Style>
+		<Style Selector="Button.EpSaturn:pointerover">
+			<Setter Property="Height" Value="190" />
+			<Setter Property="Width" Value="387.9" />
+			<Setter Property="Margin" Value="2" />
+		</Style>
+		
 		<Style Selector="Button.Page">
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Background" Value="Transparent" />
@@ -80,7 +99,7 @@
 
 				<Panel Grid.Row="1"
 					   Margin="0,10,0,0">
-					<ScrollViewer>
+					<ScrollViewer VerticalScrollBarVisibility="Hidden">
 						<ItemsControl Items="{Binding LatestEpisodesList}"
 									  Name="IcLatest">
 
@@ -92,7 +111,8 @@
 
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Button Classes="EpUnity"
+									<Button Classes.EpUnity="{Binding Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeUnity}}"
+											Classes.EpSaturn="{Binding Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeSaturn}}"
 											Padding="0">
 										<Grid>
 											<Image asyncImageLoader:ImageLoader.Source="{Binding Image}" 
@@ -105,22 +125,24 @@
 						</ItemsControl>
 					</ScrollViewer>
 
-					<StackPanel HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								IsVisible="{Binding !#IcLatest.Items.Count}"
-								Opacity=".4">
-						<Path Data="{StaticResource JapanShrine}" 
-							  HorizontalAlignment="Center"
-							  Margin="0,0,0,5"
-							  Height="30" Width="30"
-							  Stretch="Uniform"
-							  Fill="{DynamicResource TextFillColorPrimary}"/>
-						<TextBlock Text="No anime found"
-								   TextAlignment="Center"/>
-						<TextBlock Text="Something probably went wrong :("
-								   TextAlignment="Center"
-								   FontSize="12"/>
-					</StackPanel>
+					<Panel IsVisible="{Binding !Loading}">
+						<StackPanel HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									IsVisible="{Binding !#IcLatest.Items.Count}"
+									Opacity=".4">
+							<Path Data="{StaticResource JapanShrine}" 
+								  HorizontalAlignment="Center"
+								  Margin="0,0,0,5"
+								  Height="30" Width="30"
+								  Stretch="Uniform"
+								  Fill="{DynamicResource TextFillColorPrimary}"/>
+							<TextBlock Text="No anime found"
+									   TextAlignment="Center"/>
+							<TextBlock Text="Something probably went wrong :("
+									   TextAlignment="Center"
+									   FontSize="12"/>
+						</StackPanel>
+					</Panel>
 				</Panel>
 			</Grid>
 
