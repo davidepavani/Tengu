@@ -126,6 +126,21 @@
 						</ItemsControl>
 					</ScrollViewer>
 
+					<Panel IsVisible="{Binding Loading}"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Center">
+						<Border Background="{DynamicResource CardBackgroundFillColorDefault}"
+								CornerRadius="7">
+							<StackPanel Spacing="5"
+										Margin="5">
+								<TextBlock Text="Loading Animes.." 
+										   Margin="0,5,0,0"
+										   TextAlignment="Center"/>
+								<ProgressBar IsIndeterminate="True"/>
+							</StackPanel>
+						</Border>
+					</Panel>
+
 					<Panel IsVisible="{Binding !Loading}">
 						<StackPanel HorizontalAlignment="Center"
 									VerticalAlignment="Center"
