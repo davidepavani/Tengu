@@ -62,9 +62,9 @@ namespace Tengu.ViewModels
         public LatestEpisodesControlViewModel()
         {
             tenguApi = Locator.Current.GetService<ITenguApi>();
+            Hosts[] except = { Hosts.None };
 
-
-            HostsList = Enum.GetValues(typeof(Hosts)).Cast<Hosts>().ToList();
+            HostsList = Enum.GetValues(typeof(Hosts)).Cast<Hosts>().Except(except).ToList();
 
             // TODO - SAVE IT
             //SelectedHost = Hosts.AnimeSaturn;
@@ -72,14 +72,9 @@ namespace Tengu.ViewModels
 
         public void Initialize()
         {
-            tenguApi.CurrentHosts = (SelectedHost != Hosts.None) ? 
-                new Hosts[] { SelectedHost } : 
-                new Hosts[] { Hosts.AnimeUnity, Hosts.AnimeSaturn };
+            tenguApi.CurrentHosts = new Hosts[] { SelectedHost };
 
             LatestEpisodesOffset = 0;
-
-            //ImageWidth = host.Equals(Hosts.AnimeUnity) ? 150 : 377.9;
-            //BorderWidth = ImageWidth + 20;
 
             RefreshLatestEpisodes();
         }
