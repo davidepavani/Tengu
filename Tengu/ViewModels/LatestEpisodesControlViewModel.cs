@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 
@@ -16,6 +17,7 @@ namespace Tengu.ViewModels
         private AvaloniaList<EpisodeModel> latestEpisodesList = new();
         private int latestEpisodesOffset = 0;
         private Hosts selectedHost = Hosts.AnimeSaturn;
+        private int currentPage;
 
         private bool loading = false;
         private bool canPrev = false;
@@ -23,6 +25,8 @@ namespace Tengu.ViewModels
         private readonly ITenguApi tenguApi;
 
         #region Properties
+        public ICommand CmdNextPage { get; private set; }
+        public ICommand CmdPrevPage { get; private set; }
         public List<Hosts> HostsList { get; private set; }
         public AvaloniaList<EpisodeModel> LatestEpisodesList
         {
@@ -44,8 +48,15 @@ namespace Tengu.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref latestEpisodesOffset, value);
-                CanPrev = value > 10;
+                CanPrev = value >= 10;
+
+                CurrentPage = LatestEpisodesOffset / 10;
             }
+        }
+        public int CurrentPage
+        {
+            get => currentPage;
+            set => this.RaiseAndSetIfChanged(ref currentPage, value);
         }
         public bool Loading
         {
@@ -61,6 +72,9 @@ namespace Tengu.ViewModels
 
         public LatestEpisodesControlViewModel()
         {
+            CmdNextPage = ReactiveCommand.Create(LatestNextPage);
+            CmdPrevPage = ReactiveCommand.Create(LatestPrevPage);
+
             tenguApi = Locator.Current.GetService<ITenguApi>();
             Hosts[] except = { Hosts.None };
 

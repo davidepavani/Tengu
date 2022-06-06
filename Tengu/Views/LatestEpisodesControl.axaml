@@ -192,12 +192,14 @@
 						Orientation="Horizontal"
 						Grid.Row="2">
 				<Button IsEnabled="{Binding CanPrev}"
+						Command="{Binding CmdPrevPage}"
 						Classes="Page">
 					<icons:MaterialIcon Kind="ArrowLeftThick" />
 				</Button>
-				<TextBlock Text="{Binding LatestEpisodesOffset}"
+				<TextBlock Text="{Binding CurrentPage}"
 						   VerticalAlignment="Center"/>
-				<Button Classes="Page">
+				<Button Classes="Page"
+						Command="{Binding CmdNextPage}">
 					<icons:MaterialIcon Kind="ArrowRightThick" />
 				</Button>
 			</StackPanel>
