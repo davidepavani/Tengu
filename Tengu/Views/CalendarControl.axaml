@@ -3,18 +3,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:icons="using:Material.Icons.Avalonia"
              x:Class="Tengu.Views.CalendarControl"
 			 xmlns:vm="using:Tengu.ViewModels">
 	<UserControl.DataContext>
 		<vm:CalendarControlViewModel />
 	</UserControl.DataContext>
 
-	<Grid>
-		<Grid ColumnDefinitions="2*,*"
+	<UserControl.Styles>
+		<Style Selector="Button.Page">
+			<Setter Property="CornerRadius" Value="0" />
+			<Setter Property="Background" Value="Transparent" />
+		</Style>
+	</UserControl.Styles>
+
+	<Grid ColumnDefinitions="2*,*">
+		<Grid ColumnDefinitions="*,*"
 			  Grid.ColumnSpan="2"
 			  RowDefinitions="*,5*">
 			<Image Grid.Column="1"
-				   Opacity=".5"
+				   Opacity=".2"
 				   HorizontalAlignment="Stretch"
 				   VerticalAlignment="Bottom"
 				   Grid.Row="1">
@@ -25,7 +34,10 @@
 								<DrawingGroup Opacity="1">
 									<DrawingGroup Opacity="1">
 										<!-- <GeometryDrawing Brush="#b37273" Geometry="{StaticResource ItachiBkg}" />-->
-										
+										<GeometryDrawing Brush="#36383f" Geometry="{StaticResource Itachi2}" />
+										<GeometryDrawing Brush="#e7d4c5" Geometry="{StaticResource Itachi3}" />
+										<GeometryDrawing Brush="#f9f9f9" Geometry="{StaticResource Itachi4}" />
+										<GeometryDrawing Brush="{DynamicResource SystemAccentColorDark3}" Geometry="{StaticResource Itachi1}" />
 									</DrawingGroup>
 								</DrawingGroup>
 							</DrawingGroup>
@@ -35,11 +47,102 @@
 			</Image>
 		</Grid>
 
-		<Grid RowDefinitions="Auto,*,Auto"
+		<Grid RowDefinitions="Auto,Auto,*"
+			  Grid.ColumnSpan="2"
 			  Margin="40">
 			<TextBlock Text="Calendar"
 					   Margin="0,0,0,20"
 					   Classes="SubtitleTextBlockStyle" />
+
+			<StackPanel Grid.Row="1"
+						Orientation="Horizontal"
+						Spacing="10">
+
+				<ComboBox Width="200"
+						  VerticalAlignment="Center"
+						  IsEnabled="{Binding !Loading}"
+						  Items="{Binding HostsList}"/>
+				
+				
+				<!--
+				<StackPanel Orientation="Horizontal"
+							HorizontalAlignment="Center"
+							Grid.Column="1">
+					<Button Classes="Page">
+						<icons:MaterialIcon Kind="ArrowLeft" />
+					</Button>
+					<TextBlock Text="Wednesday"
+							   Width="100"
+							   TextAlignment="Center"
+								   Margin="10,0"
+								   VerticalAlignment="Center"/>
+					<Button Classes="Page">
+						<icons:MaterialIcon Kind="ArrowRight" />
+					</Button>
+				</StackPanel>
+				-->
+				
+
+			</StackPanel>
+
+			<TabControl Grid.Row="2">
+				<TabItem Header="MONDAY"
+						 FontSize="14">
+					<ScrollViewer Grid.Row="2">
+						<ItemsRepeater Items="{Binding HostsList}"
+									   Margin="20,10">
+							<ItemsRepeater.ItemTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal"
+												Spacing="10">
+										<TextBlock Text="{Binding ., StringFormat=- {0}}"
+												   FontSize="13"/>
+
+										<icons:MaterialIcon Kind="Image"
+															ToolTip.Placement="Right"
+															ToolTip.ShowDelay="0">
+											<ToolTip.Tip>
+												<StackPanel>
+													<TextBlock Classes="h1">IMAGE HERE</TextBlock>
+													<TextBlock Classes="h2">A control which pops up a hint when a control is hovered</TextBlock>
+												</StackPanel>
+											</ToolTip.Tip>
+										</icons:MaterialIcon>
+									</StackPanel>
+								</DataTemplate>
+							</ItemsRepeater.ItemTemplate>
+						</ItemsRepeater>
+					</ScrollViewer>
+				</TabItem>
+				<TabItem Header="TUESDAY"
+						 FontSize="14">
+					
+				</TabItem>
+				<TabItem Header="WEDNESDAY"
+						 FontSize="14">
+
+				</TabItem>
+				<TabItem Header="THURSDAY"
+						 FontSize="14">
+
+				</TabItem>
+				<TabItem Header="FRIDAY"
+						 FontSize="14">
+
+				</TabItem>
+				<TabItem Header="DATURDAY"
+						 FontSize="14">
+
+				</TabItem>
+				<TabItem Header="SUNDAY"
+						 FontSize="14">
+
+				</TabItem>
+				<TabItem Header="OTHERS"
+						 FontSize="14">
+					
+				</TabItem>
+			</TabControl>
 		</Grid>
 	</Grid>
 </UserControl>
