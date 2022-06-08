@@ -3,6 +3,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Tengu.Views.CalendarControl">
-  Welcome to Avalonia!
+             x:Class="Tengu.Views.CalendarControl"
+			 xmlns:vm="using:Tengu.ViewModels">
+	<UserControl.DataContext>
+		<vm:CalendarControlViewModel />
+	</UserControl.DataContext>
+
+	<Grid>
+		<Grid ColumnDefinitions="2*,*"
+			  Grid.ColumnSpan="2"
+			  RowDefinitions="*,5*">
+			<Image Grid.Column="1"
+				   Opacity=".5"
+				   HorizontalAlignment="Stretch"
+				   VerticalAlignment="Bottom"
+				   Grid.Row="1">
+				<Image.Source>
+					<DrawingImage>
+						<DrawingImage.Drawing>
+							<DrawingGroup>
+								<DrawingGroup Opacity="1">
+									<DrawingGroup Opacity="1">
+										<!-- <GeometryDrawing Brush="#b37273" Geometry="{StaticResource ItachiBkg}" />-->
+										
+									</DrawingGroup>
+								</DrawingGroup>
+							</DrawingGroup>
+						</DrawingImage.Drawing>
+					</DrawingImage>
+				</Image.Source>
+			</Image>
+		</Grid>
+
+		<Grid RowDefinitions="Auto,*,Auto"
+			  Margin="40">
+			<TextBlock Text="Calendar"
+					   Margin="0,0,0,20"
+					   Classes="SubtitleTextBlockStyle" />
+		</Grid>
+	</Grid>
 </UserControl>
