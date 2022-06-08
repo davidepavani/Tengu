@@ -59,7 +59,7 @@
 			  Grid.ColumnSpan="2"
 			  RowDefinitions="*,5*">
 			<Image Grid.Column="1"
-				   Opacity=".5"
+				   Opacity=".2"
 				   HorizontalAlignment="Stretch"
 				   VerticalAlignment="Bottom"
 				   Grid.Row="1">
