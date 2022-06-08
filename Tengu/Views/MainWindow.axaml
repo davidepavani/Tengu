@@ -95,7 +95,8 @@
 						<ui:NavigationViewItem.MenuItems>
 							<ui:NavigationViewItem Content="Latest Episodes" 
 												   Tag="{x:Type views:LatestEpisodesControl}"/>
-							<ui:NavigationViewItem Content="Calendar" />
+							<ui:NavigationViewItem Content="Calendar" 
+												   Tag="{x:Type views:CalendarControl}"/>
 							<ui:NavigationViewItem Content="Search" />
 						</ui:NavigationViewItem.MenuItems>
 					</ui:NavigationViewItem>
