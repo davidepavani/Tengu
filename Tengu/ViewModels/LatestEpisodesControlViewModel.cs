@@ -22,12 +22,11 @@ namespace Tengu.ViewModels
         private bool loading = false;
         private bool canPrev = false;
 
-        private readonly ITenguApi tenguApi;
 
         #region Properties
         public ICommand CmdNextPage { get; private set; }
         public ICommand CmdPrevPage { get; private set; }
-        public List<Hosts> HostsList { get; private set; }
+        
         public AvaloniaList<EpisodeModel> LatestEpisodesList
         {
             get => latestEpisodesList;
@@ -75,18 +74,13 @@ namespace Tengu.ViewModels
             CmdNextPage = ReactiveCommand.Create(LatestNextPage);
             CmdPrevPage = ReactiveCommand.Create(LatestPrevPage);
 
-            tenguApi = Locator.Current.GetService<ITenguApi>();
-            Hosts[] except = { Hosts.None };
-
-            HostsList = Enum.GetValues(typeof(Hosts)).Cast<Hosts>().Except(except).ToList();
-
             // TODO - SAVE IT
             //SelectedHost = Hosts.AnimeSaturn;
         }
 
         public void Initialize()
         {
-            tenguApi.CurrentHosts = new Hosts[] { SelectedHost };
+            TenguApi.CurrentHosts = new Hosts[] { SelectedHost };
 
             LatestEpisodesOffset = 0;
 
@@ -101,7 +95,7 @@ namespace Tengu.ViewModels
             {
                 LatestEpisodesList.Clear();
 
-                foreach (EpisodeModel episode in await tenguApi.GetLatestEpisodeAsync(LatestEpisodesOffset, LatestEpisodesOffset + 10))
+                foreach (EpisodeModel episode in await TenguApi.GetLatestEpisodeAsync(LatestEpisodesOffset, LatestEpisodesOffset + 10))
                 {
                     LatestEpisodesList.Add(episode);
                 }
