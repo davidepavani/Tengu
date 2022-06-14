@@ -36,10 +36,10 @@
 									<DrawingGroup Opacity="1">
 										<!--<GeometryDrawing Brush="#4f4197" Geometry="{StaticResource KilluaBkg}" />-->
 
-										<GeometryDrawing Brush="#6b6b83" Geometry="{StaticResource Killua2}" />
-										<GeometryDrawing Brush="#9e9eb1" Geometry="{StaticResource Killua3}" />
-										<GeometryDrawing Brush="#13153d" Geometry="{StaticResource Killua4}" />
-										<GeometryDrawing Brush="#fdfdfd" Geometry="{StaticResource Killua5}" />
+										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua2}" />
+										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua3}" />
+										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua4}" />
+										<GeometryDrawing Brush="{DynamicResource TextFillColorSecondary}" Geometry="{StaticResource Killua5}" />
 
 									</DrawingGroup>
 								</DrawingGroup>
