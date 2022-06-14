@@ -34,11 +34,9 @@
 							<DrawingGroup>
 								<DrawingGroup Opacity="1">
 									<DrawingGroup Opacity="1">
-										<!-- <GeometryDrawing Brush="#b37273" Geometry="{StaticResource ItachiBkg}" />-->
-										<GeometryDrawing Brush="#36383f" Geometry="{StaticResource Itachi2}" />
-										<GeometryDrawing Brush="#e7d4c5" Geometry="{StaticResource Itachi3}" />
-										<GeometryDrawing Brush="#f9f9f9" Geometry="{StaticResource Itachi4}" />
-										<GeometryDrawing Brush="{DynamicResource SystemAccentColorDark3}" Geometry="{StaticResource Itachi1}" />
+										<!--<GeometryDrawing Brush="#4f4197" Geometry="{StaticResource KilluaBkg}" />-->
+										<GeometryDrawing Brush="#6b6b83" Geometry="{StaticResource Killua2}" />
+										<GeometryDrawing Brush="#13153d" Geometry="{StaticResource Killua4}" />
 									</DrawingGroup>
 								</DrawingGroup>
 							</DrawingGroup>
