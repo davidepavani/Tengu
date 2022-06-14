@@ -16,12 +16,6 @@ namespace Tengu.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return ((Hosts)value).Equals((Hosts)parameter);
-
-            return (Hosts)Enum.Parse(typeof(Hosts), value.ToString()) switch
-            {
-                Hosts.AnimeSaturn => "EpSaturn",
-                _ => "EpUnity",
-            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

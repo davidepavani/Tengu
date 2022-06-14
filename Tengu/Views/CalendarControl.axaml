@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:icons="using:Material.Icons.Avalonia"
              x:Class="Tengu.Views.CalendarControl"
@@ -61,7 +62,8 @@
 				<ComboBox Width="200"
 						  VerticalAlignment="Center"
 						  IsEnabled="{Binding !Loading}"
-						  Items="{Binding HostsList}"/>
+						  Items="{Binding HostsList}"
+						  SelectedItem="{Binding SelectedHost}"/>
 				
 				
 				<!--
@@ -85,64 +87,113 @@
 
 			</StackPanel>
 
-			<TabControl Grid.Row="2">
-				<TabItem Header="MONDAY"
-						 FontSize="14">
-					<ScrollViewer Grid.Row="2">
-						<ItemsRepeater Items="{Binding HostsList}"
-									   Margin="20,10">
-							<ItemsRepeater.ItemTemplate>
-								<DataTemplate>
-									<StackPanel Orientation="Horizontal"
-												Spacing="10">
-										<TextBlock Text="{Binding ., StringFormat=- {0}}"
-												   FontSize="13"/>
+			<TabControl Grid.Row="2"
+						Name="TcCalendar"
+						Items="{Binding DaysList}">
+				<TabControl.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Day}" 
+								   FontSize="14"/>
+					</DataTemplate>
+				</TabControl.ItemTemplate>
 
-										<icons:MaterialIcon Kind="Image"
-															ToolTip.Placement="Right"
-															ToolTip.ShowDelay="0">
-											<ToolTip.Tip>
-												<StackPanel>
-													<TextBlock Classes="h1">IMAGE HERE</TextBlock>
-													<TextBlock Classes="h2">A control which pops up a hint when a control is hovered</TextBlock>
-												</StackPanel>
-											</ToolTip.Tip>
-										</icons:MaterialIcon>
-									</StackPanel>
-								</DataTemplate>
-							</ItemsRepeater.ItemTemplate>
-						</ItemsRepeater>
-					</ScrollViewer>
-				</TabItem>
-				<TabItem Header="TUESDAY"
-						 FontSize="14">
-					
-				</TabItem>
-				<TabItem Header="WEDNESDAY"
-						 FontSize="14">
+				<TabControl.ContentTemplate>
+					<DataTemplate>
+						<Panel>
+							<ScrollViewer>
+								<ItemsRepeater Items="{Binding Animes}"
+											   Name="IrDay"
+													   Margin="20,10">
+									<ItemsRepeater.ItemTemplate>
+										<DataTemplate>
+											<StackPanel Orientation="Horizontal"
+														Spacing="10">
+												<TextBlock Text="{Binding Index}"
+														   VerticalAlignment="Center"
+														   TextAlignment="Right"
+														   Width="30"
+														   FontSize="13"/>
+												<TextBlock Text="-"
+														   VerticalAlignment="Center"
+														   FontSize="13"/>
+												<TextBlock Text="{Binding Anime}"
+														   FontSize="13"
+														   VerticalAlignment="Center"/>
 
-				</TabItem>
-				<TabItem Header="THURSDAY"
-						 FontSize="14">
+												<icons:MaterialIcon Kind="Image"
+																	IsVisible="{Binding Image, Converter={x:Static ObjectConverters.IsNotNull}}"
+																	VerticalAlignment="Center"
+																	ToolTip.Placement="Right"
+																	ToolTip.ShowDelay="0">
+													<ToolTip.Tip>
+														<ContentControl Content="{Binding Image}"
+																		Margin="10"/>
+													</ToolTip.Tip>
+												</icons:MaterialIcon>
+											</StackPanel>
+										</DataTemplate>
+									</ItemsRepeater.ItemTemplate>
+								</ItemsRepeater>
+							</ScrollViewer>
 
-				</TabItem>
-				<TabItem Header="FRIDAY"
-						 FontSize="14">
-
-				</TabItem>
-				<TabItem Header="DATURDAY"
-						 FontSize="14">
-
-				</TabItem>
-				<TabItem Header="SUNDAY"
-						 FontSize="14">
-
-				</TabItem>
-				<TabItem Header="OTHERS"
-						 FontSize="14">
-					
-				</TabItem>
+							<Panel IsVisible="{Binding !Loading}"
+								   Grid.Row="2">
+								<StackPanel Margin="20,10"
+											HorizontalAlignment="Center"
+											VerticalAlignment="Center"
+											IsVisible="{Binding !#IrDay.Items.Count}"
+											Opacity=".4">
+									<Path Data="{StaticResource Clouds}"
+										  HorizontalAlignment="Center"
+										  Margin="0,0,0,5"
+										  Height="30" Width="30"
+										  Stretch="Uniform"
+										  Fill="{DynamicResource TextFillColorPrimary}"/>
+									<TextBlock Text="No episodes planned for that day :("
+											   TextAlignment="Center"/>
+								</StackPanel>
+							</Panel>
+						</Panel>
+					</DataTemplate>
+				</TabControl.ContentTemplate>
 			</TabControl>
+
+			<Panel IsVisible="{Binding Loading}"
+				   Grid.Row="2"
+				   HorizontalAlignment="Center"
+						   VerticalAlignment="Center">
+				<Border Background="{DynamicResource CardBackgroundFillColorDefault}"
+						CornerRadius="7">
+					<StackPanel Spacing="5"
+								Margin="5">
+						<TextBlock Text="Loading Animes.."
+								   Margin="0,5,0,0"
+								   TextAlignment="Center"/>
+						<ProgressBar IsIndeterminate="True"/>
+					</StackPanel>
+				</Border>
+			</Panel>
+
+			<Panel IsVisible="{Binding !Loading}"
+				   Grid.Row="2">
+				<StackPanel Margin="20,10"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							IsVisible="{Binding !#TcCalendar.Items.Count}"
+							Opacity=".4">
+					<Path Data="{StaticResource JapanShrine}"
+						  HorizontalAlignment="Center"
+						  Margin="0,0,0,5"
+						  Height="30" Width="30"
+						  Stretch="Uniform"
+						  Fill="{DynamicResource TextFillColorPrimary}"/>
+					<TextBlock Text="No anime found"
+							   TextAlignment="Center"/>
+					<TextBlock Text="Something probably went wrong :("
+							   TextAlignment="Center"
+							   FontSize="12"/>
+				</StackPanel>
+			</Panel>
 		</Grid>
 	</Grid>
 </UserControl>
