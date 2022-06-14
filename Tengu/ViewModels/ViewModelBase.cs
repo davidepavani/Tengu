@@ -16,6 +16,7 @@ namespace Tengu.ViewModels
         // Dependency Injection
         public INavigationService Navigator { get; private set; }
         public ITenguApi TenguApi { get; private set; }
+        public IProgramConfiguration ProgramConfig { get; private set; }
 
         // Commands
         public ICommand NavigateCommand { get; private set; }
@@ -32,6 +33,7 @@ namespace Tengu.ViewModels
             // Dependency Injection
             Navigator = Locator.Current.GetService<INavigationService>();
             TenguApi = Locator.Current.GetService<ITenguApi>();
+            ProgramConfig = Locator.Current.GetService<IProgramConfiguration>();
 
             // Commands
             NavigateCommand = ReactiveCommand.Create<Type>(Navigate);

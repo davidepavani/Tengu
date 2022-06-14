@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tengu.Business.API;
+using Tengu.Configuration;
 using Tengu.Interfaces;
 using Tengu.Services;
 
@@ -26,8 +27,8 @@ namespace Tengu.Extensions
                     if (Locator.CurrentMutable != null)
                     {
                         // Program Configuration
-                        //ProgramConfiguration.Load(out ProgramConfiguration Configuration);
-                        //Locator.CurrentMutable.RegisterConstant(Configuration, typeof(IProgramConfiguration));
+                        ProgramConfiguration.Load(out ProgramConfiguration Configuration);
+                        Locator.CurrentMutable.RegisterConstant(Configuration, typeof(IProgramConfiguration));
 
                         // Navigation Service
                         Locator.CurrentMutable.RegisterConstant(new NavigationService(), typeof(INavigationService));

@@ -11,5 +11,10 @@ namespace Tengu.ViewModels
         {
 
         }
+
+        public void Close()
+        {
+            ProgramConfig.Save();
+        }
     }
 }

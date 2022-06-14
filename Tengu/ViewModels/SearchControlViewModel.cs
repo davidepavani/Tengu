@@ -12,15 +12,19 @@ namespace Tengu.ViewModels
     {
         private Hosts seletctedHost = Hosts.AnimeSaturn;
 
-        public Hosts SeletctedHost
+        public Hosts SelectedHost
         {
             get => seletctedHost;
-            set => this.RaiseAndSetIfChanged(ref seletctedHost, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref seletctedHost, value);
+                ProgramConfig.Hosts.Search = SelectedHost;
+            }
         }
 
         public SearchControlViewModel()
         {
-
+            SelectedHost = ProgramConfig.Hosts.Search;
         }
     }
 }

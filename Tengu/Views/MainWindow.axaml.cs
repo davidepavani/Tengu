@@ -26,10 +26,16 @@ namespace Tengu.Views
             MinHeight = 600;
 
             Opened += OnWindowOpened;
+            Closing += MainWindow_Closing;
 
             // TODO => REMOVE THIS
             var faTheme = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
             faTheme.RequestedTheme = "Dark";
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            (DataContext as MainWindowViewModel).Close();
         }
 
         private void OnWindowOpened(object sender, EventArgs e)

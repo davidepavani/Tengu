@@ -19,7 +19,7 @@ namespace Tengu.ViewModels
 
         private AvaloniaList<EpisodeModel> latestEpisodesList = new();
         private int latestEpisodesOffset = 0;
-        private Hosts selectedHost = Hosts.AnimeUnity;
+        private Hosts selectedHost;
         private int currentPage;
 
         private bool loading = false;
@@ -41,6 +41,8 @@ namespace Tengu.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref selectedHost, value);
+
+                ProgramConfig.Hosts.Latest = SelectedHost;
                 Initialize();
             }
         }
@@ -77,8 +79,7 @@ namespace Tengu.ViewModels
             CmdNextPage = ReactiveCommand.Create(LatestNextPage);
             CmdPrevPage = ReactiveCommand.Create(LatestPrevPage);
 
-            // TODO - SAVE IT
-            //SelectedHost = Hosts.AnimeSaturn;
+            SelectedHost = ProgramConfig.Hosts.Latest;
         }
 
         public void Initialize()

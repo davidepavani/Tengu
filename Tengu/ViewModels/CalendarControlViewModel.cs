@@ -19,7 +19,6 @@ namespace Tengu.ViewModels
         private Hosts selectedHost;
 
         #region Properties
-        public ICommand ReloadCalendarCommand { get; private set; }
         public bool Loading
         {
             get => loading;
@@ -36,6 +35,7 @@ namespace Tengu.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref selectedHost, value);
+                ProgramConfig.Hosts.Calendar = SelectedHost;
                 RefreshCalendar();
             }
         }
@@ -43,7 +43,7 @@ namespace Tengu.ViewModels
 
         public CalendarControlViewModel()
         {
-            ReloadCalendarCommand = ReactiveCommand.Create(RefreshCalendar);
+            SelectedHost = ProgramConfig.Hosts.Calendar;
         }
 
         public void Initialize()
