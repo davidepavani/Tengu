@@ -97,7 +97,8 @@
 												   Tag="{x:Type views:LatestEpisodesControl}"/>
 							<ui:NavigationViewItem Content="Calendar" 
 												   Tag="{x:Type views:CalendarControl}"/>
-							<ui:NavigationViewItem Content="Search" />
+							<ui:NavigationViewItem Content="Search" 
+												   Tag="{x:Type views:SearchControl}"/>
 						</ui:NavigationViewItem.MenuItems>
 					</ui:NavigationViewItem>
 					<ui:NavigationViewItem Content="Kitsu">
