@@ -1,4 +1,5 @@
 ﻿using Avalonia.Collections;
+using NLog;
 using ReactiveUI;
 using Splat;
 using System;
@@ -14,9 +15,11 @@ namespace Tengu.ViewModels
 {
     public class LatestEpisodesControlViewModel : ViewModelBase
     {
+        private Logger log = LogManager.GetCurrentClassLogger();
+
         private AvaloniaList<EpisodeModel> latestEpisodesList = new();
         private int latestEpisodesOffset = 0;
-        private Hosts selectedHost = Hosts.AnimeSaturn;
+        private Hosts selectedHost = Hosts.AnimeUnity;
         private int currentPage;
 
         private bool loading = false;

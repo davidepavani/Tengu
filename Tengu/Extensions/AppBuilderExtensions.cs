@@ -1,6 +1,8 @@
 ﻿using Avalonia.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -44,7 +46,14 @@ namespace Tengu.Extensions
                     {
                         using IHost host = Host.CreateDefaultBuilder()
                                  .ConfigureServices((_, services) =>
-                                     services.AddTenguServices())
+                                     services.AddTenguServices()
+                                      .AddLogging(loggingBuilder => 
+                                          {                           
+                                              loggingBuilder.ClearProviders();              
+                                              loggingBuilder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);             
+                                              loggingBuilder.AddNLog();          
+                                          }) 
+                                      )
                                  .Build();
 
                         TenguApi tenguApi = (TenguApi)ActivatorUtilities.CreateInstance(host.Services, typeof(TenguApi));
