@@ -12,14 +12,15 @@ using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Data;
+using Tengu.Models;
 
 namespace Tengu.ViewModels
 {
     public class LatestEpisodesControlViewModel : ViewModelBase
     {
-        private Logger log = LogManager.GetLogger(Loggers.MainLogger);
+        private readonly Logger log = LogManager.GetLogger(Loggers.MainLogger);
 
-        private AvaloniaList<EpisodeModel> latestEpisodesList = new();
+        private AvaloniaList<LatestModel> latestEpisodesList = new();
         private int latestEpisodesOffset = 0;
         private Hosts selectedHost;
         private int currentPage;
@@ -27,12 +28,11 @@ namespace Tengu.ViewModels
         private bool loading = false;
         private bool canPrev = false;
 
-
         #region Properties
         public ICommand CmdNextPage { get; private set; }
         public ICommand CmdPrevPage { get; private set; }
         
-        public AvaloniaList<EpisodeModel> LatestEpisodesList
+        public AvaloniaList<LatestModel> LatestEpisodesList
         {
             get => latestEpisodesList;
             set => this.RaiseAndSetIfChanged(ref latestEpisodesList, value);
@@ -103,7 +103,7 @@ namespace Tengu.ViewModels
 
                 foreach (EpisodeModel episode in await TenguApi.GetLatestEpisodeAsync(LatestEpisodesOffset, LatestEpisodesOffset + 10))
                 {
-                    LatestEpisodesList.Add(episode);
+                    LatestEpisodesList.Add(new(episode));
                 }
             }
             catch(Exception ex)

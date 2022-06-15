@@ -148,24 +148,27 @@
 
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Button Classes.EpUnity="{Binding Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeUnity}}"
-											Classes.EpSaturn="{Binding Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeSaturn}}"
+									<Button Classes.EpUnity="{Binding Episode.Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeUnity}}"
+											Classes.EpSaturn="{Binding Episode.Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeSaturn}}"
 											Padding="0">
 										<Grid>
+											<!--
 											<Image asyncImageLoader:ImageLoader.Source="{Binding Image}" 
 												   Stretch="UniformToFill"
 												   RenderOptions.BitmapInterpolationMode="HighQuality"/>
-
+											-->
+											<ContentControl Content="{Binding Image}" />
+											
 											<Border Background="{DynamicResource SolidBackgroundFillColorQuarternary}"
 													VerticalAlignment="Bottom"
 													Margin="0,0,0,10">
 												<Grid ColumnDefinitions="*,Auto">
 
 													<StackPanel Margin="5">
-														<TextBlock Text="{Binding Title}" 
+														<TextBlock Text="{Binding Episode.Title}" 
 																   TextWrapping="Wrap"
 																   FontWeight="Medium"/>
-														<TextBlock Text="{Binding EpisodeNumber, StringFormat=Episode {0}}" />
+														<TextBlock Text="{Binding Episode.EpisodeNumber, StringFormat=Episode {0}}" />
 													</StackPanel>
 
 													<Button Classes="accent"
