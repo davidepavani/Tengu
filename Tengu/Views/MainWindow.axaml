@@ -116,7 +116,11 @@
 					</ui:NavigationViewItem>
 					<ui:NavigationViewItem Content="Settings">
 						<ui:NavigationViewItem.MenuItems>
-							<ui:NavigationViewItem Content="Customization" />
+							<ui:NavigationViewItem Content="Customization">
+								<ui:NavigationViewItem.Icon>
+									<ui:PathIcon Data="{StaticResource Palette}" />
+								</ui:NavigationViewItem.Icon>
+							</ui:NavigationViewItem>
 						</ui:NavigationViewItem.MenuItems>
 					</ui:NavigationViewItem>
 				</ui:NavigationView.MenuItems>
