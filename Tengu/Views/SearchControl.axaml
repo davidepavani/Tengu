@@ -17,6 +17,38 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Background" Value="Transparent" />
 		</Style>
+
+		<Style Selector="Button.AnimeSearch">
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="CornerRadius" Value="0" />
+			<Setter Property="Margin" Value="5" />
+			<Setter Property="Height" Value="212.6" />
+			<Setter Property="Width" Value="150.6" />
+		</Style>
+		
+		<Style Selector="Button.AnimeSearch:pointerover">
+			<Setter Property="Margin" Value="2" />
+			
+			<Style.Animations>
+				<Animation Duration="0:0:0.5"
+                             IterationCount="1"
+                             FillMode="None"
+                             PlaybackDirection="Alternate"
+                            Easing="LinearEasing">
+					<KeyFrame Cue="0%">
+						<Setter Property="Height" Value="212.6"/>
+						<Setter Property="Width" Value="150.6"/>
+					</KeyFrame>
+					<KeyFrame Cue="30%">
+						<Setter Property="Height" Value="222.6"/>
+						<Setter Property="Width" Value="160.6"/>
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+
+			<Setter Property="Height" Value="222.6"/>
+			<Setter Property="Width" Value="160.6"/>
+		</Style>
 	</UserControl.Styles>
 	
 	<Grid ColumnDefinitions="2*,*">
@@ -125,55 +157,41 @@
 				</Button>
 			</StackPanel>
 
-			<Panel Grid.Row="2">
-				<ScrollViewer VerticalScrollBarVisibility="Hidden">
-					<ItemsControl Items="{Binding AnimeList}"
-								  Name="IcSearch">
+			<ScrollViewer Grid.Row="2"
+						  Margin="0,10,0,0">
+				<ItemsControl Items="{Binding AnimeList}"
+							  Name="IcSearch">
 
-						<ItemsControl.ItemsPanel>
-							<ItemsPanelTemplate>
-								<WrapPanel Orientation="Horizontal"/>
-							</ItemsPanelTemplate>
-						</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel Orientation="Horizontal"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
 
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Button Padding="0">
-									<Grid>
-										<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
-											   Stretch="UniformToFill"
-											   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Button Classes="AnimeSearch">
+								<Grid>
+									<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
+										   Stretch="UniformToFill"
+										   RenderOptions.BitmapInterpolationMode="HighQuality"/>
 
-										<Border Background="{DynamicResource SolidBackgroundFillColorQuarternary}"
-												VerticalAlignment="Bottom"
-												Margin="0,0,0,10">
-											<Grid ColumnDefinitions="*,Auto">
-
-												<StackPanel Margin="5">
-													<TextBlock Text="{Binding Title}"
-															   TextWrapping="Wrap"
-															   FontWeight="Medium"/>
-													<TextBlock Text="{Binding EpisodeNumber, StringFormat=Episode {0}}" />
-												</StackPanel>
-
-												<Button Classes="accent"
-														Grid.Column="1"
-														CornerRadius="15"
-														BorderThickness="0"
-														HorizontalAlignment="Right"
-														Margin="5">
-													<icons:MaterialIcon Kind="Download" />
-												</Button>
-											</Grid>
-										</Border>
-									</Grid>
-								</Button>
-
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
-				</ScrollViewer>
-			</Panel>
+									<Border Background="{DynamicResource SolidBackgroundFillColorQuarternary}"
+											VerticalAlignment="Bottom"
+											Margin="0,0,0,10">
+										<StackPanel Margin="5">
+											<TextBlock Text="{Binding Title}"
+													   TextWrapping="Wrap"
+													   FontWeight="Medium"/>
+											<TextBlock Text="{Binding EpisodeNumber, StringFormat=Episode {0}}" />
+										</StackPanel>
+									</Border>
+								</Grid>
+							</Button>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ScrollViewer>
 
 			<Panel IsVisible="{Binding Loading}"
 				   Grid.Row="2"

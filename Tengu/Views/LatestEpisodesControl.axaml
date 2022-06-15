@@ -27,9 +27,27 @@
 			<Setter Property="CornerRadius" Value="0" />
 		</Style>
 		<Style Selector="Button.EpUnity:pointerover">
+			<Setter Property="Margin" Value="2" />
+
+			<Style.Animations>
+				<Animation Duration="0:0:0.5"
+                             IterationCount="1"
+                             FillMode="None"
+                             PlaybackDirection="Alternate"
+                            Easing="LinearEasing">
+					<KeyFrame Cue="0%">
+						<Setter Property="Height" Value="220" />
+						<Setter Property="Width" Value="160" />
+					</KeyFrame>
+					<KeyFrame Cue="30%">
+						<Setter Property="Height" Value="230" />
+						<Setter Property="Width" Value="170" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+
 			<Setter Property="Height" Value="230" />
 			<Setter Property="Width" Value="170" />
-			<Setter Property="Margin" Value="2" />
 		</Style>
 		<Style Selector="Button.EpSaturn">
 			<Setter Property="Height" Value="180" />
@@ -39,9 +57,27 @@
 			<Setter Property="CornerRadius" Value="0" />
 		</Style>
 		<Style Selector="Button.EpSaturn:pointerover">
+			<Setter Property="Margin" Value="2" />
+
+			<Style.Animations>
+				<Animation Duration="0:0:0.5"
+                             IterationCount="1"
+                             FillMode="None"
+                             PlaybackDirection="Alternate"
+                            Easing="LinearEasing">
+					<KeyFrame Cue="0%">
+						<Setter Property="Height" Value="180" />
+						<Setter Property="Width" Value="377.9" />
+					</KeyFrame>
+					<KeyFrame Cue="30%">
+						<Setter Property="Height" Value="190" />
+						<Setter Property="Width" Value="387.9" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+
 			<Setter Property="Height" Value="190" />
 			<Setter Property="Width" Value="387.9" />
-			<Setter Property="Margin" Value="2" />
 		</Style>
 		
 		<Style Selector="Button.Page">
