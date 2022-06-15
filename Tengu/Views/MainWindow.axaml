@@ -94,11 +94,17 @@
 
 					<ui:NavigationViewItem Content="Tengu">
 						<ui:NavigationViewItem.MenuItems>
-							<ui:NavigationViewItem Content="Latest Episodes" 
+							<ui:NavigationViewItem Content="Latest Episodes"
+												   Icon="Favorite"
 												   Tag="{x:Type views:LatestEpisodesControl}"/>
-							<ui:NavigationViewItem Content="Calendar" 
-												   Tag="{x:Type views:CalendarControl}"/>
+							<ui:NavigationViewItem Content="Calendar"
+												   Tag="{x:Type views:CalendarControl}">
+								<ui:NavigationViewItem.Icon>
+									<ui:PathIcon Data="{StaticResource Calendar}" />
+								</ui:NavigationViewItem.Icon>
+							</ui:NavigationViewItem>
 							<ui:NavigationViewItem Content="Search" 
+												   Icon="Find"
 												   Tag="{x:Type views:SearchControl}"/>
 						</ui:NavigationViewItem.MenuItems>
 					</ui:NavigationViewItem>
