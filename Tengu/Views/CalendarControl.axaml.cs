@@ -11,13 +11,6 @@ namespace Tengu.Views
         public CalendarControl()
         {
             InitializeComponent();
-
-            Initialized += CalendarControl_Initialized;
-        }
-
-        private void CalendarControl_Initialized(object sender, System.EventArgs e)
-        {
-            ViewModel.Initialize();
         }
 
         private void InitializeComponent()

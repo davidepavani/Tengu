@@ -11,13 +11,6 @@ namespace Tengu.Views
         public LatestEpisodesControl()
         {
             InitializeComponent();
-
-            Initialized += LatestEpisodesControl_Initialized;
-        }
-
-        private void LatestEpisodesControl_Initialized(object sender, System.EventArgs e)
-        {
-            ViewModel.Initialize();
         }
 
         private void InitializeComponent()

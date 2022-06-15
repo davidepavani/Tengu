@@ -40,6 +40,7 @@ namespace Tengu.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref selectedHost, value);
+
                 ProgramConfig.Hosts.Calendar = SelectedHost;
                 RefreshCalendar();
             }
@@ -51,21 +52,16 @@ namespace Tengu.ViewModels
             SelectedHost = ProgramConfig.Hosts.Calendar;
         }
 
-        public void Initialize()
-        {
-            RefreshCalendar();
-        }
-
         private async void RefreshCalendar()
         {
             Loading = true;
-            DaysList.Clear();
 
             try
             {
+                DaysList.Clear();
                 TenguApi.CurrentHosts = new Hosts[] { SelectedHost };
 
-                foreach(KeyValuePair<WeekDays, List<CalendarEntryModel>> cal in (await TenguApi.GetCalendar())[0].DaysDictionary)
+                foreach (KeyValuePair<WeekDays, List<CalendarEntryModel>> cal in (await TenguApi.GetCalendar())[0].DaysDictionary)
                 {
                     int index = 0;
 
