@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:icons="using:Material.Icons.Avalonia"
+			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
 			 xmlns:vm="using:Tengu.ViewModels"
              x:Class="Tengu.Views.SearchControl">
 	<UserControl.DataContext>
@@ -125,7 +126,53 @@
 			</StackPanel>
 
 			<Panel Grid.Row="2">
-				<!--Content here-->
+				<ScrollViewer VerticalScrollBarVisibility="Hidden">
+					<ItemsControl Items="{Binding AnimeList}"
+								  Name="IcSearch">
+
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Button Padding="0">
+									<Grid>
+										<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
+											   Stretch="UniformToFill"
+											   RenderOptions.BitmapInterpolationMode="HighQuality"/>
+
+										<Border Background="{DynamicResource SolidBackgroundFillColorQuarternary}"
+												VerticalAlignment="Bottom"
+												Margin="0,0,0,10">
+											<Grid ColumnDefinitions="*,Auto">
+
+												<StackPanel Margin="5">
+													<TextBlock Text="{Binding Title}"
+															   TextWrapping="Wrap"
+															   FontWeight="Medium"/>
+													<TextBlock Text="{Binding EpisodeNumber, StringFormat=Episode {0}}" />
+												</StackPanel>
+
+												<Button Classes="accent"
+														Grid.Column="1"
+														CornerRadius="15"
+														BorderThickness="0"
+														HorizontalAlignment="Right"
+														Margin="5">
+													<icons:MaterialIcon Kind="Download" />
+												</Button>
+											</Grid>
+										</Border>
+									</Grid>
+								</Button>
+
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
 			</Panel>
 
 			<Panel IsVisible="{Binding Loading}"
@@ -144,28 +191,23 @@
 				</Border>
 			</Panel>
 
-			<!--
 			<Panel IsVisible="{Binding !Loading}"
 				   Grid.Row="2">
 				<StackPanel Margin="20,10"
 							HorizontalAlignment="Center"
 							VerticalAlignment="Center"
-							IsVisible="{Binding !#TcCalendar.Items.Count}"
+							IsVisible="{Binding !#IcSearch.Items.Count}"
 							Opacity=".4">
-					<Path Data="{StaticResource JapanShrine}"
+					<Path Data="{StaticResource Onigiri}"
 						  HorizontalAlignment="Center"
 						  Margin="0,0,0,5"
 						  Height="30" Width="30"
 						  Stretch="Uniform"
 						  Fill="{DynamicResource TextFillColorPrimary}"/>
-					<TextBlock Text="No anime found"
+					<TextBlock Text="No data"
 							   TextAlignment="Center"/>
-					<TextBlock Text="Something probably went wrong :("
-							   TextAlignment="Center"
-							   FontSize="12"/>
 				</StackPanel>
 			</Panel>
-			-->
 		</Grid>
 	</Grid>
 </UserControl>
