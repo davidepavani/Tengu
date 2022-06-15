@@ -50,7 +50,7 @@
 			<Setter Property="Width" Value="170" />
 		</Style>
 		<Style Selector="Button.EpSaturn">
-			<Setter Property="Height" Value="180" />
+			<Setter Property="Height" Value="200" />
 			<Setter Property="Width" Value="377.9" />
 			<Setter Property="Margin" Value="5"/>
 			<Setter Property="BorderThickness" Value="0" />
@@ -66,17 +66,17 @@
                              PlaybackDirection="Alternate"
                             Easing="LinearEasing">
 					<KeyFrame Cue="0%">
-						<Setter Property="Height" Value="180" />
+						<Setter Property="Height" Value="200" />
 						<Setter Property="Width" Value="377.9" />
 					</KeyFrame>
 					<KeyFrame Cue="30%">
-						<Setter Property="Height" Value="190" />
+						<Setter Property="Height" Value="210" />
 						<Setter Property="Width" Value="387.9" />
 					</KeyFrame>
 				</Animation>
 			</Style.Animations>
 
-			<Setter Property="Height" Value="190" />
+			<Setter Property="Height" Value="210" />
 			<Setter Property="Width" Value="387.9" />
 		</Style>
 		
