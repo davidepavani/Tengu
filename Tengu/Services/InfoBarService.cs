@@ -16,7 +16,7 @@ namespace Tengu.Services
     public class InfoBarService : ReactiveObject, IInfoBarService
     {
         private readonly object syncInfo = new();
-        private AvaloniaList<InfoModel> messages;
+        private AvaloniaList<InfoModel> messages = new();
 
         public AvaloniaList<InfoModel> Messages
         {

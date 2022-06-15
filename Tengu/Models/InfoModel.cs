@@ -12,14 +12,12 @@ namespace Tengu.Models
         public string Title { get; private set; }
         public string Message { get; private set; }
         public InfoBarSeverity Severity { get; private set; }
-        public bool IsOpen { get; private set; }
 
         public InfoModel(string title, string message, InfoBarSeverity severity)
         {
             Title = title;
             Message = message;
             Severity = severity;
-            IsOpen = true;
         }
     }
 }

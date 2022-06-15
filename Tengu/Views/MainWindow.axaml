@@ -11,6 +11,7 @@
 		xmlns:views="using:Tengu.Views"
 		xmlns:local="using:Tengu.Views"
         x:Class="Tengu.Views.MainWindow"
+		Name="MainWin"
         Title="Tengu">
 	<Window.Styles>
 		<Style Selector="ui|NavigationViewItem">
@@ -120,8 +121,29 @@
 		<Panel Grid.Row="1">
 			<ui:Frame Name="FrameView"/>
 
-			<ui:InfoBar Title="Title" IsOpen="True" Severity="Informational" Message="Essential app message for your users to be informed of, acknowledge, or take action on." 
-						VerticalAlignment="Bottom"/>
+			<ItemsControl Items="{Binding InfoBar.Messages}"
+						  Margin="5"
+						  VerticalAlignment="Bottom">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Vertical"
+									Spacing="2"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<ui:InfoBar Title="{Binding Title}" 
+									CornerRadius="0"
+									IsOpen="True" 
+									Severity="{Binding Severity}" 
+									Message="{Binding Message}" 
+									IsIconVisible="True"
+									CloseButtonCommand="{Binding $parent[Window].DataContext.CloseInfoCommand}"
+									CloseButtonCommandParameter="{Binding}"/>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 		</Panel>
 	</Grid>
 
