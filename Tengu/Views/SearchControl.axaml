@@ -3,6 +3,169 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:icons="using:Material.Icons.Avalonia"
+			 xmlns:vm="using:Tengu.ViewModels"
              x:Class="Tengu.Views.SearchControl">
-  Welcome to Avalonia!
+	<UserControl.DataContext>
+		<vm:SearchControlViewModel />
+	</UserControl.DataContext>
+
+	<UserControl.Styles>
+		<Style Selector="Button.TextBoxInner">
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Background" Value="Transparent" />
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid ColumnDefinitions="2*,*">
+		<Grid ColumnDefinitions="*,*"
+			  Grid.ColumnSpan="2"
+			  RowDefinitions="*,5*">
+			<Image Grid.Column="1"
+				   Opacity=".2"
+				   HorizontalAlignment="Stretch"
+				   VerticalAlignment="Bottom"
+				   Grid.Row="1">
+				<Image.Source>
+					<DrawingImage>
+						<DrawingImage.Drawing>
+							<DrawingGroup>
+								<DrawingGroup Opacity="1">
+									<DrawingGroup Opacity="1">
+										
+									</DrawingGroup>
+								</DrawingGroup>
+							</DrawingGroup>
+						</DrawingImage.Drawing>
+					</DrawingImage>
+				</Image.Source>
+			</Image>
+		</Grid>
+
+		<Grid RowDefinitions="Auto,Auto,*"
+			  Grid.ColumnSpan="2"
+			  Margin="40">
+			<TextBlock Text="Search"
+					   Margin="0,0,0,20"
+					   Classes="SubtitleTextBlockStyle" />
+
+			<StackPanel Grid.Row="1"
+						Orientation="Horizontal"
+						Spacing="10">
+
+				<TextBox Width="250"
+						 IsEnabled="{Binding !Loading}"
+						 Watermark="Search Anime here..">
+					<TextBox.InnerRightContent>
+						<Button Classes="TextBoxInner"
+								Command="{Binding SearchCommand}">
+							<icons:MaterialIcon Kind="Search" />
+						</Button>
+					</TextBox.InnerRightContent>
+				</TextBox>
+
+				<Button VerticalAlignment="Stretch">
+					<Button.Content>
+						<icons:MaterialIcon Kind="FilterMenu" />
+					</Button.Content>
+					
+					<Button.Flyout>
+						<Flyout Placement="Bottom"
+								ShowMode="Standard">
+							<StackPanel Spacing="5"
+										IsEnabled="{Binding !Loading}">
+								<Grid ColumnDefinitions="80, *">
+									<TextBlock Text="Host"
+											   VerticalAlignment="Center"/>
+									<ComboBox VerticalAlignment="Center"
+											  Grid.Column="1"
+											  HorizontalAlignment="Stretch"
+											  Items="{Binding HostsList}"
+											  SelectedItem="{Binding SelectedHost}"/>
+								</Grid>
+
+								<Grid ColumnDefinitions="80, *">
+									<TextBlock Text="Status"
+											   VerticalAlignment="Center"/>
+									<ComboBox HorizontalAlignment="Stretch"
+											  Grid.Column="1"
+											  VerticalAlignment="Center"
+											  Items="{Binding StatusesList}"
+											  SelectedItem="{Binding SelectedStatus}"/>
+								</Grid>
+
+
+								<ItemsControl Items="{Binding GenresList}"
+											  Margin="0,10"
+											  MaxWidth="400">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<WrapPanel Orientation="Horizontal"/>
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<CheckBox IsChecked="{Binding IsChecked}"
+													  Width="100"
+													  Content="{Binding Genre}"/>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+								
+								<Button Content="Apply" 
+										Command="{Binding SearchCommand}"
+										HorizontalAlignment="Stretch"
+										CornerRadius="0"/>
+							</StackPanel>
+						</Flyout>
+					</Button.Flyout>
+				</Button>
+			</StackPanel>
+
+			<Panel Grid.Row="2">
+				<!--Content here-->
+			</Panel>
+
+			<Panel IsVisible="{Binding Loading}"
+				   Grid.Row="2"
+				   HorizontalAlignment="Center"
+						   VerticalAlignment="Center">
+				<Border Background="{DynamicResource CardBackgroundFillColorDefault}"
+						CornerRadius="7">
+					<StackPanel Spacing="5"
+								Margin="5">
+						<TextBlock Text="Loading Animes.."
+								   Margin="0,5,0,0"
+								   TextAlignment="Center"/>
+						<ProgressBar IsIndeterminate="True"/>
+					</StackPanel>
+				</Border>
+			</Panel>
+
+			<!--
+			<Panel IsVisible="{Binding !Loading}"
+				   Grid.Row="2">
+				<StackPanel Margin="20,10"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							IsVisible="{Binding !#TcCalendar.Items.Count}"
+							Opacity=".4">
+					<Path Data="{StaticResource JapanShrine}"
+						  HorizontalAlignment="Center"
+						  Margin="0,0,0,5"
+						  Height="30" Width="30"
+						  Stretch="Uniform"
+						  Fill="{DynamicResource TextFillColorPrimary}"/>
+					<TextBlock Text="No anime found"
+							   TextAlignment="Center"/>
+					<TextBlock Text="Something probably went wrong :("
+							   TextAlignment="Center"
+							   FontSize="12"/>
+				</StackPanel>
+			</Panel>
+			-->
+		</Grid>
+	</Grid>
 </UserControl>

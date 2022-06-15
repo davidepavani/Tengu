@@ -67,26 +67,6 @@
 						  Items="{Binding HostsList}"
 						  SelectedItem="{Binding SelectedHost}"/>
 				
-				
-				<!--
-				<StackPanel Orientation="Horizontal"
-							HorizontalAlignment="Center"
-							Grid.Column="1">
-					<Button Classes="Page">
-						<icons:MaterialIcon Kind="ArrowLeft" />
-					</Button>
-					<TextBlock Text="Wednesday"
-							   Width="100"
-							   TextAlignment="Center"
-								   Margin="10,0"
-								   VerticalAlignment="Center"/>
-					<Button Classes="Page">
-						<icons:MaterialIcon Kind="ArrowRight" />
-					</Button>
-				</StackPanel>
-				-->
-				
-
 			</StackPanel>
 
 			<TabControl Grid.Row="2"
