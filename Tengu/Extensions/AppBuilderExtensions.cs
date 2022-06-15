@@ -32,6 +32,9 @@ namespace Tengu.Extensions
 
                         // Navigation Service
                         Locator.CurrentMutable.RegisterConstant(new NavigationService(), typeof(INavigationService));
+
+                        // InfoBar Service
+                        Locator.CurrentMutable.RegisterConstant(new InfoBarService(), typeof(IInfoBarService));
                     }
                 });
             });
