@@ -20,7 +20,7 @@ namespace Tengu.ViewModels
     {
         private readonly Logger log = LogManager.GetLogger(Loggers.MainLogger);
 
-        private AvaloniaList<AnimeModel> animeList = new();
+        private AvaloniaList<SearchAnimeModel> animeList = new();
         private string title = string.Empty;
         private Hosts seletctedHost = Hosts.AnimeSaturn;
         private Statuses selectedStatus = Statuses.None;
@@ -40,7 +40,7 @@ namespace Tengu.ViewModels
             get => title;
             set => this.RaiseAndSetIfChanged(ref title, value);
         }
-        public AvaloniaList<AnimeModel> AnimeList
+        public AvaloniaList<SearchAnimeModel> AnimeList
         {
             get => animeList;
             set => this.RaiseAndSetIfChanged(ref animeList, value);
@@ -102,7 +102,7 @@ namespace Tengu.ViewModels
 
                 foreach(AnimeModel anime in await TenguApi.SearchAnimeAsync(Title, filter))
                 {
-                    AnimeList.Add(anime);
+                    AnimeList.Add(new(anime));
                 }
             }
             catch (Exception ex)

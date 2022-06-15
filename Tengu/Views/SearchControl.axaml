@@ -172,18 +172,20 @@
 						<DataTemplate>
 							<Button Classes="AnimeSearch">
 								<Grid>
+									<ContentControl Content="{Binding Image}" />
+									<!--
 									<Image asyncImageLoader:ImageLoader.Source="{Binding Image}"
 										   Stretch="UniformToFill"
 										   RenderOptions.BitmapInterpolationMode="HighQuality"/>
-
+									-->
 									<Border Background="{DynamicResource SolidBackgroundFillColorQuarternary}"
 											VerticalAlignment="Bottom"
 											Margin="0,0,0,10">
 										<StackPanel Margin="5">
-											<TextBlock Text="{Binding Title}"
+											<TextBlock Text="{Binding Anime.Title}"
 													   TextWrapping="Wrap"
 													   FontWeight="Medium"/>
-											<TextBlock Text="{Binding EpisodeNumber, StringFormat=Episode {0}}" />
+											<TextBlock Text="{Binding Anime.EpisodeNumber, StringFormat=Episode {0}}" />
 										</StackPanel>
 									</Border>
 								</Grid>
