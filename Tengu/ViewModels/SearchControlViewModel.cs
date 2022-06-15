@@ -12,6 +12,7 @@ using Tengu.Models;
 using Tengu.Data;
 using NLog;
 using Tengu.Business.API;
+using FluentAvalonia.UI.Controls;
 
 namespace Tengu.ViewModels
 {
@@ -103,6 +104,14 @@ namespace Tengu.ViewModels
                 {
                     AnimeList.Add(anime);
                 }
+            }
+            catch (Exception ex)
+            {
+                InfoBar.AddMessage("Search Error",
+                                   ex.Message,
+                                   InfoBarSeverity.Error);
+
+                log.Error(ex, "ExecuteSearch >> SearchAnimeAsync");
             }
             finally
             {

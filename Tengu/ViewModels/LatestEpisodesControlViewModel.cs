@@ -1,4 +1,5 @@
 ﻿using Avalonia.Collections;
+using FluentAvalonia.UI.Controls;
 using NLog;
 using ReactiveUI;
 using Splat;
@@ -10,12 +11,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
+using Tengu.Data;
 
 namespace Tengu.ViewModels
 {
     public class LatestEpisodesControlViewModel : ViewModelBase
     {
-        private Logger log = LogManager.GetCurrentClassLogger();
+        private Logger log = LogManager.GetLogger(Loggers.MainLogger);
 
         private AvaloniaList<EpisodeModel> latestEpisodesList = new();
         private int latestEpisodesOffset = 0;
@@ -103,6 +105,13 @@ namespace Tengu.ViewModels
                 {
                     LatestEpisodesList.Add(episode);
                 }
+            }
+            catch(Exception ex)
+            {
+                InfoBar.AddMessage("Latest Episodes Error",
+                                   ex.Message,
+                                   InfoBarSeverity.Error);
+                log.Error(ex, "RefreshLatestEpisodes >> GetLatestEpisodeAsync");
             }
             finally
             {

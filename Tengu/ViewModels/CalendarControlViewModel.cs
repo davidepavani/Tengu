@@ -1,5 +1,7 @@
 ﻿using Avalonia.Collections;
 using Avalonia.Controls;
+using FluentAvalonia.UI.Controls;
+using NLog;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -8,12 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tengu.Business.Commons;
+using Tengu.Data;
 using Tengu.Models;
 
 namespace Tengu.ViewModels
 {
     public class CalendarControlViewModel : ViewModelBase
     {
+        private Logger log = LogManager.GetLogger(Loggers.MainLogger);
+
         private AvaloniaList<CalendarDayModel> daysList = new();
         private bool loading = false;
         private Hosts selectedHost;
@@ -87,6 +92,14 @@ namespace Tengu.ViewModels
 
                     DaysList.Add(day);
                 }
+            }
+            catch (Exception ex)
+            {
+                InfoBar.AddMessage("Calendar Error",
+                                   ex.Message,
+                                   InfoBarSeverity.Error);
+
+                log.Error(ex, "RefreshCalendar >> GetCalendar");
             }
             finally
             {
