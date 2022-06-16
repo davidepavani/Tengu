@@ -10,12 +10,14 @@ using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Models;
 using NLog;
+using Tengu.Interfaces;
+using Tengu.Data;
 
 namespace Tengu.Services
 {
-    public class DownloadService : ReactiveObject
+    public class DownloadService : ReactiveObject, IDownloadService
     {
-        private readonly Logger log = LogManager.GetLogger("TODO");
+        private readonly Logger log = LogManager.GetLogger(Loggers.MainLogger);
 
         private static ITenguApi TenguApi => Locator.Current.GetService<ITenguApi>();
 
@@ -49,8 +51,6 @@ namespace Tengu.Services
 
             AnimeQueue.Add(new(episode));
             DownloadCount = AnimeQueue.Count;
-
-            
         }
 
         public void SaturnDownload()

@@ -18,6 +18,7 @@ namespace Tengu.ViewModels
         public ITenguApi TenguApi { get; private set; }
         public IProgramConfiguration ProgramConfig { get; private set; }
         public IInfoBarService InfoBar { get; private set; }
+        public IDownloadService DwnldService { get; private set; }
 
         // Commands
         public ICommand NavigateCommand { get; private set; }
@@ -36,6 +37,7 @@ namespace Tengu.ViewModels
             TenguApi = Locator.Current.GetService<ITenguApi>();
             ProgramConfig = Locator.Current.GetService<IProgramConfiguration>();
             InfoBar = Locator.Current.GetService<IInfoBarService>();
+            DwnldService = Locator.Current.GetService<IDownloadService>();
 
             // Commands
             NavigateCommand = ReactiveCommand.Create<Type>(Navigate);

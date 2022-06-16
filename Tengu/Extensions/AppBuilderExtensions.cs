@@ -35,6 +35,9 @@ namespace Tengu.Extensions
 
                         // InfoBar Service
                         Locator.CurrentMutable.RegisterConstant(new InfoBarService(), typeof(IInfoBarService));
+
+                        // Download Service
+                        Locator.CurrentMutable.RegisterConstant(new DownloadService(), typeof(IDownloadService));
                     }
                 });
             });
