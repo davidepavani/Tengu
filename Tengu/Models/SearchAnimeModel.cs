@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tengu.Business.Commons;
 using Avalonia.Media;
+using Tengu.Extensions;
 
 namespace Tengu.Models
 {
@@ -17,13 +18,7 @@ namespace Tengu.Models
         public SearchAnimeModel(AnimeModel anime)
         {
             Anime = anime;
-
-            Image image = new()
-            {
-                Stretch = Stretch.UniformToFill
-            };
-            AsyncImageLoader.ImageLoader.SetSource(image, Anime.Image);
-            Image = !string.IsNullOrEmpty(Anime.Image) ? image : null;
+            Image = anime.Image.InitializeImage();
         }
     }
 }

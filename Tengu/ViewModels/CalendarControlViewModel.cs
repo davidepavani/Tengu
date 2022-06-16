@@ -73,16 +73,7 @@ namespace Tengu.ViewModels
 
                     cal.Value.ForEach(x =>
                     {
-                        Image image = new();
-                        AsyncImageLoader.ImageLoader.SetSource(image, x.Image);
-
-                        day.Animes.Add(new CalendarItem()
-                        {
-                            Index = index.ToString(),
-                            Anime = x.Anime,
-                            Image = !string.IsNullOrEmpty(x.Image) ? image : null
-                        });
-
+                        day.Animes.Add(new CalendarItem(index, x));
                         index++;
                     });
 

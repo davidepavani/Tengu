@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tengu.Business.Commons;
+using Tengu.Extensions;
 
 namespace Tengu.Models
 {
@@ -12,5 +14,12 @@ namespace Tengu.Models
         public string Index { get; set; }
         public string Anime { get; set; }
         public IControl Image { get; set; }
+
+        public CalendarItem(int index, CalendarEntryModel calendar)
+        {
+            Index = index.ToString();
+            Anime = calendar.Anime;
+            Image = calendar.Image.InitializeImage();
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tengu.Business.Commons;
+using Tengu.Extensions;
 
 namespace Tengu.Models
 {
@@ -17,13 +18,7 @@ namespace Tengu.Models
         public LatestModel(EpisodeModel ep)
         {
             Episode = ep;
-
-            Image image = new()
-            {
-                Stretch = Stretch.UniformToFill
-            };
-            AsyncImageLoader.ImageLoader.SetSource(image, Episode.Image);
-            Image = !string.IsNullOrEmpty(Episode.Image) ? image : new TextBlock();
+            Image = ep.Image.InitializeImage();
         }
     }
 }
