@@ -2,17 +2,78 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" 
 			 xmlns:icons="using:Material.Icons.Avalonia"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:vm="using:Tengu.ViewModels"
              x:Class="Tengu.Views.DownloadControl">
 	<UserControl.DataContext>
 		<vm:DownloadControlViewModel />
 	</UserControl.DataContext>
 
-	<StackPanel Margin="10">
-		<TextBlock Text="Downloads"/>
-		<Border Height="1"
-				Background="{DynamicResource ButtonBorderBrush}"/>
-	</StackPanel>
+	<Grid>
+		<Grid ColumnDefinitions="*,*, 2*"
+			  Margin="40">
+
+			<Grid RowDefinitions="Auto, *"
+				  Margin="0,0,20,0">
+				<TextBlock Text="Downloads"
+							Classes="SubtitleTextBlockStyle" />
+
+				<StackPanel Grid.Row="1"
+							Margin="0,20,0,0"
+							Spacing="10">
+					<Grid RowDefinitions="*,Auto">
+						<Grid ColumnDefinitions="*,auto"
+							  RowDefinitions="*,*">
+							
+							<TextBlock Text="Title"
+									   ToolTip.Tip="Title"
+									   FontSize="15"
+									   TextWrapping="Wrap"
+									   FontWeight="Medium"/>
+
+							<StackPanel Orientation="Horizontal"
+									    Grid.Row="1"
+										Spacing="5">
+								<TextBlock Text="Episode"
+										   Opacity=".5"
+										   FontSize="13"/>
+								<TextBlock Text="·"
+										   Opacity=".5"
+										   FontSize="13"/>
+								<TextBlock Text="Host"
+										   Opacity=".5"
+										   FontSize="13"/>
+							</StackPanel>
+							
+							<Button Background="Transparent"
+									BorderThickness="0"
+									Margin="0"
+									HorizontalAlignment="Right"
+									Padding="0"
+									Content="X"
+									Grid.Column="1" />
+							
+							<TextBlock Text="100%" 
+									   Grid.Column="1"
+									   Grid.Row="1"/>
+							
+						</Grid>
+						
+						<ProgressBar Value="100"
+									 Margin="0,5,0,0"
+									 Grid.Row="1"/>
+					</Grid>
+				</StackPanel>
+			</Grid>
+
+			<Grid RowDefinitions="Auto, *"
+				  Grid.Column="1">
+				<TextBlock Text="History"
+					   Margin="0,0,0,20"
+					   Classes="SubtitleTextBlockStyle" />
+			</Grid>
+		
+		</Grid>
+	</Grid>
 </UserControl>

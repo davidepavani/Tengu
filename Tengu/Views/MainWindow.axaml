@@ -123,7 +123,8 @@
 							</ui:NavigationViewItem>
 						</ui:NavigationViewItem.MenuItems>
 					</ui:NavigationViewItem>
-					<ui:NavigationViewItem Content="Downloads">
+					<ui:NavigationViewItem Content="Downloads"
+										   Tag="{x:Type views:DownloadControl}">
 						<ui:NavigationViewItem.InfoBadge>
 							<ui:InfoBadge Value="{Binding DwnldService.DownloadCount}"
 										  IsVisible="{Binding DwnldService.DownloadCount}"
