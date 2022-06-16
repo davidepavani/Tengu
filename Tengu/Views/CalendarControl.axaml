@@ -82,7 +82,7 @@
 				<TabControl.ContentTemplate>
 					<DataTemplate>
 						<Panel>
-							<ScrollViewer>
+							<ScrollViewer VerticalScrollBarVisibility="Hidden">
 								<ItemsRepeater Items="{Binding Animes}"
 											   Name="IrDay"
 													   Margin="20,10">
