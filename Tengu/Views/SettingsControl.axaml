@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:icons="using:Material.Icons.Avalonia"
+			 xmlns:vm="using:Tengu.ViewModels"
+             x:Class="Tengu.Views.SettingsControl">
+	<UserControl.DataContext>
+		<vm:SettingsControlViewModel />
+	</UserControl.DataContext>
+
+	<Grid ColumnDefinitions="2*,*">
+		<Grid ColumnDefinitions="*,*"
+			  Grid.ColumnSpan="2"
+			  RowDefinitions="*,5*">
+			<Image Grid.Column="1"
+				   Opacity=".2"
+				   HorizontalAlignment="Stretch"
+				   VerticalAlignment="Bottom"
+				   Grid.Row="1">
+				<Image.Source>
+					<DrawingImage>
+						<DrawingImage.Drawing>
+							<DrawingGroup>
+								<DrawingGroup Opacity="1">
+									<DrawingGroup Opacity="1">
+
+										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua2}" />
+										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua3}" />
+										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua4}" />
+										<GeometryDrawing Brush="{DynamicResource TextFillColorSecondary}" Geometry="{StaticResource Killua5}" />
+
+									</DrawingGroup>
+								</DrawingGroup>
+							</DrawingGroup>
+						</DrawingImage.Drawing>
+					</DrawingImage>
+				</Image.Source>
+			</Image>
+		</Grid>
+
+		<Grid RowDefinitions="Auto,Auto,*"
+			  Grid.ColumnSpan="2"
+			  Margin="40">
+			<TextBlock Text="Settings"
+					   Margin="0,0,0,20"
+					   Classes="SubtitleTextBlockStyle" />
+
+			<!--Data Here (TAB CONTROL??)-->
+		</Grid>
+	</Grid>
+</UserControl>

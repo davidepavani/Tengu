@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:icons="using:Material.Icons.Avalonia"
+			 xmlns:vm="using:Tengu.ViewModels"
 			 xmlns:comm="using:Tengu.Business.Commons"
 			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
 			 xmlns:conv="using:Tengu.Converters"
-			 xmlns:vm="using:Tengu.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Tengu.Views.LatestEpisodesControl">
 	<UserControl.Resources>
