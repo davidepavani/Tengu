@@ -4,18 +4,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:icons="using:Material.Icons.Avalonia"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:vm="using:Tengu.ViewModels"
              x:Class="Tengu.Views.DownloadControl">
 	<UserControl.DataContext>
 		<vm:DownloadControlViewModel />
 	</UserControl.DataContext>
 
-	<Grid>
-		<Grid ColumnDefinitions="*,*, 2*"
-			  Margin="40">
+	<SplitView IsPaneOpen="True"
+			   DisplayMode="Overlay"
+			   PanePlacement="Right">
+		<Grid ColumnDefinitions="2*,*">
+			<Grid ColumnDefinitions="*,*"
+			  Grid.ColumnSpan="2"
+			  RowDefinitions="*,5*">
+				<Image Grid.Column="1"
+					   Opacity=".2"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Bottom"
+					   Grid.Row="1">
+					<Image.Source>
+						<DrawingImage>
+							<DrawingImage.Drawing>
+								<DrawingGroup>
+									<DrawingGroup Opacity="1">
+										<DrawingGroup Opacity="1">
+											<!-- <GeometryDrawing Brush="#b37273" Geometry="{StaticResource ItachiBkg}" />-->
+											<GeometryDrawing Brush="#36383f" Geometry="{StaticResource Itachi2}" />
+											<GeometryDrawing Brush="#e7d4c5" Geometry="{StaticResource Itachi3}" />
+											<GeometryDrawing Brush="#f9f9f9" Geometry="{StaticResource Itachi4}" />
+											<GeometryDrawing Brush="{DynamicResource SystemAccentColorDark3}" Geometry="{StaticResource Itachi1}" />
+										</DrawingGroup>
+									</DrawingGroup>
+								</DrawingGroup>
+							</DrawingImage.Drawing>
+						</DrawingImage>
+					</Image.Source>
+				</Image>
+			</Grid>
 
 			<Grid RowDefinitions="Auto, *"
-				  Margin="0,0,20,0">
+				  Margin="30">
 				<TextBlock Text="Downloads"
 							Classes="SubtitleTextBlockStyle" />
 
@@ -25,7 +54,7 @@
 					<Grid RowDefinitions="*,Auto">
 						<Grid ColumnDefinitions="*,auto"
 							  RowDefinitions="*,*">
-							
+
 							<TextBlock Text="Title"
 									   ToolTip.Tip="Title"
 									   FontSize="15"
@@ -33,7 +62,7 @@
 									   FontWeight="Medium"/>
 
 							<StackPanel Orientation="Horizontal"
-									    Grid.Row="1"
+										Grid.Row="1"
 										Spacing="5">
 								<TextBlock Text="Episode"
 										   Opacity=".5"
@@ -45,7 +74,7 @@
 										   Opacity=".5"
 										   FontSize="13"/>
 							</StackPanel>
-							
+
 							<Button Background="Transparent"
 									BorderThickness="0"
 									Margin="0"
@@ -53,27 +82,31 @@
 									Padding="0"
 									Content="X"
 									Grid.Column="1" />
-							
-							<TextBlock Text="100%" 
+
+							<TextBlock Text="100%"
 									   Grid.Column="1"
 									   Grid.Row="1"/>
-							
+
 						</Grid>
-						
+
 						<ProgressBar Value="100"
 									 Margin="0,5,0,0"
 									 Grid.Row="1"/>
 					</Grid>
 				</StackPanel>
 			</Grid>
-
-			<Grid RowDefinitions="Auto, *"
-				  Grid.Column="1">
-				<TextBlock Text="History"
-					   Margin="0,0,0,20"
-					   Classes="SubtitleTextBlockStyle" />
-			</Grid>
-		
 		</Grid>
-	</Grid>
+
+		<SplitView.Pane>
+			<Border VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					Width="250"
+					Background="Blue"
+					Margin="0,20">
+				<TextBlock Text="adas" 
+						   Margin="20"/>
+			</Border>
+		</SplitView.Pane>
+	
+	</SplitView>
 </UserControl>
