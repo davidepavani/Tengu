@@ -16,7 +16,7 @@
 			   PaneBackground="Transparent"
 			   PanePlacement="Right">
 		<Grid ColumnDefinitions="1.5*,*">
-			<Grid ColumnDefinitions="*,*"
+			<Grid ColumnDefinitions="*,3*"
 				  Grid.ColumnSpan="2"
 				  RowDefinitions="*,5*">
 				<Image Grid.Column="1"
