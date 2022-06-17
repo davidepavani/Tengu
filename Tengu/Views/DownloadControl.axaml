@@ -17,8 +17,8 @@
 			   PanePlacement="Right">
 		<Grid ColumnDefinitions="2*,*">
 			<Grid ColumnDefinitions="*,*"
-			  Grid.ColumnSpan="2"
-			  RowDefinitions="*,5*">
+				  Grid.ColumnSpan="2"
+				  RowDefinitions="*,5*">
 				<Image Grid.Column="1"
 					   Opacity=".2"
 					   HorizontalAlignment="Stretch"
@@ -30,11 +30,10 @@
 								<DrawingGroup>
 									<DrawingGroup Opacity="1">
 										<DrawingGroup Opacity="1">
-											<!-- <GeometryDrawing Brush="#b37273" Geometry="{StaticResource ItachiBkg}" />-->
-											<GeometryDrawing Brush="#36383f" Geometry="{StaticResource Itachi2}" />
-											<GeometryDrawing Brush="#e7d4c5" Geometry="{StaticResource Itachi3}" />
-											<GeometryDrawing Brush="#f9f9f9" Geometry="{StaticResource Itachi4}" />
-											<GeometryDrawing Brush="{DynamicResource SystemAccentColorDark3}" Geometry="{StaticResource Itachi1}" />
+											<GeometryDrawing Brush="#faf8fa" Geometry="{StaticResource DeathParade1}" />
+											<GeometryDrawing Brush="#44444c" Geometry="{StaticResource DeathParade2}" />
+											<GeometryDrawing Brush="{DynamicResource SystemAccentColorDark3}" Geometry="{StaticResource DeathParade3}" />
+											<GeometryDrawing Brush="#dcc2e4" Geometry="{StaticResource DeathParade4}" />
 										</DrawingGroup>
 									</DrawingGroup>
 								</DrawingGroup>
@@ -206,8 +205,7 @@
 			<Border VerticalAlignment="Stretch"
 					HorizontalAlignment="Stretch"
 					Width="350"
-					Background="{DynamicResource SolidBackgroundFillColorSecondary}"
-					Margin="0,20">
+					Background="{DynamicResource SolidBackgroundFillColorSecondary}">
 				<StackPanel Margin="30,10,0,0">
 					<TextBlock Text="History"
 							Classes="SubtitleTextBlockStyle" />

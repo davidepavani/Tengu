@@ -10,6 +10,7 @@
 				<ResourceInclude Source='/Resources/Itachi.axaml'/>
 				<ResourceInclude Source='/Resources/Killua.axaml'/>
 				<ResourceInclude Source='/Resources/Yato.axaml'/>
+				<ResourceInclude Source='/Resources/DeathParade.axaml'/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
