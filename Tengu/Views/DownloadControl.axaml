@@ -15,7 +15,7 @@
 			   DisplayMode="Overlay"
 			   PaneBackground="Transparent"
 			   PanePlacement="Right">
-		<Grid ColumnDefinitions="2*,*">
+		<Grid ColumnDefinitions="1.5*,*">
 			<Grid ColumnDefinitions="*,*"
 				  Grid.ColumnSpan="2"
 				  RowDefinitions="*,5*">
