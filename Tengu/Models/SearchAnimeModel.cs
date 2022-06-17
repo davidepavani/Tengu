@@ -18,7 +18,7 @@ namespace Tengu.Models
         public SearchAnimeModel(AnimeModel anime)
         {
             Anime = anime;
-            Image = anime.Image.InitializeImage();
+            Image = anime.Image.InitializeImage(Stretch.UniformToFill);
         }
     }
 }

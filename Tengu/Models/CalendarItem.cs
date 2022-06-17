@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tengu.Business.Commons;
 using Tengu.Extensions;
+using Avalonia.Media;
 
 namespace Tengu.Models
 {
@@ -19,7 +20,7 @@ namespace Tengu.Models
         {
             Index = index.ToString();
             Anime = calendar.Anime;
-            Image = calendar.Image.InitializeImage();
+            Image = calendar.Image.InitializeImage(Stretch.Uniform);
         }
     }
 }

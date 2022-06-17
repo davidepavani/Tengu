@@ -18,7 +18,7 @@ namespace Tengu.Models
         public LatestModel(EpisodeModel ep)
         {
             Episode = ep;
-            Image = ep.Image.InitializeImage();
+            Image = ep.Image.InitializeImage(Stretch.UniformToFill);
         }
     }
 }

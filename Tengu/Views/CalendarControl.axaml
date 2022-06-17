@@ -109,6 +109,7 @@
 																	ToolTip.ShowDelay="0">
 													<ToolTip.Tip>
 														<ContentControl Content="{Binding Image}"
+																		MaxHeight="350"
 																		Margin="10"/>
 													</ToolTip.Tip>
 												</icons:MaterialIcon>
