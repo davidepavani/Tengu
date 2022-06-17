@@ -11,8 +11,9 @@
 		<vm:DownloadControlViewModel />
 	</UserControl.DataContext>
 
-	<SplitView IsPaneOpen="True"
+	<SplitView IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}"
 			   DisplayMode="Overlay"
+			   PaneBackground="Transparent"
 			   PanePlacement="Right">
 		<Grid ColumnDefinitions="2*,*">
 			<Grid ColumnDefinitions="*,*"
@@ -95,16 +96,36 @@
 					</Grid>
 				</StackPanel>
 			</Grid>
+
+			<Grid Grid.Column="1"
+				  Margin="5,30"
+				  VerticalAlignment="Top"
+				  HorizontalAlignment="Right">
+				<Button Background="Transparent"
+						Command="{Binding OpenPaneCommand}"
+						BorderThickness="0">
+					<icons:MaterialIcon Kind="History" />
+				</Button>
+			</Grid>
 		</Grid>
 
 		<SplitView.Pane>
 			<Border VerticalAlignment="Stretch"
 					HorizontalAlignment="Stretch"
-					Width="250"
-					Background="Blue"
+					Width="350"
+					Background="{DynamicResource SolidBackgroundFillColorSecondary}"
 					Margin="0,20">
-				<TextBlock Text="adas" 
-						   Margin="20"/>
+				<StackPanel Margin="30,10,0,0">
+					<TextBlock Text="History"
+							Classes="SubtitleTextBlockStyle" />
+
+					<TextBlock Text="downalodado1 123" />
+					<TextBlock Text="downalodado1 123" />
+					<TextBlock Text="downalodado1 123" />
+					<TextBlock Text="downalodado1 123" />
+					<TextBlock Text="downalodado1 123" />
+					<TextBlock Text="downalodado1 123" />
+				</StackPanel>
 			</Border>
 		</SplitView.Pane>
 	
