@@ -126,7 +126,7 @@
 											VerticalAlignment="Center"
 											IsVisible="{Binding !#IrDay.Items.Count}"
 											Opacity=".4">
-									<Path Data="{StaticResource Clouds}"
+									<Path Data="{StaticResource Onigiri}"
 										  HorizontalAlignment="Center"
 										  Margin="0,0,0,5"
 										  Height="30" Width="30"
@@ -164,7 +164,7 @@
 							VerticalAlignment="Center"
 							IsVisible="{Binding !#TcCalendar.Items.Count}"
 							Opacity=".4">
-					<Path Data="{StaticResource JapanShrine}"
+					<Path Data="{StaticResource Onigiri}"
 						  HorizontalAlignment="Center"
 						  Margin="0,0,0,5"
 						  Height="30" Width="30"

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
 using Tengu.Data;
+using Tengu.Dialogs;
 using Tengu.Models;
 
 namespace Tengu.ViewModels
@@ -31,7 +32,8 @@ namespace Tengu.ViewModels
         #region Properties
         public ICommand CmdNextPage { get; private set; }
         public ICommand CmdPrevPage { get; private set; }
-        
+        public ICommand CmdOpenAnimeCard { get; private set; }
+
         public AvaloniaList<LatestModel> LatestEpisodesList
         {
             get => latestEpisodesList;
@@ -80,6 +82,7 @@ namespace Tengu.ViewModels
         {
             CmdNextPage = ReactiveCommand.Create(LatestNextPage);
             CmdPrevPage = ReactiveCommand.Create(LatestPrevPage);
+            CmdOpenAnimeCard = ReactiveCommand.Create<LatestModel>(ShowAnimeCard);
 
             SelectedHost = ProgramConfig.Hosts.Latest;
         }
@@ -135,6 +138,28 @@ namespace Tengu.ViewModels
                 // log.Trace($"Prev page >> {CurrentPage}");
 
                 RefreshLatestEpisodes();
+            }
+        }
+
+        public async void ShowAnimeCard(LatestModel episode)
+        {
+            if (null != episode)
+            {
+                AnimeModel anime = (await TenguApi.SearchAnimeAsync(episode.Episode.Title, 1))[0];
+
+                var dialog = new ContentDialog()
+                {
+                    Title = anime.Title,
+                    CloseButtonText = "Close"
+                };
+
+                var viewModel = new AnimeCardDialogViewModel(dialog, anime, SelectedHost);
+                dialog.Content = new AnimeCardDialog()
+                {
+                    DataContext = viewModel
+                };
+
+                _ = await dialog.ShowAsync();
             }
         }
     }

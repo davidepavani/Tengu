@@ -150,6 +150,8 @@
 								<DataTemplate>
 									<Button Classes.EpUnity="{Binding Episode.Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeUnity}}"
 											Classes.EpSaturn="{Binding Episode.Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeSaturn}}"
+											Command="{Binding $parent[ItemsControl].DataContext.CmdOpenAnimeCard}"
+											CommandParameter="{Binding}"
 											Padding="0">
 										<Grid>
 											<!--
@@ -209,7 +211,7 @@
 									VerticalAlignment="Center"
 									IsVisible="{Binding !#IcLatest.Items.Count}"
 									Opacity=".4">
-							<Path Data="{StaticResource JapanShrine}" 
+							<Path Data="{StaticResource Onigiri}" 
 								  HorizontalAlignment="Center"
 								  Margin="0,0,0,5"
 								  Height="30" Width="30"
