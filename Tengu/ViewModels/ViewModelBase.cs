@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Tengu.Business.API;
+using Tengu.Business.API.Interfaces;
 using Tengu.Business.Commons;
+using Tengu.Business.Commons.Objects;
 using Tengu.Interfaces;
 
 namespace Tengu.ViewModels

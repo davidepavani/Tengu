@@ -63,7 +63,7 @@ namespace Tengu.ViewModels
                 DaysList.Clear();
                 TenguApi.CurrentHosts = new Hosts[] { SelectedHost };
 
-                foreach (KeyValuePair<WeekDays, List<CalendarEntryModel>> cal in (await TenguApi.GetCalendar())[0].DaysDictionary)
+                foreach (KeyValuePair<WeekDays, List<CalendarEntryModel>> cal in (await TenguApi.GetCalendar())[0].Data.DaysDictionary)
                 {
                     int index = 0;
 

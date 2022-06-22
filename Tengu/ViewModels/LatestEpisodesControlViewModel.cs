@@ -106,7 +106,7 @@ namespace Tengu.ViewModels
             {
                 LatestEpisodesList.Clear();
 
-                foreach (EpisodeModel episode in await TenguApi.GetLatestEpisodeAsync(LatestEpisodesOffset, LatestEpisodesOffset + 10))
+                foreach (EpisodeModel episode in (await TenguApi.GetLatestEpisodeAsync(LatestEpisodesOffset, LatestEpisodesOffset + 10))[0].Data)
                 {
                     LatestEpisodesList.Add(new(episode));
                 }
@@ -147,7 +147,7 @@ namespace Tengu.ViewModels
         {
             if (null != episode)
             {
-                AnimeModel anime = (await TenguApi.SearchAnimeAsync(episode.Episode.Title, 1))[0];
+                AnimeModel anime = (await TenguApi.SearchAnimeAsync(episode.Episode.Title, 1))[0].Data[0];
 
                 var dialog = new ContentDialog()
                 {

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Tengu.Business.Commons;
 using Avalonia.Media;
 using Tengu.Extensions;
+using Tengu.Business.Commons.Models;
 
 namespace Tengu.Models
 {

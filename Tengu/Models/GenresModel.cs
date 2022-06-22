@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tengu.Business.Commons;
+using Tengu.Business.Commons.Objects;
 
 namespace Tengu.Models
 {

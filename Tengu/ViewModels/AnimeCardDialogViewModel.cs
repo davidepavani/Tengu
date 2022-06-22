@@ -77,7 +77,7 @@ namespace Tengu.ViewModels
             {
                 EpisodesList.Clear();
 
-                foreach (EpisodeModel ep in await TenguApi.GetEpisodesAsync(AnimeData.Id, Host))
+                foreach (EpisodeModel ep in (await TenguApi.GetEpisodesAsync(AnimeData.Id, Host)).Data)
                 {
                     EpisodesList.Add(ep);
                 }

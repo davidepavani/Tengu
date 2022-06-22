@@ -13,6 +13,9 @@ using Tengu.Data;
 using NLog;
 using Tengu.Business.API;
 using FluentAvalonia.UI.Controls;
+using Tengu.Business.Commons.Objects;
+using Tengu.Business.API.DTO;
+using Tengu.Business.Commons.Models;
 
 namespace Tengu.ViewModels
 {
@@ -100,7 +103,7 @@ namespace Tengu.ViewModels
 
                 log.Info("Search >> Host: {host} | Status: {status} | Genres: {genres}", SelectedHost, SelectedStatus, string.Join(',', genres));
 
-                foreach(AnimeModel anime in await TenguApi.SearchAnimeAsync(Title, filter))
+                foreach(AnimeModel anime in (await TenguApi.SearchAnimeAsync(Title, filter))[0].Data)
                 {
                     AnimeList.Add(new(anime));
                 }
