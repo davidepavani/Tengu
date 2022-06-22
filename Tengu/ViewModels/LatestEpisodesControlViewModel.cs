@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Tengu.Business.API;
 using Tengu.Business.Commons;
+using Tengu.Business.Commons.Models;
+using Tengu.Business.Commons.Objects;
 using Tengu.Data;
 using Tengu.Dialogs;
 using Tengu.Models;
