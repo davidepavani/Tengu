@@ -27,10 +27,7 @@
 								<DrawingGroup Opacity="1">
 									<DrawingGroup Opacity="1">
 
-										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua2}" />
-										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua3}" />
-										<GeometryDrawing Brush="{DynamicResource TextFillColorDisabled}" Geometry="{StaticResource Killua4}" />
-										<GeometryDrawing Brush="{DynamicResource TextFillColorSecondary}" Geometry="{StaticResource Killua5}" />
+										
 
 									</DrawingGroup>
 								</DrawingGroup>
@@ -44,11 +41,25 @@
 		<Grid RowDefinitions="Auto,Auto,*"
 			  Grid.ColumnSpan="2"
 			  Margin="40">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			
 			<TextBlock Text="Settings"
 					   Margin="0,0,0,20"
 					   Classes="SubtitleTextBlockStyle" />
 
 			<!--Data Here (TAB CONTROL??)-->
+			<TabControl Grid.Row="1">
+				
+				<TabItem Header="DOWNLOADS" FontSize="14">
+					
+				</TabItem>
+				<TabItem Header="MISCELLANEOUS" FontSize="14">
+
+				</TabItem>
+			</TabControl>
 		</Grid>
 	</Grid>
 </UserControl>
