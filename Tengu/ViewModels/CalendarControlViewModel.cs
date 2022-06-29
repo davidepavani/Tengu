@@ -14,6 +14,7 @@ using Tengu.Business.Commons.Models;
 using Tengu.Business.Commons.Objects;
 using Tengu.Data;
 using Tengu.Models;
+using Calendar = Tengu.Business.Commons.Models.Calendar;
 
 namespace Tengu.ViewModels
 {
@@ -63,23 +64,36 @@ namespace Tengu.ViewModels
                 DaysList.Clear();
                 TenguApi.CurrentHosts = new Hosts[] { SelectedHost };
 
-                foreach (KeyValuePair<WeekDays, List<CalendarEntryModel>> cal in (await TenguApi.GetCalendar())[0].Data.DaysDictionary)
+                TenguResult<Calendar[]> res = await TenguApi.GetCalendar();
+
+                foreach(TenguResultInfo infoRes in res.Infos)
                 {
-                    int index = 0;
-
-                    CalendarDayModel day = new()
+                    if (!infoRes.Success)
                     {
-                        Day = cal.Key == WeekDays.None ? "OTHERS" : cal.Key.ToString().ToUpper(),
-                        Animes = new()
-                    };
+                        InfoBar.AddMessage($"Calendar Error ({infoRes.Host})",
+                                   infoRes.Exception.Message,
+                                   InfoBarSeverity.Error);
 
-                    cal.Value.ForEach(x =>
+                        log.Error(infoRes.Exception, "RefreshCalendar >> GetCalendar | Host: {host}", infoRes.Host);
+                    }
+                }
+
+                foreach (Calendar calendar in res.Data)
+                {
+                    foreach (KeyValuePair<WeekDays, List<CalendarEntryModel>> cal in calendar.DaysDictionary)
                     {
-                        day.Animes.Add(new CalendarItem(index, x));
-                        index++;
-                    });
+                        CalendarDayModel day = DaysList.SingleOrDefault(x => x.WeekDay == cal.Key, new(cal.Key));
 
-                    DaysList.Add(day);
+                        int index = day.Animes.Count > 0 ? (Convert.ToInt32(day.Animes.Last().Index) + 1) : 0;
+
+                        cal.Value.ForEach(x =>
+                        {
+                            day.Animes.Add(new CalendarItem(index, x));
+                            index++;
+                        });
+
+                        DaysList.Add(day);
+                    }
                 }
             }
             catch (Exception ex)
