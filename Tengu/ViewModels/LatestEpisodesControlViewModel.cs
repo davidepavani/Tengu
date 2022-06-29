@@ -179,7 +179,7 @@ namespace Tengu.ViewModels
                 if(!res.Data.Any())
                 {
                     InfoBar.AddMessage($"Show AnimeCard Error ({episode.Episode.Host})",
-                                   "Anime Not found",
+                                   $"Anime Card ({episode.Episode.Title}) Not found",
                                    InfoBarSeverity.Error);
 
                     log.Error("ShowAnimeCard >> SearchAnimeAsync | Host: {host} - Anime not found", episode.Episode.Host);
