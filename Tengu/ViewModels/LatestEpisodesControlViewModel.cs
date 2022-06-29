@@ -106,7 +106,21 @@ namespace Tengu.ViewModels
             {
                 LatestEpisodesList.Clear();
 
-                foreach (EpisodeModel episode in (await TenguApi.GetLatestEpisodeAsync(LatestEpisodesOffset, LatestEpisodesOffset + 10))[0].Data)
+                TenguResult<EpisodeModel[]> res = await TenguApi.GetLatestEpisodeAsync(LatestEpisodesOffset, LatestEpisodesOffset + 10);
+
+                foreach (TenguResultInfo infoRes in res.Infos)
+                {
+                    if (!infoRes.Success)
+                    {
+                        InfoBar.AddMessage($"Latest Episodes Error ({infoRes.Host})",
+                                   infoRes.Exception.Message,
+                                   InfoBarSeverity.Error);
+
+                        log.Error(infoRes.Exception, "RefreshLatestEpisodes >> GetLatestEpisodeAsync | Host: {host}", infoRes.Host);
+                    }
+                }
+
+                foreach (EpisodeModel episode in res.Data)
                 {
                     LatestEpisodesList.Add(new(episode));
                 }
@@ -147,7 +161,32 @@ namespace Tengu.ViewModels
         {
             if (null != episode)
             {
-                AnimeModel anime = (await TenguApi.SearchAnimeAsync(episode.Episode.Title, 1))[0].Data[0];
+                TenguResult<AnimeModel[]> res = await TenguApi.SearchAnimeAsync(episode.Episode.Title, 1);
+
+                foreach (TenguResultInfo infoRes in res.Infos)
+                {
+                    if (!infoRes.Success)
+                    {
+                        InfoBar.AddMessage($"Show AnimeCard Error ({infoRes.Host})",
+                                   infoRes.Exception.Message,
+                                   InfoBarSeverity.Error);
+
+                        log.Error(infoRes.Exception, "ShowAnimeCard >> SearchAnimeAsync | Host: {host}", infoRes.Host);
+                        return; // FATAL
+                    }
+                }
+
+                if(!res.Data.Any())
+                {
+                    InfoBar.AddMessage($"Show AnimeCard Error ({episode.Episode.Host})",
+                                   "Anime Not found",
+                                   InfoBarSeverity.Error);
+
+                    log.Error("ShowAnimeCard >> SearchAnimeAsync | Host: {host} - Anime not found", episode.Episode.Host);
+                    return; // FATAL
+                }
+
+                AnimeModel anime = res.Data[0];
 
                 var dialog = new ContentDialog()
                 {
