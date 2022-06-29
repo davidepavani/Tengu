@@ -174,7 +174,9 @@
 
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Button Classes="AnimeSearch">
+							<Button Classes="AnimeSearch"
+									Command="{Binding $parent[ItemsControl].DataContext.OpenAnimeCardCommand}"
+									CommandParameter="{Binding}">
 								<Grid>
 									<ContentControl Content="{Binding Image}" />
 									<!--

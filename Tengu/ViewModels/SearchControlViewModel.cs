@@ -16,6 +16,7 @@ using FluentAvalonia.UI.Controls;
 using Tengu.Business.Commons.Objects;
 using Tengu.Business.API.DTO;
 using Tengu.Business.Commons.Models;
+using Tengu.Dialogs;
 
 namespace Tengu.ViewModels
 {
@@ -31,6 +32,7 @@ namespace Tengu.ViewModels
 
         #region Properties
         public ICommand SearchCommand { get; private set; }
+        public ICommand OpenAnimeCardCommand { get; private set; }
         public List<Statuses> StatusesList { get; set; }
         public List<GenresModel> GenresList { get; private set; }
         public bool Loading
@@ -67,6 +69,7 @@ namespace Tengu.ViewModels
         public SearchControlViewModel()
         {
             SearchCommand = ReactiveCommand.Create(ExecuteSearch);
+            OpenAnimeCardCommand = ReactiveCommand.Create<SearchAnimeModel>(ShowAnimeCard);
 
             HostsList.Add(Hosts.None);
 
@@ -133,6 +136,53 @@ namespace Tengu.ViewModels
             finally
             {
                 Loading = false;
+            }
+        }
+
+        public async void ShowAnimeCard(SearchAnimeModel searchAnime)
+        {
+            if (null != searchAnime)
+            {
+                TenguResult<AnimeModel[]> res = await TenguApi.SearchAnimeAsync(searchAnime.Anime.Title, 1);
+
+                foreach (TenguResultInfo infoRes in res.Infos)
+                {
+                    if (!infoRes.Success)
+                    {
+                        InfoBar.AddMessage($"Show AnimeCard Error ({infoRes.Host})",
+                                   infoRes.Exception.Message,
+                                   InfoBarSeverity.Error);
+
+                        log.Error(infoRes.Exception, "ShowAnimeCard >> SearchAnimeAsync | Host: {host}", infoRes.Host);
+                        return; // FATAL
+                    }
+                }
+
+                if (!res.Data.Any())
+                {
+                    InfoBar.AddMessage($"Show AnimeCard Error ({searchAnime.Anime.Host})",
+                                   $"Anime Card ({searchAnime.Anime.Title}) Not found",
+                                   InfoBarSeverity.Error);
+
+                    log.Error("ShowAnimeCard >> SearchAnimeAsync | Host: {host} - Anime not found", searchAnime.Anime.Host);
+                    return; // FATAL
+                }
+
+                AnimeModel anime = res.Data[0];
+
+                var dialog = new ContentDialog()
+                {
+                    Title = anime.Title,
+                    CloseButtonText = "Close"
+                };
+
+                var viewModel = new AnimeCardDialogViewModel(dialog, anime, anime.Host);
+                dialog.Content = new AnimeCardDialog()
+                {
+                    DataContext = viewModel
+                };
+
+                _ = await dialog.ShowAsync();
             }
         }
     }
