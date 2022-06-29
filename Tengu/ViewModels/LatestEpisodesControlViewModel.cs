@@ -194,7 +194,7 @@ namespace Tengu.ViewModels
                     CloseButtonText = "Close"
                 };
 
-                var viewModel = new AnimeCardDialogViewModel(dialog, anime, SelectedHost);
+                var viewModel = new AnimeCardDialogViewModel(dialog, anime, anime.Host);
                 dialog.Content = new AnimeCardDialog()
                 {
                     DataContext = viewModel
