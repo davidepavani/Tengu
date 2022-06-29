@@ -103,7 +103,21 @@ namespace Tengu.ViewModels
 
                 log.Info("Search >> Host: {host} | Status: {status} | Genres: {genres}", SelectedHost, SelectedStatus, string.Join(',', genres));
 
-                foreach(AnimeModel anime in (await TenguApi.SearchAnimeAsync(Title, filter))[0].Data)
+                TenguResult<AnimeModel[]> res = await TenguApi.SearchAnimeAsync(Title, filter);
+
+                foreach (TenguResultInfo infoRes in res.Infos)
+                {
+                    if (!infoRes.Success)
+                    {
+                        InfoBar.AddMessage($"Search Error ({infoRes.Host})",
+                                   infoRes.Exception.Message,
+                                   InfoBarSeverity.Error);
+
+                        log.Error(infoRes.Exception, "ExecuteSearch >> SearchAnimeAsync | Host: {host}", infoRes.Host);
+                    }
+                }
+
+                foreach (AnimeModel anime in res.Data)
                 {
                     AnimeList.Add(new(anime));
                 }
