@@ -35,6 +35,7 @@ namespace Tengu.ViewModels
         public ICommand CmdNextPage { get; private set; }
         public ICommand CmdPrevPage { get; private set; }
         public ICommand CmdOpenAnimeCard { get; private set; }
+        public ICommand CmdDownloadEpisode { get; private set; }
 
         public AvaloniaList<LatestModel> LatestEpisodesList
         {
@@ -85,6 +86,7 @@ namespace Tengu.ViewModels
             CmdNextPage = ReactiveCommand.Create(LatestNextPage);
             CmdPrevPage = ReactiveCommand.Create(LatestPrevPage);
             CmdOpenAnimeCard = ReactiveCommand.Create<LatestModel>(ShowAnimeCard);
+            CmdDownloadEpisode = ReactiveCommand.Create<LatestModel>(DownloadEpisode);
 
             SelectedHost = ProgramConfig.Hosts.Latest;
         }
@@ -135,6 +137,15 @@ namespace Tengu.ViewModels
             finally
             {
                 Loading = false;
+            }
+        }
+
+        private void DownloadEpisode(LatestModel episode)
+        {
+            if (episode != null)
+            {
+                log.Info($"Enqueue {episode.Episode.Title} | Episode {episode.Episode.EpisodeNumber} | Host {episode.Episode.Host}");
+                DwnldService.EnqueueAnime(episode.Episode);
             }
         }
 

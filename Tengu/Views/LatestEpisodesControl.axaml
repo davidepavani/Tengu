@@ -178,6 +178,8 @@
 															CornerRadius="15"
 															BorderThickness="0"
 															HorizontalAlignment="Right"
+															Command="{Binding $parent[ItemsControl].DataContext.CmdDownloadEpisode}"
+															CommandParameter="{Binding}"
 															Margin="5">
 														<icons:MaterialIcon Kind="Download" />
 													</Button>
