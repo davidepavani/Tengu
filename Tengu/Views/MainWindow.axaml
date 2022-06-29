@@ -14,6 +14,79 @@
 		Name="MainWin"
         Title="Tengu">
 	<Window.Styles>
+
+		<Style Selector="uip|NavigationViewItemPresenter:topnav">
+			<Setter Property="Foreground" Value="{DynamicResource TopNavigationViewItemForeground}" />
+			<Setter Property="Template">
+				<ControlTemplate>
+
+					<Border Name="LayoutRoot"
+							Background="{TemplateBinding Background}"
+							TemplatedControl.IsTemplateFocusTarget="True">
+
+						<Panel>
+							<Rectangle Name="PointerRectangle" />
+
+							<Grid Name="ContentGrid" ColumnDefinitions="Auto,*,Auto,Auto">
+
+								<Viewbox Name="IconBox"
+										 Height="18"
+										 Margin="16 0 0 0"
+										 VerticalAlignment="Center"
+										 HorizontalAlignment="Center">
+									<ContentPresenter Name="Icon"
+													  Content="{TemplateBinding Icon}"
+													  TextBlock.Foreground="{TemplateBinding Foreground}" />
+								</Viewbox>
+
+								<ContentPresenter Name="ContentPresenter"
+												  Grid.Column="1"
+												  TextBlock.Foreground="{TemplateBinding Foreground}"
+												  ContentTemplate="{TemplateBinding ContentTemplate}"
+												  Content="{TemplateBinding Content}"
+												  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+												  VerticalAlignment="Center" />
+
+								<Panel Name="ExpandCollapseChevron"
+									   Grid.Column="2"
+									   HorizontalAlignment="Right"
+									   Width="40"
+									   Background="Transparent">
+									<TextBlock Foreground="{DynamicResource NavigationViewItemForeground}"
+											   FontSize="{DynamicResource NavigationViewItemExpandedGlyphFontSize}"
+											   Text="{StaticResource NavigationViewItemExpandedGlyph}"
+											   FontFamily="{StaticResource SymbolThemeFontFamily}"
+											   HorizontalAlignment="Center"
+											   VerticalAlignment="Center" />
+								</Panel>
+
+								<ContentPresenter Name="InfoBadgePresenter"
+												  Content="{TemplateBinding InfoBadge}" />
+
+							</Grid>
+
+
+							<Panel Name="SelectionIndicatorGrid"
+								   HorizontalAlignment="Stretch"
+								   VerticalAlignment="Bottom">
+
+								<Border Name="SelectionIndicator"
+										Height="3"
+										Width="{Binding #ContentGrid.Width}"
+										Background="{DynamicResource NavigationViewSelectionIndicatorForeground}"
+										Opacity="0"
+										HorizontalAlignment="Stretch"
+										CornerRadius="2" />
+							</Panel>
+
+						</Panel>
+
+					</Border>
+
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		
 		<Style Selector="ui|NavigationViewItem">
 			<Setter Property="Foreground" Value="{DynamicResource NavigationViewItemForeground}" />
 			<Setter Property="Background" Value="{DynamicResource NavigationViewItemBackground}" />
