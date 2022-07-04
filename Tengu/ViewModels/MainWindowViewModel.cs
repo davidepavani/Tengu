@@ -13,6 +13,7 @@ namespace Tengu.ViewModels
         public MainWindowViewModel()
         {
             CloseInfoCommand = ReactiveCommand.Create<InfoModel>(CloseInfoMessage);
+            RefreshTenguApiDownloadPath();
         }
 
         public void CloseInfoMessage(InfoModel info)

@@ -46,6 +46,13 @@ namespace Tengu.ViewModels
             NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
         }
 
+        public void RefreshTenguApiDownloadPath() 
+        {
+            TenguApi.DownloadPath = string.IsNullOrEmpty(ProgramConfig.Downloads.DownloadDirectory) ?
+                        Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) :
+                            ProgramConfig.Downloads.DownloadDirectory;
+        }
+
         private void Navigate(Type type)
         {
             if(type != null)

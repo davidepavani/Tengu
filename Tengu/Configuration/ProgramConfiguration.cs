@@ -21,6 +21,7 @@ namespace Tengu.Configuration
         #region Properties
 
         public HostConfiguration Hosts { get; set; }
+        public DownloadsConfiguration Downloads { get; set; }
 
         #endregion
 
@@ -90,6 +91,7 @@ namespace Tengu.Configuration
             ConfigFileName ??= GetFilePath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tengu.json"));
 
             Hosts ??= new();
+            Downloads ??= new();
         }
     }
 }

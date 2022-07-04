@@ -10,6 +10,7 @@ namespace Tengu.Interfaces
     public interface IProgramConfiguration
     {
         HostConfiguration Hosts { get; set; }
+        DownloadsConfiguration Downloads { get; set; }
         bool Save();
     }
 }
