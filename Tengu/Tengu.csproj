@@ -5,6 +5,8 @@
     <Nullable>disable</Nullable>
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
+	<Deterministic>False</Deterministic>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
   </PropertyGroup>
   <ItemGroup>
@@ -39,5 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tengu.Shared\Tengu.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ namespace Tengu.Data
         public const string CompanyName = @"Tengu";
 
         private const string MajorVersion = "1"; // Manual Increment
-        private const string MinorVersion = "1"; // Manual Increment
+        private const string MinorVersion = "2"; // Manual Increment
         private const string BuildVersion = "*"; // Auto Increment
 
         // AssemblyVersion Property
