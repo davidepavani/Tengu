@@ -24,7 +24,7 @@ namespace Tengu.Services
 
         private static ITenguApi TenguApi => Locator.Current.GetService<ITenguApi>();
 
-        private AvaloniaList<DownloadModel> AnimeQueue = new();
+        private AvaloniaList<DownloadModel> animeQueue = new();
         private int downloadCount = 0;
 
         private DownloadModel currentSaturnDownload  = null;
@@ -41,6 +41,11 @@ namespace Tengu.Services
             get => currentSaturnDownload; 
             set => this.RaiseAndSetIfChanged(ref currentSaturnDownload, value);
         }
+        public AvaloniaList<DownloadModel> AnimeQueue
+        {
+            get => animeQueue;
+            set => this.RaiseAndSetIfChanged(ref animeQueue, value);
+        }
         public int DownloadCount
         {
             get => downloadCount;
@@ -50,7 +55,7 @@ namespace Tengu.Services
 
         public void EnqueueAnime(EpisodeModel episode)
         {
-            log.Info($"[Saturn] Enqueued {episode.Title}");
+            log.Info("[Saturn] Enqueued {Title} | Episode {EpisodeNumber}", episode.Title, episode.EpisodeNumber);
 
             AnimeQueue.Add(new(episode));
             DownloadCount = AnimeQueue.Count;
@@ -58,7 +63,7 @@ namespace Tengu.Services
 
         public void SaturnDownload()
         {
-            DownloadModel anime = GetNextSaturnEpisode();
+            DownloadModel anime = GetNextEpisodeByHost(Hosts.AnimeSaturn);
 
             while(anime != null)
             {
@@ -68,7 +73,7 @@ namespace Tengu.Services
             DownloadCount = AnimeQueue.Count;
         }
 
-        private DownloadModel GetNextSaturnEpisode()
-            => AnimeQueue.FirstOrDefault(x => x.Episode.Host.Equals(Hosts.AnimeSaturn), null);
+        private DownloadModel GetNextEpisodeByHost(Hosts host)
+            => AnimeQueue.FirstOrDefault(x => x.Episode.Host.Equals(host), null);
     }
 }
