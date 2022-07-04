@@ -54,7 +54,33 @@
 			<TabControl Grid.Row="1">
 				
 				<TabItem Header="DOWNLOADS" FontSize="14">
-					
+					<StackPanel Spacing="10"
+								Margin="0,20">
+						<StackPanel HorizontalAlignment="Left">
+							<StackPanel Orientation="Horizontal"
+										Margin="5,0,0,0"
+										Spacing="5">
+								<TextBlock Text="Download Directory" 
+										   FontWeight="Medium"/>
+								<TextBlock Text="(* Default: )"
+									   FontWeight="Light"/>
+							</StackPanel>
+							<TextBox Width="350"
+									 HorizontalAlignment="Left"
+									 Watermark="Download Path here..">
+								<TextBox.InnerRightContent>
+									<Button Classes="TextBoxInner"
+											Command="{Binding SelectFolderCommand}">
+										<icons:MaterialIcon Kind="Folder" />
+									</Button>
+								</TextBox.InnerRightContent>
+							</TextBox>
+						</StackPanel>
+						
+						<Button Content="Save" 
+								Margin="0,10,0,0"
+								Classes="accent"/>
+					</StackPanel>
 				</TabItem>
 				<TabItem Header="MISCELLANEOUS" FontSize="14">
 
