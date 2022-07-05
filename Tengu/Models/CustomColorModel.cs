@@ -15,7 +15,7 @@ namespace Tengu.Models
         public CustomColorModel(string name, string hex)
         {
             Name = name;
-            Hex = hex;
+            Hex = hex.ToUpper();
         }
     }
 }
