@@ -20,6 +20,7 @@ namespace Tengu.Configuration
 
         #region Properties
 
+        public MiscConfiguration Miscellaneous { get; set; }
         public HostConfiguration Hosts { get; set; }
         public DownloadsConfiguration Downloads { get; set; }
 
@@ -90,6 +91,7 @@ namespace Tengu.Configuration
         {
             ConfigFileName ??= GetFilePath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tengu.json"));
 
+            Miscellaneous ??= new();
             Hosts ??= new();
             Downloads ??= new();
         }

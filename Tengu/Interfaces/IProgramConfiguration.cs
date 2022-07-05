@@ -9,6 +9,7 @@ namespace Tengu.Interfaces
 {
     public interface IProgramConfiguration
     {
+        MiscConfiguration Miscellaneous { get; set; }
         HostConfiguration Hosts { get; set; }
         DownloadsConfiguration Downloads { get; set; }
         bool Save();

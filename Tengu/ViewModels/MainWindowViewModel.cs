@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using ReactiveUI;
+using Tengu.Data;
 using Tengu.Models;
 
 namespace Tengu.ViewModels
