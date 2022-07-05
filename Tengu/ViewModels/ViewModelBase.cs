@@ -1,3 +1,5 @@
+using Avalonia;
+using FluentAvalonia.Styling;
 using ReactiveUI;
 using Splat;
 using System;
@@ -51,6 +53,12 @@ namespace Tengu.ViewModels
             TenguApi.DownloadPath = string.IsNullOrEmpty(ProgramConfig.Downloads.DownloadDirectory) ?
                         Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) :
                             ProgramConfig.Downloads.DownloadDirectory;
+        }
+
+        public void SetTheme() => AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = ProgramConfig.Miscellaneous.IsDarkMode ? "Dark" : "Light";
+        public void SetColor()
+        {
+
         }
 
         private void Navigate(Type type)

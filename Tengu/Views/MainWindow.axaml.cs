@@ -31,10 +31,6 @@ namespace Tengu.Views
 
             Opened += OnWindowOpened;
             Closing += MainWindow_Closing;
-
-            // TODO => REMOVE THIS
-            var faTheme = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-            faTheme.RequestedTheme = "Dark";
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

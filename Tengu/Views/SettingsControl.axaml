@@ -84,7 +84,8 @@
 					<StackPanel Spacing="10"
 								Margin="0,20">
 						<ToggleSwitch OffContent="Light Mode"
-									  OnContent="Dark Mode"/>
+									  OnContent="Dark Mode"
+									  IsChecked="{Binding IsDarkMode}"/>
 
 						<StackPanel Orientation="Horizontal"
 									HorizontalAlignment="Left"

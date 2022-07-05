@@ -11,7 +11,7 @@ namespace Tengu.Configuration
 {
     public class MiscConfiguration
     {
-        public bool IsLightMode { get; set; } = false;
+        public bool IsDarkMode { get; set; } = true;
         public CustomColorModel AppColor { get; set; } = new(DefaultColors.aquamarine.GetEnumDescription(), $"#{(uint)DefaultColors.aquamarine:x6}");
     }
 }
