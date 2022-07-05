@@ -92,7 +92,8 @@
 										Spacing="10">
 							<TextBlock Text="Custom Color"
 									   VerticalAlignment="Center"/>
-							<ComboBox Width="200"
+							<ComboBox Width="250"
+									  SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
 									  Items="{Binding DefaultColors}">
 								<ComboBox.ItemTemplate>
 									<DataTemplate>
@@ -101,8 +102,8 @@
 											<Rectangle Fill="{Binding Hex}"
 													   Width="15"
 													   Height="15"/>
-											
-											<TextBlock Text="{Binding Name}" 
+
+											<TextBlock Text="{Binding Name}"
 													   VerticalAlignment="Center"/>
 
 											<TextBlock Text="{Binding Hex}"
@@ -113,6 +114,13 @@
 								</ComboBox.ItemTemplate>
 							</ComboBox>
 						</StackPanel>
+							
+
+						<TextBlock MaxWidth="480"
+									   Opacity=".5"
+									   HorizontalAlignment="Left"
+									   TextWrapping="Wrap"
+									   Text="* The colors may be slightly different from how they are presented (both in dark mode and in light mode).. i don't know why :D" />
 
 						<!-- Others options here -->
 					</StackPanel>

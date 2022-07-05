@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Media;
 using FluentAvalonia.Styling;
 using ReactiveUI;
 using Splat;
@@ -55,11 +56,8 @@ namespace Tengu.ViewModels
                             ProgramConfig.Downloads.DownloadDirectory;
         }
 
-        public void SetTheme() => AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = ProgramConfig.Miscellaneous.IsDarkMode ? "Dark" : "Light";
-        public void SetColor()
-        {
-
-        }
+        public void SetApplicationTheme() => AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = ProgramConfig.Miscellaneous.IsDarkMode ? "Dark" : "Light";
+        public void SetApplicationColor() => AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().CustomAccentColor = Color.Parse(ProgramConfig.Miscellaneous.AppColor.Hex);
 
         private void Navigate(Type type)
         {

@@ -8,6 +8,7 @@ using Tengu.Models;
 using ReactiveUI;
 using Avalonia;
 using FluentAvalonia.Styling;
+using Avalonia.Media;
 
 namespace Tengu.ViewModels
 {
@@ -39,19 +40,20 @@ namespace Tengu.ViewModels
         public SettingsControlViewModel()
         {
             DefaultColors = Misc.LoadCustomDefaultColors().ToList();
-            SelectedColor = ProgramConfig.Miscellaneous.AppColor;
+            SelectedColor = DefaultColors.SingleOrDefault(x => x.Hex == ProgramConfig.Miscellaneous.AppColor.Hex);
             IsDarkMode = ProgramConfig.Miscellaneous.IsDarkMode;
         }
 
         private void ChangeTheme()
         {
             ProgramConfig.Miscellaneous.IsDarkMode = IsDarkMode;
-            SetTheme();
+            SetApplicationTheme();
         }
 
         private void ChangeColor()
         {
-
+            ProgramConfig.Miscellaneous.AppColor = SelectedColor;
+            SetApplicationColor();
         }
     }
 }

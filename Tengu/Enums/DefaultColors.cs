@@ -12,13 +12,13 @@ namespace Tengu.Enums
 
     public enum DefaultColors : uint
     {
-        [Description("Burly Wood")]
-        burlywood = 0xdeb887,
-
-        [Description("Aquamarine")]
-        aquamarine = 0x7fffd4,
-
         [Description("Dark Orchid")]
         darkorchid = 0x9932cc,
+
+        [Description("Crimson")]
+        crimson = 0xdc143c,
+
+        [Description("Dark Orange")]
+        darkorange = 0xff8c00,
     }
 }

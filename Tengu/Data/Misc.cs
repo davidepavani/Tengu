@@ -15,7 +15,7 @@ namespace Tengu.Data
         {
             foreach (DefaultColors color in EnumExtension.ToList<DefaultColors>())
             {
-                yield return new CustomColorModel(color.GetEnumDescription(), $"#{(uint)color:x6}");
+                yield return new CustomColorModel(color.GetEnumDescription(), $"#FF{(uint)color:x6}");
             }
         }
     }

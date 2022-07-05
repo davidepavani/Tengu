@@ -17,8 +17,8 @@ namespace Tengu.ViewModels
             CloseInfoCommand = ReactiveCommand.Create<InfoModel>(CloseInfoMessage);
             RefreshTenguApiDownloadPath();
 
-            SetTheme();
-            SetColor();
+            SetApplicationTheme();
+            SetApplicationColor();
         }
 
         public void CloseInfoMessage(InfoModel info)
