@@ -19,12 +19,16 @@ namespace Tengu.Views
 {
     public partial class MainWindow : CoreWindow
     {
+        public static Window Instance { get; private set; }
+
         private MainWindowViewModel _viewModel;
         private NavigationView _navView;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Instance = this;
 
             MinWidth = 1000;
             MinHeight = 600;

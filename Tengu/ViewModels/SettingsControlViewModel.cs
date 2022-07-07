@@ -9,15 +9,23 @@ using ReactiveUI;
 using Avalonia;
 using FluentAvalonia.Styling;
 using Avalonia.Media;
+using System.Windows.Input;
+using Avalonia.Controls;
 
 namespace Tengu.ViewModels
 {
     public class SettingsControlViewModel : ViewModelBase
     {
+        private string downloadDirectory;
         private CustomColorModel selectedColor;
         private bool isDarkMode;
 
         public List<CustomColorModel> DefaultColors { get; private set; }
+        public string DownloadDirectory
+        {
+            get => downloadDirectory;
+            set => this.RaiseAndSetIfChanged(ref downloadDirectory, value);
+        }
         public bool IsDarkMode
         {
             get => isDarkMode;
@@ -42,12 +50,22 @@ namespace Tengu.ViewModels
             DefaultColors = Misc.LoadCustomDefaultColors().ToList();
             SelectedColor = DefaultColors.SingleOrDefault(x => x.Hex == ProgramConfig.Miscellaneous.AppColor.Hex);
             IsDarkMode = ProgramConfig.Miscellaneous.IsDarkMode;
+
+            DownloadDirectory = ProgramConfig.Downloads.DownloadDirectory;
         }
 
         private void ChangeTheme()
         {
             ProgramConfig.Miscellaneous.IsDarkMode = IsDarkMode;
             SetApplicationTheme();
+        }
+
+        public void SelectFolder(string path)
+        {
+            DownloadDirectory = path;
+            ProgramConfig.Downloads.DownloadDirectory = path;
+
+            RefreshTenguApiDownloadPath();
         }
 
         private void ChangeColor()

@@ -67,10 +67,14 @@
 							</StackPanel>
 							<TextBox Width="350"
 									 HorizontalAlignment="Left"
+									 IsReadOnly="True"
+									 Text="{Binding DownloadDirectory}"
 									 Watermark="Download Path here..">
 								<TextBox.InnerRightContent>
 									<Button Classes="TextBoxInner"
-											Command="{Binding SelectFolderCommand}">
+											Background="Transparent"
+											BorderThickness="0"
+											Click="SelectFolder_Click">
 										<icons:MaterialIcon Kind="Folder" />
 									</Button>
 								</TextBox.InnerRightContent>
