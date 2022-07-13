@@ -56,8 +56,10 @@ namespace Tengu.ViewModels
                             ProgramConfig.Downloads.DownloadDirectory;
         }
 
-        public void SetApplicationTheme() => AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = ProgramConfig.Miscellaneous.IsDarkMode ? "Dark" : "Light";
-        public void SetApplicationColor() => AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().CustomAccentColor = Color.Parse(ProgramConfig.Miscellaneous.AppColor.Hex);
+        public void SetApplicationTheme() 
+            => AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = ProgramConfig.Miscellaneous.IsDarkMode ? "Dark" : "Light";
+        public void SetApplicationColor() 
+            => AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().CustomAccentColor = Color.Parse(ProgramConfig.Miscellaneous.AppColor.Hex);
 
         private void Navigate(Type type)
         {
