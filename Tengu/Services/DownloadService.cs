@@ -70,10 +70,16 @@ namespace Tengu.Services
 
         public void EnqueueAnime(EpisodeModel episode)
         {
-            log.Info("[Saturn] Enqueued {Title} | Episode {EpisodeNumber}", episode.Title, episode.EpisodeNumber);
-
+            if(AnimeAlreadyInQueue(episode.Title, episode.EpisodeNumber, episode.Host))
+            {
+                log.Warn("[{host}] Already in queued: {Title} | Episode {EpisodeNumber}", episode.Host, episode.Title, episode.EpisodeNumber);
+                return;
+            }
+            
             AnimeQueue.Add(new(episode));
             RefreshDownloadCount();
+
+            log.Info("[{host}] Enqueued {Title} | Episode {EpisodeNumber}", episode.Host, episode.Title, episode.EpisodeNumber);
 
             if (!downloadingSaturn && AnimeQueue.Any(x => x.Episode.Host == Hosts.AnimeSaturn))
             {
@@ -165,5 +171,11 @@ namespace Tengu.Services
 
         private DownloadModel GetNextEpisodeByHost(Hosts host)
             => AnimeQueue.FirstOrDefault(x => x.Episode.Host.Equals(host), null);
+
+        // Masterpiece
+        private bool AnimeAlreadyInQueue(string title, string ep, Hosts host)
+            => AnimeQueue.Any(x => x.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && x.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase) && x.Episode.Host.Equals(host)) ||
+                (CurrentSaturnDownload != null && CurrentSaturnDownload.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && CurrentSaturnDownload.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase) ||
+                (CurrentUnityDownload != null && CurrentUnityDownload.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && CurrentUnityDownload.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase)));
     }
 }
