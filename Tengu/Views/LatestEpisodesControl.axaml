@@ -148,8 +148,8 @@
 
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Button Classes.EpUnity="{Binding Episode.Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeUnity}}"
-											Classes.EpSaturn="{Binding Episode.Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:Hosts.AnimeSaturn}}"
+									<Button Classes.EpUnity="{Binding Episode.Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:TenguHosts.AnimeUnity}}"
+											Classes.EpSaturn="{Binding Episode.Host, Converter={StaticResource hostToStringConverter}, ConverterParameter={x:Static comm:TenguHosts.AnimeSaturn}}"
 											Command="{Binding $parent[ItemsControl].DataContext.CmdOpenAnimeCard}"
 											CommandParameter="{Binding}"
 											Padding="0">

@@ -81,12 +81,12 @@ namespace Tengu.Services
 
             log.Info("[{host}] Enqueued {Title} | Episode {EpisodeNumber}", episode.Host, episode.Title, episode.EpisodeNumber);
 
-            if (!downloadingSaturn && AnimeQueue.Any(x => x.Episode.Host == Hosts.AnimeSaturn))
+            if (!downloadingSaturn && AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeSaturn))
             {
                 Task.Run(() => SaturnDownload());
             }
 
-            if (!downloadingUnity && AnimeQueue.Any(x => x.Episode.Host == Hosts.AnimeUnity))
+            if (!downloadingUnity && AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeUnity))
             {
                 Task.Run(() => UnityDownload());
             }
@@ -98,7 +98,7 @@ namespace Tengu.Services
         }
         private void SaturnDownload()
         {
-            CurrentSaturnDownload = GetNextEpisodeByHost(Hosts.AnimeSaturn);
+            CurrentSaturnDownload = GetNextEpisodeByHost(TenguHosts.AnimeSaturn);
             downloadingSaturn = true;
 
             log.Info("[Saturn] Initializing Download: {title} | Episode {EpisodeNumber}", CurrentSaturnDownload.Episode.Title, CurrentSaturnDownload.Episode.EpisodeNumber);
@@ -113,7 +113,7 @@ namespace Tengu.Services
 
                 try
                 {
-                    TenguResult<DownloadMonitor> result = TenguApi.DownloadAsync(CurrentSaturnDownload.Episode.DownloadUrl, CurrentSaturnDownload.Episode.Host, out _, saturnTokenSource.Token);
+                    TenguResult<DownloadMonitor> result = TenguApi.StartDownloadAsync(CurrentSaturnDownload.Episode.DownloadUrl, CurrentSaturnDownload.Episode.Host, saturnTokenSource.Token).Result;
 
                     // Check Status
                     foreach(TenguResultInfo info in result.Infos)
@@ -143,7 +143,7 @@ namespace Tengu.Services
                         Name = CurrentSaturnDownload.Episode.Title,
                         Episode = CurrentSaturnDownload.Episode.EpisodeNumber,
                         ErrorMessage = statusMessage,
-                        Host = Hosts.AnimeSaturn,
+                        Host = TenguHosts.AnimeSaturn,
                         InError = CurrentSaturnDownload.DownloadInfo.Status == Downla.DownloadStatuses.Faulted ||
                                   CurrentSaturnDownload.DownloadInfo.Status == Downla.DownloadStatuses.Canceled,
                         EndTime = DateTime.Now
@@ -153,7 +153,7 @@ namespace Tengu.Services
                     saturnTokenSource = null;
 
                     // Load Next
-                    CurrentSaturnDownload = GetNextEpisodeByHost(Hosts.AnimeSaturn);
+                    CurrentSaturnDownload = GetNextEpisodeByHost(TenguHosts.AnimeSaturn);
                 }
             }
 
@@ -169,11 +169,11 @@ namespace Tengu.Services
             if (CurrentUnityDownload != null) DownloadCount++;
         }
 
-        private DownloadModel GetNextEpisodeByHost(Hosts host)
+        private DownloadModel GetNextEpisodeByHost(TenguHosts host)
             => AnimeQueue.FirstOrDefault(x => x.Episode.Host.Equals(host), null);
 
         // Masterpiece
-        private bool AnimeAlreadyInQueue(string title, string ep, Hosts host)
+        private bool AnimeAlreadyInQueue(string title, string ep, TenguHosts host)
             => AnimeQueue.Any(x => x.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && x.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase) && x.Episode.Host.Equals(host)) ||
                 (CurrentSaturnDownload != null && CurrentSaturnDownload.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && CurrentSaturnDownload.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase) ||
                 (CurrentUnityDownload != null && CurrentUnityDownload.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && CurrentUnityDownload.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase)));

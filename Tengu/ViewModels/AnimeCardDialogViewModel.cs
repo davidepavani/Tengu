@@ -26,7 +26,7 @@ namespace Tengu.ViewModels
 
         #region Properties
         public AnimeModel AnimeData { get; private set; }
-        public Hosts Host { get; private set; }
+        public TenguHosts Host { get; private set; }
         public ICommand DownloadEpisodeCommand { get; private set; }
         public AvaloniaList<EpisodeModel> EpisodesList
         {
@@ -45,7 +45,7 @@ namespace Tengu.ViewModels
         }
         #endregion
 
-        public AnimeCardDialogViewModel(ContentDialog dialog, AnimeModel anime, Hosts currentHost)
+        public AnimeCardDialogViewModel(ContentDialog dialog, AnimeModel anime, TenguHosts currentHost)
         {
             if (dialog is null)
                 throw new ArgumentNullException(nameof(dialog));

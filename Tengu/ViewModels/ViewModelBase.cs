@@ -30,12 +30,12 @@ namespace Tengu.ViewModels
         public ICommand NavigateBackCommand { get; private set; }
 
         // Properties
-        public List<Hosts> HostsList { get; private set; }
+        public List<TenguHosts> HostsList { get; private set; }
 
         public ViewModelBase()
         {
-            Hosts[] except = { Hosts.None };
-            HostsList = Enum.GetValues(typeof(Hosts)).Cast<Hosts>().Except(except).ToList();
+            TenguHosts[] except = { TenguHosts.None };
+            HostsList = Enum.GetValues(typeof(TenguHosts)).Cast<TenguHosts>().Except(except).ToList();
 
             // Dependency Injection
             Navigator = Locator.Current.GetService<INavigationService>();

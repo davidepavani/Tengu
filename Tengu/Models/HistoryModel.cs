@@ -11,7 +11,7 @@ namespace Tengu.Models
     {
         public string Name { get; set; }
         public string Episode { get; set; }
-        public Hosts Host { get; set; }
+        public TenguHosts Host { get; set; }
         public string ErrorMessage { get; set; }
         public bool InError { get; set; }
         public DateTime EndTime { get; set; }

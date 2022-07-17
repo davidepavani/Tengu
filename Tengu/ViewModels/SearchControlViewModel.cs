@@ -26,14 +26,14 @@ namespace Tengu.ViewModels
 
         private AvaloniaList<SearchAnimeModel> animeList = new();
         private string title = string.Empty;
-        private Hosts seletctedHost = Hosts.AnimeSaturn;
-        private Statuses selectedStatus = Statuses.None;
+        private TenguHosts seletctedHost = TenguHosts.AnimeSaturn;
+        private TenguStatuses selectedStatus = TenguStatuses.None;
         private bool loading = false;
 
         #region Properties
         public ICommand SearchCommand { get; private set; }
         public ICommand OpenAnimeCardCommand { get; private set; }
-        public List<Statuses> StatusesList { get; set; }
+        public List<TenguStatuses> StatusesList { get; set; }
         public List<GenresModel> GenresList { get; private set; }
         public bool Loading
         {
@@ -50,16 +50,16 @@ namespace Tengu.ViewModels
             get => animeList;
             set => this.RaiseAndSetIfChanged(ref animeList, value);
         }
-        public Hosts SelectedHost
+        public TenguHosts SelectedHost
         {
             get => seletctedHost;
             set
             {
                 this.RaiseAndSetIfChanged(ref seletctedHost, value);
-                ProgramConfig.Hosts.Search = SelectedHost;
+                ProgramConfig.TenguHosts.Search = SelectedHost;
             }
         }
-        public Statuses SelectedStatus 
+        public TenguStatuses SelectedStatus 
         { 
             get => selectedStatus;
             set => this.RaiseAndSetIfChanged(ref selectedStatus, value);
@@ -71,18 +71,18 @@ namespace Tengu.ViewModels
             SearchCommand = ReactiveCommand.Create(ExecuteSearch);
             OpenAnimeCardCommand = ReactiveCommand.Create<SearchAnimeModel>(ShowAnimeCard);
 
-            HostsList.Add(Hosts.None);
+            HostsList.Add(TenguHosts.None);
 
-            StatusesList = EnumExtension.ToList<Statuses>();
+            StatusesList = EnumExtension.ToList<TenguStatuses>();
 
             GenresList = new();
-            EnumExtension.ToList<Genres>().ForEach(x =>
+            EnumExtension.ToList<TenguGenres>().ForEach(x =>
             {
-                if (!x.Equals(Genres.None))
+                if (!x.Equals(TenguGenres.None))
                     GenresList.Add(new(x));
             });
 
-            SelectedHost = ProgramConfig.Hosts.Search;
+            SelectedHost = ProgramConfig.TenguHosts.Search;
         }
 
         private async void ExecuteSearch()
@@ -92,13 +92,13 @@ namespace Tengu.ViewModels
 
             try
             {
-                TenguApi.CurrentHosts = SelectedHost.Equals(Hosts.None) ?
-                    new Hosts[] { Hosts.AnimeUnity, Hosts.AnimeUnity } :
-                       new Hosts[] { SelectedHost };
+                TenguApi.CurrentHosts = SelectedHost.Equals(TenguHosts.None) ?
+                    new TenguHosts[] { TenguHosts.AnimeUnity, TenguHosts.AnimeUnity } :
+                       new TenguHosts[] { SelectedHost };
 
-                Genres[] genres = GenresList.Where(x => x.IsChecked).Select(x => x.Genre).ToArray();
+                TenguGenres[] genres = GenresList.Where(x => x.IsChecked).Select(x => x.Genre).ToArray();
 
-                SearchFilter filter = new()
+                TenguSearchFilter filter = new()
                 {
                     Status = SelectedStatus,
                     Genres = genres

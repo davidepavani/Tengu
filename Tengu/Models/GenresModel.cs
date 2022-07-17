@@ -13,14 +13,14 @@ namespace Tengu.Models
     {
         private bool isChecked = false;
 
-        public Genres Genre { get; set; }
+        public TenguGenres Genre { get; set; }
         public bool IsChecked
         {
             get => isChecked;
             set => this.RaiseAndSetIfChanged(ref isChecked, value);
         }
 
-        public GenresModel(Genres genre)
+        public GenresModel(TenguGenres genre)
         {
             Genre = genre;
         }
