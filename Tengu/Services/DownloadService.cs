@@ -37,6 +37,8 @@ namespace Tengu.Services
         private bool downloadingSaturn = false;
         private bool downloadingUnity = false;
 
+        private string saturnStatusMessage = string.Empty;
+
         private DownloadModel currentSaturnDownload = null;
         private DownloadModel currentUnityDownload = null;
 
@@ -83,7 +85,7 @@ namespace Tengu.Services
 
             if (!downloadingSaturn && AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeSaturn))
             {
-                Task.Run(() => SaturnDownload());
+                Task.Run(() => SaturnDownloadAsync());
             }
 
             if (!downloadingUnity && AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeUnity))
@@ -96,7 +98,7 @@ namespace Tengu.Services
         {
 
         }
-        private void SaturnDownload()
+        private async void SaturnDownloadAsync()
         {
             CurrentSaturnDownload = GetNextEpisodeByHost(TenguHosts.AnimeSaturn);
             downloadingSaturn = true;
@@ -106,33 +108,24 @@ namespace Tengu.Services
             while (CurrentSaturnDownload != null)
             {
                 saturnTokenSource = new();
-                string statusMessage = string.Empty;
+                saturnStatusMessage = string.Empty;
 
                 // Remove it from QUEUE
                 AnimeQueue.Remove(CurrentSaturnDownload);
 
                 try
                 {
-                    TenguResult<DownloadMonitor> result = TenguApi.StartDownloadAsync(CurrentSaturnDownload.Episode.DownloadUrl, CurrentSaturnDownload.Episode.Host, saturnTokenSource.Token).Result;
+                    TenguResult<DownloadMonitor> result = await TenguApi.StartDownloadAsync(CurrentSaturnDownload.Episode.DownloadUrl, CurrentSaturnDownload.Episode.Host, saturnTokenSource.Token);
 
-                    // Check Status
-                    foreach(TenguResultInfo info in result.Infos)
-                    {
-                        if(!info.Success)
-                        {
-                            statusMessage += info.Exception.Message + "\n";
-                            statusMessage += "-------------------------\n";
-
-                            log.Warn(info.Exception, "[Saturn] Download Info Status: {title} | Episode {EpisodeNumber}", CurrentSaturnDownload.Episode.Title, CurrentSaturnDownload.Episode.EpisodeNumber);
-                        }
-                    }
+                    result.Data.OnStatusChange += Data_OnStatusChange;
+                    await result.Data.EnsureDownload();
 
                     CurrentSaturnDownload.DownloadInfo = result.Data;
                 }
                 catch(Exception ex)
                 {
-                    statusMessage += ex.Message + "\n";
-                    statusMessage += "-------------------------\n";
+                    saturnStatusMessage += ex.Message + "\n";
+                    saturnStatusMessage += "-------------------------\n";
 
                     log.Fatal(ex, "[Saturn] Download Exception: {title} | Episode {EpisodeNumber}", CurrentSaturnDownload.Episode.Title, CurrentSaturnDownload.Episode.EpisodeNumber);
                 }
@@ -142,7 +135,7 @@ namespace Tengu.Services
                     {
                         Name = CurrentSaturnDownload.Episode.Title,
                         Episode = CurrentSaturnDownload.Episode.EpisodeNumber,
-                        ErrorMessage = statusMessage,
+                        ErrorMessage = saturnStatusMessage,
                         Host = TenguHosts.AnimeSaturn,
                         InError = CurrentSaturnDownload.DownloadInfo.Status == Downla.DownloadStatuses.Faulted ||
                                   CurrentSaturnDownload.DownloadInfo.Status == Downla.DownloadStatuses.Canceled,
@@ -159,6 +152,21 @@ namespace Tengu.Services
 
             downloadingSaturn = false;
             RefreshDownloadCount();
+        }
+
+        private void Data_OnStatusChange(Downla.DownloadStatuses status, DownloadMonitorInfos infos, IEnumerable<Exception> exceptions)
+        {
+            // Check Status
+            //foreach (TenguResultInfo info in result.Infos)
+            //{
+            //    if (!info.Success)
+            //    {
+            //        statusMessage += info.Exception.Message + "\n";
+            //        statusMessage += "-------------------------\n";
+
+            //        log.Warn(info.Exception, "[Saturn] Download Info Status: {title} | Episode {EpisodeNumber}", CurrentSaturnDownload.Episode.Title, CurrentSaturnDownload.Episode.EpisodeNumber);
+            //    }
+            //}
         }
 
         private void RefreshDownloadCount()
