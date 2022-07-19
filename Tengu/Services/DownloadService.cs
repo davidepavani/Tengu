@@ -117,8 +117,7 @@ namespace Tengu.Services
                 {
                     TenguResult<DownloadMonitor> result = await TenguApi.StartDownloadAsync(CurrentSaturnDownload.Episode.DownloadUrl, CurrentSaturnDownload.Episode.Host, saturnTokenSource.Token);
 
-                    result.Data.OnStatusChange += Data_OnStatusChange;
-                    await result.Data.EnsureDownload();
+                    await result.Data.EnsureDownloadCompletion();
 
                     CurrentSaturnDownload.DownloadInfo = result.Data;
                 }
