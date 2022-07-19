@@ -23,157 +23,187 @@ namespace Tengu.Services
     public class DownloadService : ReactiveObject, IDownloadService
     {
         private readonly Logger log = LogManager.GetLogger(Loggers.MainLogger);
+        private readonly object downloadSync = new();
 
         private static ITenguApi TenguApi => Locator.Current.GetService<ITenguApi>();
 
-        private CancellationTokenSource saturnTokenSource;
-        private CancellationTokenSource unityTokenSource;
-
         private AvaloniaList<HistoryModel> historyList = new();
         private AvaloniaList<DownloadModel> animeQueue = new();
-        
+        private AvaloniaList<DownloadModel> currentDownloads = new();
+
         private int downloadCount = 0;
 
-        private bool downloadingSaturn = false;
-        private bool downloadingUnity = false;
-
-        private string saturnStatusMessage = string.Empty;
-
-        private DownloadModel currentSaturnDownload = null;
-        private DownloadModel currentUnityDownload = null;
-
         #region Properties
-        public DownloadModel CurrentUnityDownload 
+        public AvaloniaList<DownloadModel> CurrentDownloads 
         { 
-            get => currentUnityDownload; 
-            set => this.RaiseAndSetIfChanged(ref currentUnityDownload, value);
-        }
-        public DownloadModel CurrentSaturnDownload 
-        { 
-            get => currentSaturnDownload; 
-            set => this.RaiseAndSetIfChanged(ref currentSaturnDownload, value);
+            get => currentDownloads;
+            private set => this.RaiseAndSetIfChanged(ref currentDownloads, value);
         }
         public AvaloniaList<DownloadModel> AnimeQueue
         {
             get => animeQueue;
-            set => this.RaiseAndSetIfChanged(ref animeQueue, value);
+            private set => this.RaiseAndSetIfChanged(ref animeQueue, value);
         }
         public AvaloniaList<HistoryModel> HistoryList
         {
             get => historyList;
-            set => this.RaiseAndSetIfChanged(ref historyList, value);
+            private set => this.RaiseAndSetIfChanged(ref historyList, value);
         }
         public int DownloadCount
         {
             get => downloadCount;
-            set => this.RaiseAndSetIfChanged(ref downloadCount, value);
+            private set => this.RaiseAndSetIfChanged(ref downloadCount, value);
         }
         #endregion
 
         public void EnqueueAnime(EpisodeModel episode)
         {
-            if(AnimeAlreadyInQueue(episode.Title, episode.EpisodeNumber, episode.Host))
+            lock (downloadSync)
             {
-                log.Warn("[{host}] Already in queued: {Title} | Episode {EpisodeNumber}", episode.Host, episode.Title, episode.EpisodeNumber);
-                return;
-            }
-            
-            AnimeQueue.Add(new(episode));
-            RefreshDownloadCount();
+                if (AnimeAlreadyInQueue(episode.Title, episode.EpisodeNumber, episode.Host))
+                {
+                    log.Warn("[{host}] Already in queued: {Title} | Episode {EpisodeNumber}", episode.Host, episode.Title, episode.EpisodeNumber);
+                    return;
+                }
 
-            log.Info("[{host}] Enqueued {Title} | Episode {EpisodeNumber}", episode.Host, episode.Title, episode.EpisodeNumber);
+                AnimeQueue.Add(new(episode));
+                RefreshDownloadCount();
 
-            if (!downloadingSaturn && AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeSaturn))
-            {
-                Task.Run(() => SaturnDownloadAsync());
-            }
+                log.Info("[{host}] Enqueued {Title} | Episode {EpisodeNumber}", episode.Host, episode.Title, episode.EpisodeNumber);
 
-            if (!downloadingUnity && AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeUnity))
-            {
-                Task.Run(() => UnityDownload());
+                if (!CurrentDownloads.Any(x => x.Episode.Host == TenguHosts.AnimeUnity) && 
+                    AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeSaturn))
+                {
+                    Task.Run(() => ExecuteDownload(TenguHosts.AnimeSaturn));
+                }
+
+                if (!CurrentDownloads.Any(x => x.Episode.Host == TenguHosts.AnimeUnity) && 
+                    AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeUnity))
+                {
+                    Task.Run(() => ExecuteDownload(TenguHosts.AnimeUnity));
+                }
             }
         }
 
-        private void UnityDownload()
+        public void CancelDownload(DownloadModel download)
         {
-
-        }
-        private async void SaturnDownloadAsync()
-        {
-            CurrentSaturnDownload = GetNextEpisodeByHost(TenguHosts.AnimeSaturn);
-            downloadingSaturn = true;
-
-            log.Info("[Saturn] Initializing Download: {title} | Episode {EpisodeNumber}", CurrentSaturnDownload.Episode.Title, CurrentSaturnDownload.Episode.EpisodeNumber);
-
-            while (CurrentSaturnDownload != null)
+            if (download != null)
             {
-                saturnTokenSource = new();
-                saturnStatusMessage = string.Empty;
-
-                // Remove it from QUEUE
-                AnimeQueue.Remove(CurrentSaturnDownload);
-
-                try
+                lock (downloadSync)
                 {
-                    TenguResult<DownloadMonitor> result = await TenguApi.StartDownloadAsync(CurrentSaturnDownload.Episode.DownloadUrl, CurrentSaturnDownload.Episode.Host, saturnTokenSource.Token);
-
-                    await result.Data.EnsureDownloadCompletion();
-
-                    CurrentSaturnDownload.DownloadInfo = result.Data;
-                }
-                catch(Exception ex)
-                {
-                    saturnStatusMessage += ex.Message + "\n";
-                    saturnStatusMessage += "-------------------------\n";
-
-                    log.Fatal(ex, "[Saturn] Download Exception: {title} | Episode {EpisodeNumber}", CurrentSaturnDownload.Episode.Title, CurrentSaturnDownload.Episode.EpisodeNumber);
-                }
-                finally
-                {
-                    HistoryList.Add(new()
+                    if (AnimeQueue.Any(x => x.Episode.Title.Equals(download.Episode.Title, StringComparison.CurrentCultureIgnoreCase) &&
+                                           x.Episode.EpisodeNumber.Equals(download.Episode.EpisodeNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                                           x.Episode.Host.Equals(download.Episode.Host)))
                     {
-                        Name = CurrentSaturnDownload.Episode.Title,
-                        Episode = CurrentSaturnDownload.Episode.EpisodeNumber,
-                        ErrorMessage = saturnStatusMessage,
-                        Host = TenguHosts.AnimeSaturn,
-                        InError = CurrentSaturnDownload.DownloadInfo.Status == Downla.DownloadStatuses.Faulted ||
-                                  CurrentSaturnDownload.DownloadInfo.Status == Downla.DownloadStatuses.Canceled,
-                        EndTime = DateTime.Now
-                    });
+                        AnimeQueue.Remove(download);
+                        AddToHistory(download, "Aborted by the user");
+                    }
+                    else if (CurrentDownloads.Any(x => x.Episode.Title.Equals(download.Episode.Title, StringComparison.CurrentCultureIgnoreCase) &&
+                                                       x.Episode.EpisodeNumber.Equals(download.Episode.EpisodeNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                                                       x.Episode.Host.Equals(download.Episode.Host)))
+                    {
+                        download.TokenSource.Cancel();
+                    }
 
-                    saturnTokenSource.Dispose();
-                    saturnTokenSource = null;
-
-                    // Load Next
-                    CurrentSaturnDownload = GetNextEpisodeByHost(TenguHosts.AnimeSaturn);
+                    RefreshDownloadCount();
                 }
             }
+        }
 
-            downloadingSaturn = false;
+        private void ExecuteDownload(TenguHosts host)
+        {
+            DownloadModel download = GetNextEpisodeByHost(host);
+
+            log.Info("[{host}] Initializing Download: {title} | Episode {EpisodeNumber}", host, download.Episode.Title, download.Episode.EpisodeNumber);
+
+            while (download != null)
+            {
+                AsyncDownload(download);
+
+                RefreshDownloadCount();
+
+                // Load Next
+                download = GetNextEpisodeByHost(host);
+            }
+
             RefreshDownloadCount();
         }
 
-        private void Data_OnStatusChange(Downla.DownloadStatuses status, DownloadMonitorInfos infos, IEnumerable<Exception> exceptions)
+        private async void AsyncDownload(DownloadModel download)
         {
-            // Check Status
-            //foreach (TenguResultInfo info in result.Infos)
-            //{
-            //    if (!info.Success)
-            //    {
-            //        statusMessage += info.Exception.Message + "\n";
-            //        statusMessage += "-------------------------\n";
+            string errors = string.Empty;
+            TenguResult<DownloadMonitor> result = null;
 
-            //        log.Warn(info.Exception, "[Saturn] Download Info Status: {title} | Episode {EpisodeNumber}", CurrentSaturnDownload.Episode.Title, CurrentSaturnDownload.Episode.EpisodeNumber);
-            //    }
-            //}
+            lock (downloadSync)
+            {
+                // Remove it from QUEUE
+                AnimeQueue.Remove(download);
+                CurrentDownloads.Add(download);
+            }
+
+            try
+            {
+                download.TokenSource = new();
+
+                result = await TenguApi.StartDownloadAsync(download.Episode.DownloadUrl, download.Episode.Host, download.TokenSource.Token);
+                download.DownloadInfo = result.Data;
+
+                await download.DownloadInfo.EnsureDownloadCompletion();
+            }
+            catch (Exception ex)
+            {
+                errors += ex.Message + "\n";
+                errors += "-------------------------\n";
+
+                log.Fatal(ex, "[{host}] Download Exception: {title} | Episode {EpisodeNumber}", download.Episode.Host, download.Episode.Title, download.Episode.EpisodeNumber);
+            }
+            finally
+            {
+                // todo => check exceptions bla bla
+                foreach (TenguResultInfo infoRes in result.Infos)
+                {
+                    if (!infoRes.Success)
+                    {
+                        
+                        errors += infoRes.Exception.Message + "\n";
+                        errors += "-------------------------\n";
+
+                        log.Debug(infoRes.Exception, "[{host}] TenguResultInfo Exception: {title} | Episode {EpisodeNumber} | Host: {host}", infoRes.Host, download.Episode.Title, download.Episode.EpisodeNumber);
+                    }
+                }
+
+                download.TokenSource.Dispose();
+                download.TokenSource = null;
+
+                lock (downloadSync)
+                {
+                    CurrentDownloads.Remove(download);
+                    AddToHistory(download, errors);
+                }
+            }
         }
 
         private void RefreshDownloadCount()
         {
-            DownloadCount = AnimeQueue.Count;
+            lock (downloadSync)
+            {
+                DownloadCount = AnimeQueue.Count;
+                DownloadCount += CurrentDownloads.Count;
+            }
+        }
 
-            if (CurrentSaturnDownload != null) DownloadCount++;
-            if (CurrentUnityDownload != null) DownloadCount++;
+        private void AddToHistory(DownloadModel download, string errors)
+        {
+            HistoryList.Add(new()
+            {
+                Name = download.Episode.Title,
+                Episode = download.Episode.EpisodeNumber,
+                ErrorMessage = errors,
+                Host = download.Episode.Host,
+                InError = download.DownloadInfo == null ? true : download.DownloadInfo.Status == Downla.DownloadStatuses.Faulted ||
+                                                                 download.DownloadInfo.Status == Downla.DownloadStatuses.Canceled,
+                EndTime = DateTime.Now
+            });
         }
 
         private DownloadModel GetNextEpisodeByHost(TenguHosts host)
@@ -182,7 +212,6 @@ namespace Tengu.Services
         // Masterpiece
         private bool AnimeAlreadyInQueue(string title, string ep, TenguHosts host)
             => AnimeQueue.Any(x => x.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && x.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase) && x.Episode.Host.Equals(host)) ||
-                (CurrentSaturnDownload != null && CurrentSaturnDownload.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && CurrentSaturnDownload.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase) ||
-                (CurrentUnityDownload != null && CurrentUnityDownload.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && CurrentUnityDownload.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase)));
+               CurrentDownloads.Any(x => x.Episode.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && x.Episode.EpisodeNumber.Equals(ep, StringComparison.CurrentCultureIgnoreCase) && x.Episode.Host.Equals(host));
     }
 }

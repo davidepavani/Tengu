@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,11 @@ namespace Tengu.Interfaces
 {
     public interface IDownloadService
     {
-        DownloadModel CurrentUnityDownload { get; set; }
-        DownloadModel CurrentSaturnDownload { get; set; }
-        int DownloadCount { get; set; }
+        AvaloniaList<DownloadModel> CurrentDownloads { get; } // Current animes in Download: 1 For Unity and 1 For Saturn
+        AvaloniaList<DownloadModel> AnimeQueue { get; }
+        AvaloniaList<HistoryModel> HistoryList { get; }
+        int DownloadCount { get; }
         void EnqueueAnime(EpisodeModel episode);
+        void CancelDownload(DownloadModel download);
     }
 }
