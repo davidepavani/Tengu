@@ -57,7 +57,7 @@
 								<Grid ColumnDefinitions="*,auto"
 									RowDefinitions="*,*">
 
-									<TextBlock Text="{Binding DwnldService.CurrentDownloads.Episode.Title}"
+									<TextBlock Text="{Binding Episode.Title}"
 											   ToolTip.Tip="{Binding Episode.Title}"
 											   FontSize="15"
 											   TextWrapping="Wrap"
@@ -88,7 +88,7 @@
 										<icons:MaterialIcon Kind="Remove" />
 									</Button>
 
-									<TextBlock Text="{Binding DownloadInfo.Infos.Percentage}"
+									<TextBlock Text="{Binding DownloadInfo.Infos.Percentage, StringFormat='\{0\}%'}"
 											   HorizontalAlignment="Right"
 											   Grid.Column="1"
 											   Grid.Row="1"/>
