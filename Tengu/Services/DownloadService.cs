@@ -164,7 +164,6 @@ namespace Tengu.Services
                 {
                     if (!infoRes.Success)
                     {
-                        
                         errors += infoRes.Exception.Message + "\n";
                         errors += "-------------------------\n";
 
