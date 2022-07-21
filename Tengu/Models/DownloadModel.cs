@@ -14,7 +14,12 @@ namespace Tengu.Models
 {
     public class DownloadModel : ReactiveObject
     {
-        public DownloadMonitor DownloadInfo { get; set; }
+        private DownloadMonitor downloadInfo = new();
+        public DownloadMonitor DownloadInfo
+        {
+            get => downloadInfo;
+            set => this.RaiseAndSetIfChanged(ref downloadInfo, value);
+        }
         public EpisodeModel Episode { get; private set; }
 
         public CancellationTokenSource TokenSource { get; set; }

@@ -71,7 +71,7 @@ namespace Tengu.Services
 
                 log.Info("[{host}] Enqueued {Title} | Episode {EpisodeNumber}", episode.Host, episode.Title, episode.EpisodeNumber);
 
-                if (!CurrentDownloads.Any(x => x.Episode.Host == TenguHosts.AnimeUnity) && 
+                if (!CurrentDownloads.Any(x => x.Episode.Host == TenguHosts.AnimeSaturn) && 
                     AnimeQueue.Any(x => x.Episode.Host == TenguHosts.AnimeSaturn))
                 {
                     Task.Run(() => ExecuteDownload(TenguHosts.AnimeSaturn));
@@ -118,7 +118,7 @@ namespace Tengu.Services
 
             while (download != null)
             {
-                AsyncDownload(download);
+                AsyncDownload(download).Wait();
 
                 RefreshDownloadCount();
 
@@ -129,7 +129,7 @@ namespace Tengu.Services
             RefreshDownloadCount();
         }
 
-        private async void AsyncDownload(DownloadModel download)
+        private async Task AsyncDownload(DownloadModel download)
         {
             string errors = string.Empty;
             TenguResult<DownloadMonitor> result = null;
