@@ -10,6 +10,7 @@
 		xmlns:icons="using:Material.Icons.Avalonia"
 		xmlns:views="using:Tengu.Views"
 		xmlns:local="using:Tengu.Views"
+		Icon="/Assets/tengu.ico"
         x:Class="Tengu.Views.MainWindow"
 		Name="MainWin"
         Title="Tengu">
