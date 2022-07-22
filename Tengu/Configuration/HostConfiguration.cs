@@ -10,8 +10,8 @@ namespace Tengu.Configuration
 {
     public class HostConfiguration
     {
-        public Hosts Latest { get; set; } = Hosts.AnimeUnity;
-        public Hosts Search { get; set; } = Hosts.None;
-        public Hosts Calendar { get; set; } = Hosts.AnimeUnity;
+        public TenguHosts Latest { get; set; } = TenguHosts.AnimeUnity;
+        public TenguHosts Search { get; set; } = TenguHosts.None;
+        public TenguHosts Calendar { get; set; } = TenguHosts.AnimeUnity;
     }
 }

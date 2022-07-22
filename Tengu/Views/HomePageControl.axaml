@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:vm="using:Tengu.ViewModels"
 		     xmlns:icons="using:Material.Icons.Avalonia"
              x:Class="Tengu.Views.HomePageControl">
+	<UserControl.DataContext>
+		<vm:HomePageControlViewModel />
+	</UserControl.DataContext>
+
 	<Grid>
 		<Grid ColumnDefinitions="*,*"
 			  RowDefinitions="1.5*,*">

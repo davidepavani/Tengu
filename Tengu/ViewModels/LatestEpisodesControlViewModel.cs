@@ -25,7 +25,7 @@ namespace Tengu.ViewModels
 
         private AvaloniaList<LatestModel> latestEpisodesList = new();
         private int latestEpisodesOffset = 0;
-        private Hosts selectedHost;
+        private TenguHosts selectedHost;
         private int currentPage;
 
         private bool loading = false;
@@ -42,14 +42,14 @@ namespace Tengu.ViewModels
             get => latestEpisodesList;
             set => this.RaiseAndSetIfChanged(ref latestEpisodesList, value);
         }
-        public Hosts SelectedHost
+        public TenguHosts SelectedHost
         {
             get => selectedHost;
             set
             {
                 this.RaiseAndSetIfChanged(ref selectedHost, value);
 
-                ProgramConfig.Hosts.Latest = SelectedHost;
+                ProgramConfig.TenguHosts.Latest = SelectedHost;
                 Initialize();
             }
         }
@@ -88,12 +88,12 @@ namespace Tengu.ViewModels
             CmdOpenAnimeCard = ReactiveCommand.Create<LatestModel>(ShowAnimeCard);
             CmdDownloadEpisode = ReactiveCommand.Create<LatestModel>(DownloadEpisode);
 
-            SelectedHost = ProgramConfig.Hosts.Latest;
+            SelectedHost = ProgramConfig.TenguHosts.Latest;
         }
 
         public void Initialize()
         {
-            TenguApi.CurrentHosts = new Hosts[] { SelectedHost };
+            TenguApi.CurrentHosts = new TenguHosts[] { SelectedHost };
 
             LatestEpisodesOffset = 0;
 

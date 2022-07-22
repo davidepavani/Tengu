@@ -91,6 +91,7 @@
 						Spacing="10">
 
 				<TextBox Width="250"
+						 Text="{Binding Title, Mode=TwoWay}"
 						 IsEnabled="{Binding !Loading}"
 						 Watermark="Search Anime here..">
 					<TextBox.InnerRightContent>

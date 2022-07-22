@@ -43,150 +43,83 @@
 				</Image>
 			</Grid>
 
-			<Grid RowDefinitions="Auto, *"
+			<Grid RowDefinitions="Auto, Auto, *"
 				  Margin="30">
 				<TextBlock Text="Downloads"
 							Classes="SubtitleTextBlockStyle" />
 
-				<StackPanel Grid.Row="1"
-							Margin="0,20,0,0"
-							Spacing="10">
-					<Grid RowDefinitions="*,Auto">
-						<Grid ColumnDefinitions="*,auto"
-							  RowDefinitions="*,*">
+				<ItemsControl Grid.Row="1"
+							  Items="{Binding DwnldService.CurrentDownloads}"
+						      Margin="0,20,0,0">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid RowDefinitions="*,Auto">
+								<Grid ColumnDefinitions="*,auto"
+									RowDefinitions="*,*">
 
-							<TextBlock Text="Title"
-									   ToolTip.Tip="Title"
-									   FontSize="15"
-									   TextWrapping="Wrap"
-									   FontWeight="Medium"/>
+									<TextBlock Text="{Binding Episode.Title}"
+											   ToolTip.Tip="{Binding Episode.Title}"
+											   FontSize="15"
+											   TextWrapping="Wrap"
+											   FontWeight="Medium"/>
 
-							<StackPanel Orientation="Horizontal"
-										Grid.Row="1"
-										Spacing="5">
-								<TextBlock Text="Episode"
-										   Opacity=".5"
-										   FontSize="13"/>
-								<TextBlock Text="·"
-										   Opacity=".5"
-										   FontSize="13"/>
-								<TextBlock Text="Host"
-										   Opacity=".5"
-										   FontSize="13"/>
-							</StackPanel>
+									<StackPanel Orientation="Horizontal"
+												Grid.Row="1"
+												Spacing="5">
+										<TextBlock Text="{Binding Episode.EpisodeNumber, StringFormat=Episode {0}}"
+												   Opacity=".5"
+												   FontSize="13"/>
+										<TextBlock Text="·"
+												   Opacity=".5"
+												   FontSize="13"/>
+										<TextBlock Text="{Binding Episode.Host}"
+												   Opacity=".5"
+												   FontSize="13"/>
+									</StackPanel>
 
-							<Button Background="Transparent"
-									BorderThickness="1"
-									CornerRadius="0"
-									Foreground="{DynamicResource SystemFillColorCritical}"
-									Margin="0"
-									HorizontalAlignment="Right"
-									Padding="0"
-									Grid.Column="1">
-								<icons:MaterialIcon Kind="Remove" />
-							</Button>
+									<Button Background="Transparent"
+											BorderThickness="1"
+											CornerRadius="0"
+											Foreground="{DynamicResource SystemFillColorCritical}"
+											Margin="0"
+											HorizontalAlignment="Right"
+											Padding="0"
+											Grid.Column="1">
+										<icons:MaterialIcon Kind="Remove" />
+									</Button>
 
-							<TextBlock Text="100%"
-									   HorizontalAlignment="Right"
-									   Grid.Column="1"
-									   Grid.Row="1"/>
-
-						</Grid>
-
-						<ProgressBar Value="100"
-									 Margin="0,5,0,0"
-									 Grid.Row="1"/>
-					</Grid>
-
-					<Grid RowDefinitions="*,Auto">
-						<Grid ColumnDefinitions="*,auto"
-							  RowDefinitions="*,*">
-
-							<TextBlock Text="Title"
-									   ToolTip.Tip="Title"
-									   FontSize="15"
-									   TextWrapping="Wrap"
-									   FontWeight="Medium"/>
-
-							<StackPanel Orientation="Horizontal"
-										Grid.Row="1"
-										Spacing="5">
-								<TextBlock Text="Episode"
-										   Opacity=".5"
-										   FontSize="13"/>
-								<TextBlock Text="·"
-										   Opacity=".5"
-										   FontSize="13"/>
-								<TextBlock Text="Host"
-										   Opacity=".5"
-										   FontSize="13"/>
-							</StackPanel>
-
-							<Button Background="Transparent"
-									BorderThickness="1"
-									CornerRadius="0"
-									Foreground="{DynamicResource SystemFillColorCritical}"
-									Margin="0"
-									HorizontalAlignment="Right"
-									Padding="0"
-									Grid.Column="1">
-								<icons:MaterialIcon Kind="Remove" />
-							</Button>
-
-							<TextBlock Text="100%"
-									   Grid.Column="1"
-									   Grid.Row="1"/>
-
-						</Grid>
-
-						<ProgressBar Value="100"
-									 Margin="0,5,0,0"
-									 Grid.Row="1"/>
-					</Grid>
-
-					<ItemsControl>
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Grid RowDefinitions="*,Auto">
-									<Grid ColumnDefinitions="*,Auto">
-										<StackPanel Orientation="Horizontal"
-													Spacing="5">
-											<TextBlock Text="Title"
-													   ToolTip.Tip="Title"
-													   FontSize="13"
-													   TextWrapping="NoWrap"
-													   FontWeight="Medium"/>
-											<TextBlock Text="Episode"
-														   Opacity=".5"
-														   FontSize="13"/>
-											<TextBlock Text="·"
-													   Opacity=".5"
-													   FontSize="13"/>
-											<TextBlock Text="Host"
-													   Opacity=".5"
-													   FontSize="13"/>
-										</StackPanel>
-
-										<Button Background="Transparent"
-												BorderThickness="1"
-												CornerRadius="0"
-												Foreground="{DynamicResource SystemFillColorCritical}"
-												Margin="0"
+									<StackPanel Orientation="Horizontal"
+												Grid.Column="1"
 												HorizontalAlignment="Right"
-												Padding="0"
-												Grid.Column="1">
-											<icons:MaterialIcon Kind="Remove" />
-										</Button>
-									</Grid>
+												Grid.Row="1"
+												Spacing="5">
+										<TextBlock Text="{Binding DownloadInfo.Status, StringFormat='\{0\}..'}"
+												   Opacity=".5"/>
+										<TextBlock Text="{Binding DownloadInfo.Infos.Percentage, StringFormat='\{0\}%'}"
+												   MinWidth="45"
+												   TextAlignment="Right"/>
+									</StackPanel>
 
-									<ProgressBar Value="0"
-												 Margin="0,5,0,0"
-												 Grid.Row="1"/>
 								</Grid>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
-				</StackPanel>
+
+								<ProgressBar Value="{Binding DownloadInfo.Infos.Percentage}"
+											 Margin="0,5,0,0"
+											 Grid.Row="1"/>
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
+				<ItemsControl Grid.Row="2"
+						      Margin="0,5,0,0">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid RowDefinitions="*,Auto">
+								
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 			</Grid>
 
 			<Grid Grid.Column="1"

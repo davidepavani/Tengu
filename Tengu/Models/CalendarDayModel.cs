@@ -13,12 +13,12 @@ namespace Tengu.Models
 
         public List<CalendarItem> Animes { get; set; }
 
-        public WeekDays WeekDay { get; private set; }
+        public TenguWeekDays WeekDay { get; private set; }
 
-        public CalendarDayModel(WeekDays day)
+        public CalendarDayModel(TenguWeekDays day)
         {
             WeekDay = day;
-            Day = day == WeekDays.None ? "OTHERS" : day.ToString().ToUpper();
+            Day = day == TenguWeekDays.None ? "OTHERS" : day.ToString().ToUpper();
             Animes = new();
         }
     }

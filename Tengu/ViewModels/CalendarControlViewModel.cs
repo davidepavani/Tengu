@@ -24,7 +24,7 @@ namespace Tengu.ViewModels
 
         private AvaloniaList<CalendarDayModel> daysList = new();
         private bool loading = false;
-        private Hosts selectedHost;
+        private TenguHosts selectedHost;
 
         #region Properties
         public bool Loading
@@ -37,14 +37,14 @@ namespace Tengu.ViewModels
             get => daysList;
             set => this.RaiseAndSetIfChanged(ref daysList, value);
         }
-        public Hosts SelectedHost
+        public TenguHosts SelectedHost
         {
             get => selectedHost;
             set
             {
                 this.RaiseAndSetIfChanged(ref selectedHost, value);
 
-                ProgramConfig.Hosts.Calendar = SelectedHost;
+                ProgramConfig.TenguHosts.Calendar = SelectedHost;
                 RefreshCalendar();
             }
         }
@@ -52,7 +52,7 @@ namespace Tengu.ViewModels
 
         public CalendarControlViewModel()
         {
-            SelectedHost = ProgramConfig.Hosts.Calendar;
+            SelectedHost = ProgramConfig.TenguHosts.Calendar;
         }
 
         private async void RefreshCalendar()
@@ -62,9 +62,9 @@ namespace Tengu.ViewModels
             try
             {
                 DaysList.Clear();
-                TenguApi.CurrentHosts = new Hosts[] { SelectedHost };
+                TenguApi.CurrentHosts = new TenguHosts[] { SelectedHost };
 
-                TenguResult<Calendar[]> res = await TenguApi.GetCalendar();
+                TenguResult<Calendar[]> res = await TenguApi.GetCalendarAsync();
 
                 foreach(TenguResultInfo infoRes in res.Infos)
                 {
@@ -80,7 +80,7 @@ namespace Tengu.ViewModels
 
                 foreach (Calendar calendar in res.Data)
                 {
-                    foreach (KeyValuePair<WeekDays, List<CalendarEntryModel>> cal in calendar.DaysDictionary)
+                    foreach (KeyValuePair<TenguWeekDays, List<CalendarEntryModel>> cal in calendar.DaysDictionary)
                     {
                         CalendarDayModel day = DaysList.SingleOrDefault(x => x.WeekDay == cal.Key, new(cal.Key));
 
