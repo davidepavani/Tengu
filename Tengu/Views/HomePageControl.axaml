@@ -30,9 +30,63 @@
 			<StackPanel>
 				<TextBlock Text="TENGU" 
 						   Classes="SubtitleTextBlockStyle" />
-				<TextBlock Text="*Description*" />
-				<TextBlock Text="*Description*" 
+				<TextBlock Text="A Light Weight and User Friendly UI of Tengu.Business: an Anime web scrapper library." 
 						   Margin="0,10,0,0"/>
+
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Getting Started with" 
+							   VerticalAlignment="Center"/>
+					<ui:HyperlinkButton Content="Latest Episodes"
+										Margin="5,0"
+										VerticalAlignment="Center"
+										Click="HlbNavigateLatest_Click"/>
+					<TextBlock Text="or"
+							   VerticalAlignment="Center"/>
+					<ui:HyperlinkButton Content="Search an Anime"
+										Margin="5,0"
+										VerticalAlignment="Center"
+										Click="HlbNavigateSearch_Click"/>
+				</StackPanel>
+
+				<TextBlock Text="Whats New?"
+						   Margin="0,10,0,0"
+						   FontSize="17"
+						   Classes="SubtitleTextBlockStyle" />
+
+				<Grid ColumnDefinitions="2*,*">
+					<ItemsControl Items="{Binding WhatsNew}"
+								  Margin="0,10,0,0"
+								  HorizontalAlignment="Stretch">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Grid>
+									<Border Background="{DynamicResource ControlElevationBorderBrush}"
+											CornerRadius="7"
+											Opacity=".7"/>
+
+									<StackPanel Margin="10, 5">
+										<TextBlock Text="{Binding Category}" 
+												   FontSize="15" 
+												   Classes="SubtitleTextBlockStyle"/>
+										<ItemsControl Items="{Binding News}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<StackPanel Margin="5,0"
+																Orientation="Horizontal"
+																Spacing="5">
+														<TextBlock Text="-" />
+														<TextBlock Text="{Binding}" 
+																   TextWrapping="Wrap"/>
+													</StackPanel>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</Grid>
 			</StackPanel>
 
 			<StackPanel Orientation="Horizontal"
