@@ -15,11 +15,11 @@
 	<Grid>
 		<Grid ColumnDefinitions="*,*"
 			  RowDefinitions="1.5*,*">
-			<Path Data="{StaticResource TenguLogoHalf}"
+			<Path Data="{StaticResource TenguLogo}"
 				  Grid.Column="1"
 				  Grid.Row="1"
 				  Opacity=".3"
-				  Margin="0,0,20,-30"
+				  Margin="0,0,20,-70"
 				  Stretch="Uniform"
 				  VerticalAlignment="Bottom"
 				  HorizontalAlignment="Right"
