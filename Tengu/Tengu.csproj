@@ -42,7 +42,7 @@
     <PackageReference Include="FluentAvaloniaUI" Version="1.4.1" />
     <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.6.22324.4" />
-    <PackageReference Include="Tengu.Business.API" Version="1.2.929.1119-dev" />
+    <PackageReference Include="Tengu.Business.API" Version="1.2.934.622-dev" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
   <ItemGroup>

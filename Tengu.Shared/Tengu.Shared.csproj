@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.16" />
+    <PackageReference Include="Avalonia" Version="0.10.17" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
     <PackageReference Include="NLog" Version="5.0.1" />
     <PackageReference Include="NLog.Extensions.Logging" Version="5.0.1" />
