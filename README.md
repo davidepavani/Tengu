@@ -1,5 +1,5 @@
 <p align="center">
- <img src="/Tengu/Assets/logo_animated.gif" width="200" height="200" />
+ <img src="/Tengu/Assets/logo_animated.gif" width="200" height="200" /> 
 </p>
 
 # Tengu
