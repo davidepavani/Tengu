@@ -183,16 +183,76 @@
 					HorizontalAlignment="Stretch"
 					Width="350"
 					Background="{DynamicResource SolidBackgroundFillColorSecondary}">
-				<StackPanel Margin="30,10,0,0">
+				<StackPanel Margin="30,10,30,0">
 					<TextBlock Text="History"
 							Classes="SubtitleTextBlockStyle" />
 
-					<TextBlock Text="downalodado1 123" />
-					<TextBlock Text="downalodado1 123" />
-					<TextBlock Text="downalodado1 123" />
-					<TextBlock Text="downalodado1 123" />
-					<TextBlock Text="downalodado1 123" />
-					<TextBlock Text="downalodado1 123" />
+					<ItemsControl Grid.Row="2"
+							  Items="{Binding DwnldService.HistoryList}"
+						      Margin="0,10,0,0">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Grid RowDefinitions="*,Auto">
+									<TextBlock Text="{Binding Name}"
+											   ToolTip.Tip="{Binding Name}"
+											   FontSize="12"
+													   TextWrapping="Wrap"
+													   FontWeight="Medium"/>
+
+									<Grid Grid.Row="1"
+										  ColumnDefinitions="*,Auto">
+										<StackPanel Orientation="Horizontal"
+													
+														Spacing="5">
+											<TextBlock Text="{Binding Episode, StringFormat=Episode {0}}"
+														   Opacity=".5"
+														   VerticalAlignment="Center"
+														   FontSize="12"/>
+											<TextBlock Text="·"
+													   VerticalAlignment="Center"
+													   Opacity=".5"
+													   FontSize="12"/>
+											<TextBlock Text="{Binding Host}"
+													   Opacity=".5"
+													   VerticalAlignment="Center"
+													   FontSize="12"/>
+
+											<TextBlock Text="·"
+													   VerticalAlignment="Center"
+													   Opacity=".5"
+													   FontSize="12"/>
+
+											<TextBlock Text="{Binding EndTime}"
+													   FontSize="12"
+													   VerticalAlignment="Center"
+													   Grid.Column="1"/>
+										</StackPanel>
+
+										<Grid Grid.Column="1">
+											<Ellipse Fill="{DynamicResource SystemFillColorCriticalBrush}"
+													  Grid.Column="1"
+													  ToolTip.Placement="Bottom"
+													  ToolTip.ShowDelay="0"
+													  ToolTip.Tip="{Binding ErrorMessage}"
+													  IsVisible="{Binding InError}"
+													  Height="10" Width="10"
+													  Stretch="Uniform">
+
+											</Ellipse>
+
+											<Ellipse Fill="{DynamicResource SystemFillColorSuccessBrush}"
+													  Grid.Column="1"
+													  IsVisible="{Binding !InError}"
+													  Height="10" Width="10"
+													  Stretch="Uniform">
+
+											</Ellipse>
+										</Grid>
+									</Grid>
+								</Grid>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
 				</StackPanel>
 			</Border>
 		</SplitView.Pane>

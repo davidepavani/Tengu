@@ -96,7 +96,7 @@ namespace Tengu.Services
                                            x.Episode.Host.Equals(download.Episode.Host)))
                     {
                         AnimeQueue.Remove(download);
-                        AddToHistory(download, "Aborted by the user");
+                        AddToHistory(download, "Aborted by the user", true);
                     }
                     else if (CurrentDownloads.Any(x => x.Episode.Title.Equals(download.Episode.Title, StringComparison.CurrentCultureIgnoreCase) &&
                                                        x.Episode.EpisodeNumber.Equals(download.Episode.EpisodeNumber, StringComparison.CurrentCultureIgnoreCase) &&
@@ -132,6 +132,7 @@ namespace Tengu.Services
         private async Task AsyncDownload(DownloadModel download)
         {
             string errors = string.Empty;
+            bool inError = false;
             TenguResult<DownloadMonitor> result = null;
 
             lock (downloadSync)
@@ -152,6 +153,7 @@ namespace Tengu.Services
             }
             catch (Exception ex)
             {
+                inError = true;
                 errors += ex.Message + "\n";
                 errors += "-------------------------\n";
 
@@ -159,7 +161,12 @@ namespace Tengu.Services
             }
             finally
             {
-                // todo => check exceptions bla bla
+                foreach(Exception exc in download.DownloadInfo.Exceptions)
+                {
+                    errors += exc.Message + "\n";
+                    errors += "-------------------------\n";
+                }
+
                 foreach (TenguResultInfo infoRes in result.Infos)
                 {
                     if (!infoRes.Success)
@@ -177,7 +184,7 @@ namespace Tengu.Services
                 lock (downloadSync)
                 {
                     CurrentDownloads.Remove(download);
-                    AddToHistory(download, errors);
+                    AddToHistory(download, errors, inError);
                 }
             }
         }
@@ -191,7 +198,7 @@ namespace Tengu.Services
             }
         }
 
-        private void AddToHistory(DownloadModel download, string errors)
+        private void AddToHistory(DownloadModel download, string errors, bool inError)
         {
             HistoryList.Add(new()
             {
@@ -199,8 +206,7 @@ namespace Tengu.Services
                 Episode = download.Episode.EpisodeNumber,
                 ErrorMessage = errors,
                 Host = download.Episode.Host,
-                InError = download.DownloadInfo == null ? true : download.DownloadInfo.Status == Downla.DownloadStatuses.Faulted ||
-                                                                 download.DownloadInfo.Status == Downla.DownloadStatuses.Canceled,
+                InError = inError || download.DownloadInfo.Status == Downla.DownloadStatuses.Faulted || download.DownloadInfo.Status == Downla.DownloadStatuses.Canceled,
                 EndTime = DateTime.Now
             });
         }
