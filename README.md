@@ -43,7 +43,7 @@ You have others Tabs (at the top of the window)
 *DOWNLOADS*: You can set the destination directory when an episode will be downloaded.<br/>
 *MISCELLANEOUS*: You can customize the Application Theme and Color. (In windows 11 will be AUTOMATICALLY applied the MICA effect)
 
-## Download Tab
+### Download Tab
 Here you can monitor and cancel your downloads.
 you can also see the download history.
 
