@@ -1,5 +1,5 @@
 <p align="center">
- <img src="/Tengu/Assets/logo_animated.gif" width="200" height="200" />
+ <img src="/Tengu/Assets/tengu.png" width="200" height="200" />
 </p>
 
 # Tengu
@@ -11,6 +11,9 @@ A Light Weight and User Friendly UI of [Tengu.Business](https://github.com/giuse
 ## Functionality
  - Latest Episodes
  - Anime Unity/Saturn Calendar
- - Kitsu API Integration (Upcoming and search)
  - Search Anime
  - Download Episodes
+
+## ToDo
+ - Kitsu API Integration (Upcoming and search)
+ - Streaming
