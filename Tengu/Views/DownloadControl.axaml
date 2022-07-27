@@ -80,6 +80,8 @@
 									<Button Background="Transparent"
 											BorderThickness="1"
 											CornerRadius="0"
+											Command="{Binding $parent[ItemsControl].DataContext.CancelDownloadCommand}"
+											CommandParameter="{Binding}"
 											Foreground="{DynamicResource SystemFillColorCritical}"
 											Margin="0"
 											HorizontalAlignment="Right"
@@ -111,11 +113,53 @@
 				</ItemsControl>
 
 				<ItemsControl Grid.Row="2"
-						      Margin="0,5,0,0">
+							  Items="{Binding DwnldService.AnimeQueue}"
+						      Margin="0,10,0,0">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
 							<Grid RowDefinitions="*,Auto">
-								
+								<Grid ColumnDefinitions="*,Auto">
+									<StackPanel Orientation="Horizontal"
+											Spacing="5">
+										<TextBlock Text="{Binding Episode.Title}"
+												   ToolTip.Tip="{Binding Episode.Title}"
+												   FontSize="15"
+												   VerticalAlignment="Center"
+												   TextWrapping="Wrap"
+												   FontWeight="Medium"/>
+
+										<TextBlock Text="{Binding Episode.EpisodeNumber, StringFormat=Episode {0}}"
+												   Opacity=".5"
+												   VerticalAlignment="Center"
+												   FontSize="13"/>
+										<TextBlock Text="·"
+												   VerticalAlignment="Center"
+												   Opacity=".5"
+												   FontSize="13"/>
+										<TextBlock Text="{Binding Episode.Host}"
+												   Opacity=".5"
+												   VerticalAlignment="Center"
+												   FontSize="13"/>
+									</StackPanel>
+
+									<Button Background="Transparent"
+											VerticalAlignment="Center"
+											BorderThickness="1"
+											CornerRadius="0"
+											Command="{Binding $parent[ItemsControl].DataContext.CancelDownloadCommand}"
+											CommandParameter="{Binding}"
+											Foreground="{DynamicResource SystemFillColorCritical}"
+											Margin="0"
+											HorizontalAlignment="Right"
+											Padding="0"
+											Grid.Column="1">
+										<icons:MaterialIcon Kind="Remove" />
+									</Button>
+								</Grid>
+
+								<ProgressBar Value="0"
+											 Margin="0,5,0,0"
+											 Grid.Row="1"/>
 							</Grid>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>

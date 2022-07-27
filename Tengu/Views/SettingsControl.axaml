@@ -62,7 +62,7 @@
 										Spacing="5">
 								<TextBlock Text="Download Directory" 
 										   FontWeight="Medium"/>
-								<TextBlock Text="(* Default: )"
+								<TextBlock Text="{Binding DefaultDownloadPath, StringFormat=(* Default: {0})}"
 									   FontWeight="Light"/>
 							</StackPanel>
 							<TextBox Width="350"

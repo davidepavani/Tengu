@@ -20,6 +20,7 @@ namespace Tengu.ViewModels
         private CustomColorModel selectedColor;
         private bool isDarkMode;
 
+        public string DefaultDownloadPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
         public List<CustomColorModel> DefaultColors { get; private set; }
         public string DownloadDirectory
         {
