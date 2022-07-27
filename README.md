@@ -24,7 +24,7 @@ Go to [Releases](ttps://github.com/Dugongoo/Tengu/releases) page and download th
 Extract the release .zip in a new folder.
 Double click on Tengu.exe
 
-The application will start:
+The application will start:<br/>
 ![](/Tengu.Assets/HowTo1.png)
 
 The home page will be displayed: you can see latest application updates.<br/>
