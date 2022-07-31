@@ -6,12 +6,12 @@
 A Light Weight and User Friendly UI of [Tengu.Business](https://github.com/giuseppeSalerno10/Tengu.Business): an Anime web scrapper library.
 
 ## Pre-Requisites
- - [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0): Should not be necessary because is compiled self-contained
+ - [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
  - An Internet connection
  - At least one hand
 
 ## How To Download
-Go to [Releases](ttps://github.com/Dugongoo/Tengu/releases) page and download the last win-x86.zip
+Go to [Releases](ttps://github.com/Dugongoo/Tengu/releases) page and download the last portable.zip
 
 ## Functionalities
  - Latest Episodes
