@@ -11,7 +11,7 @@ A Light Weight and User Friendly UI of [Tengu.Business](https://github.com/giuse
  - At least one hand
 
 ## How To Download
-Go to [Releases](https://github.com/davidepavani/Tengu/releases) page and download the last portable.zip
+Go to [Releases](https://github.com/davidepavani/Tengu/releases) page and download the last .zip for your OS
 
 ## Functionalities
  - Latest Episodes
