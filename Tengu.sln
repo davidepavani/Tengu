@@ -3,30 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tengu", "Tengu\Tengu.csproj", "{597EBD1B-63C2-48D6-B0AB-1E2D75A19A5B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tengu.Shared", "Tengu.Shared\Tengu.Shared.csproj", "{F9CD1C0C-4A16-4FBC-BA3C-2F30256529F1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tengu.Assets", "Tengu.Assets", "{333E6BE0-B367-47CB-8240-293E104084C3}"
-	ProjectSection(SolutionItems) = preProject
-		C:\Users\pavan\Desktop\HowTo1.png = C:\Users\pavan\Desktop\HowTo1.png
-	EndProjectSection
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{597EBD1B-63C2-48D6-B0AB-1E2D75A19A5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{597EBD1B-63C2-48D6-B0AB-1E2D75A19A5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{597EBD1B-63C2-48D6-B0AB-1E2D75A19A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{597EBD1B-63C2-48D6-B0AB-1E2D75A19A5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9CD1C0C-4A16-4FBC-BA3C-2F30256529F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9CD1C0C-4A16-4FBC-BA3C-2F30256529F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9CD1C0C-4A16-4FBC-BA3C-2F30256529F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9CD1C0C-4A16-4FBC-BA3C-2F30256529F1}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
